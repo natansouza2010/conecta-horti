@@ -37,6 +37,7 @@ public class CtlrMenuPrincipal {
         } catch (IOException e ){
             e.printStackTrace();
         }
+        System.out.println("oi");
     }
 
     public void submenuProdutos(ActionEvent actionEvent) {

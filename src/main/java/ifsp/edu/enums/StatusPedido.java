@@ -1,4 +1,4 @@
-package ifsp.edu.enuns;
+package ifsp.edu.enums;
 
 public enum StatusPedido {
     PAGO,

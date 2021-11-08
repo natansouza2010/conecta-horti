@@ -7,4 +7,5 @@ public class Endereco {
     private Integer id;
     private String rua;
     private String numero;
+
 }

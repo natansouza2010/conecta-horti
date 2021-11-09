@@ -1,6 +1,6 @@
 package ifsp.edu.model;
 
-import ifsp.edu.enuns.FormaDePagamento;
+import ifsp.edu.enums.FormaDePagamento;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor

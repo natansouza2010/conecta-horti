@@ -2,9 +2,10 @@ package ifsp.edu.model;
 
 import lombok.AllArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
+
 public class Fornecedor {
     private String cnpj;
     private String nome;
@@ -12,4 +13,35 @@ public class Fornecedor {
     private String telefone2;
     private String endereco;
     private String razaoSocial;
+    private final List<Produto> produtos = new ArrayList<>();
+
+    public Fornecedor(String cnpj, String nome) {
+        this.cnpj = cnpj;
+        this.nome = nome;
+    }
+
+    public Fornecedor(String cnpj, String nome, String telefone1, String telefone2, String cidade, String razaoSocial) {
+        this.cnpj = cnpj;
+        this.nome = nome;
+        this.telefone1 = telefone1;
+        this.telefone2 = telefone2;
+        this.cidade = cidade;
+        this.razaoSocial = razaoSocial;
+    }
+
+    public void addProduto(Produto produto){
+        produtos.add(produto);
+    }
+
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
+    @Override
+    public String toString() {
+        return "Fornecedor{" +
+                "cnpj='" + cnpj + '\'' +
+                ", nome='" + nome + '\'' +
+                '}';
+    }
 }

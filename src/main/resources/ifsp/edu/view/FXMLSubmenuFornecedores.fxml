@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="665.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ifsp.edu.controller.CtlrSubmenuFornecedores">
+    <children>
+        <TableView layoutX="13.0" layoutY="61.0" prefHeight="282.0" prefWidth="637.0">
+            <columns>
+                <TableColumn fx:id="colCnpjFornecedor" prefWidth="75.0" text="CNPJ" />
+                <TableColumn fx:id="colNomeFornecedor" prefWidth="101.0" text="Nome" />
+                <TableColumn fx:id="colEnderecoFornecedor" prefWidth="125.0" text="Endereco" />
+                <TableColumn fx:id="colTel1Fornecedor" prefWidth="118.0" text="Telefone 1" />
+                <TableColumn fx:id="colTel2Fornecedor" prefWidth="106.0" text="Telefone 2" />
+            <TableColumn fx:id="colRazaoFornecedor" prefWidth="111.0" text="Razão Social" />
+            </columns>
+        </TableView>
+        <Button fx:id="btnAdicionarFornecedor" layoutX="333.0" layoutY="361.0" mnemonicParsing="false" onAction="#adicionarFornecedor" prefHeight="25.0" prefWidth="70.0" text="Adicionar" />
+        <Button fx:id="btnRemoverFornecedor" layoutX="416.0" layoutY="361.0" mnemonicParsing="false" onAction="#removerFornecedor" prefHeight="25.0" prefWidth="70.0" text="Remover" />
+        <Button fx:id="btnEditarFornecedor" layoutX="498.0" layoutY="361.0" mnemonicParsing="false" onAction="#editarFornecedor" prefHeight="25.0" prefWidth="70.0" text="Editar" />
+        <Label layoutX="214.0" layoutY="20.0" prefHeight="27.0" prefWidth="245.0" text="GERENCIAR FORNECEDORES">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+        <Button fx:id="btnBuscarFornecedor" layoutX="172.0" layoutY="361.0" mnemonicParsing="false" onAction="#buscarFornecedor" text="Buscar" />
+        <TextField fx:id="txtBuscarFornecedor" layoutX="14.0" layoutY="361.0" />
+        <Button fx:id="btnAdicionarFornecedor1" layoutX="580.0" layoutY="361.0" mnemonicParsing="false" onAction="#voltarParaMenu" prefHeight="25.0" prefWidth="70.0" text="Voltar" />
+    </children>
+</AnchorPane>

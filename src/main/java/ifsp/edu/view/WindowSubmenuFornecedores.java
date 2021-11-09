@@ -1,7 +1,7 @@
 package ifsp.edu.view;
 
 import ifsp.edu.controller.CtlrSubmenuClientes;
-import ifsp.edu.controller.CtrlCadastroClientes;
+import ifsp.edu.controller.CtlrSubmenuFornecedores;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -10,15 +10,15 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class WindowCadastroClientes {
+public class WindowSubmenuFornecedores {
 
-    private CtrlCadastroClientes controller;
+    private CtlrSubmenuFornecedores controller;
 
-    public void show() throws IOException {
+    public void show() throws IOException{
 
         FXMLLoader loader = new FXMLLoader();
 
-        Pane graph = loader.load(getClass().getResource("FXMLCadastroCliente.fxml").openStream());
+        Pane graph = loader.load(getClass().getResource("FXMLSubmenuFornecedores.fxml").openStream());
         controller = loader.getController();
 
         Scene scene = new Scene(graph, 680, 400);

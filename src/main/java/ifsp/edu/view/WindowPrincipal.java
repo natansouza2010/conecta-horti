@@ -1,5 +1,7 @@
 package ifsp.edu.view;
 
+import ifsp.edu.controller.CtlrMenuPrincipal;
+import ifsp.edu.controller.CtrlCadastroClientes;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,9 +21,27 @@ public class WindowPrincipal extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         Parent grafic = FXMLLoader.load(getClass().getResource("FXMLWindowPrincipal.fxml"));
-        Scene scene = new Scene(grafic, 600,400 );
+        Scene scene = new Scene(grafic, 680,400 );
         primaryStage.setScene(scene);
         primaryStage.show();
+
+    }
+
+
+    private CtlrMenuPrincipal controller;
+    public void show() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+
+        Pane graph = loader.load(getClass().getResource("FXMLWindowPrincipal.fxml").openStream());
+        controller = loader.getController();
+
+        Scene scene = new Scene(graph, 600, 400);
+        Stage stage = new Stage();
+
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL);
+
+        stage.show();
 
     }
 }

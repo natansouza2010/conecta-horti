@@ -28,7 +28,7 @@ public class CtlrSubmenuClientes {
     public void adicionarCliente(ActionEvent actionEvent) throws IOException {
         WindowCadastroClientes window = new WindowCadastroClientes();
         try {
-            window.showAndWait();
+            window.show();
         } catch (IOException e ){
             e.printStackTrace();
         }
@@ -38,12 +38,23 @@ public class CtlrSubmenuClientes {
     }
 
     public void editarCliente(ActionEvent actionEvent) {
+        WindowCadastroClientes window = new WindowCadastroClientes();
+        try {
+            window.show();
+        } catch (IOException e ){
+            e.printStackTrace();
+        }
     }
 
     public void buscarCliente(ActionEvent actionEvent) {
     }
 
     public void voltarParaMenu(ActionEvent actionEvent) {
-
+        WindowPrincipal window = new WindowPrincipal();
+        try {
+            window.show();
+        } catch (IOException e ){
+            e.printStackTrace();
+        }
     }
 }

@@ -14,14 +14,14 @@ public class WindowSubmenuClientes {
 
     private CtlrSubmenuClientes controller;
 
-    public void showAndWait() throws IOException{
+    public void show() throws IOException{
 
         FXMLLoader loader = new FXMLLoader();
 
         Pane graph = loader.load(getClass().getResource("FXMLSubmenuClientes.fxml").openStream());
         controller = loader.getController();
 
-        Scene scene = new Scene(graph, 600, 400);
+        Scene scene = new Scene(graph, 680, 400);
         Stage stage = new Stage();
 
         stage.setScene(scene);

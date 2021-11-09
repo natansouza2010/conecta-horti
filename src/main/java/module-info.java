@@ -7,10 +7,31 @@ module ifsp.edu {
 
     opens ifsp.edu.view to javafx.fxml;
     opens ifsp.edu.model to javafx.fxml;
-    opens ifsp.edu.controller to javafx.fxml;
 
-    exports ifsp.edu.controller;
     exports ifsp.edu.view;
     exports ifsp.edu.model;
+    exports ifsp.edu.view.clientes;
+    opens ifsp.edu.view.clientes to javafx.fxml;
+
+    exports ifsp.edu.view.fornecedores;
+    opens ifsp.edu.view.fornecedores to javafx.fxml;
+
+    exports ifsp.edu.view.principal;
+    opens ifsp.edu.view.principal to javafx.fxml;
+
+    exports ifsp.edu.controller.principal;
+    opens ifsp.edu.controller.principal to javafx.fxml;
+
+    exports ifsp.edu.controller.clientes;
+    opens ifsp.edu.controller.clientes to javafx.fxml;
+
+    exports ifsp.edu.controller.fornecedores;
+    opens ifsp.edu.controller.fornecedores to javafx.fxml;
+
+    exports ifsp.edu.view.produtos;
+    opens ifsp.edu.view.produtos to javafx.fxml;
+
+    exports ifsp.edu.controller.produtos;
+    opens ifsp.edu.controller.produtos to javafx.fxml;
 
 }

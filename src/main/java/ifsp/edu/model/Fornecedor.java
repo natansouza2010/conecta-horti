@@ -20,12 +20,12 @@ public class Fornecedor {
         this.nome = nome;
     }
 
-    public Fornecedor(String cnpj, String nome, String telefone1, String telefone2, String cidade, String razaoSocial) {
+    public Fornecedor(String cnpj, String nome, String telefone1, String telefone2, String endereco, String razaoSocial) {
         this.cnpj = cnpj;
         this.nome = nome;
         this.telefone1 = telefone1;
         this.telefone2 = telefone2;
-        this.cidade = cidade;
+        this.endereco = endereco;
         this.razaoSocial = razaoSocial;
     }
 
@@ -37,11 +37,5 @@ public class Fornecedor {
         return produtos;
     }
 
-    @Override
-    public String toString() {
-        return "Fornecedor{" +
-                "cnpj='" + cnpj + '\'' +
-                ", nome='" + nome + '\'' +
-                '}';
-    }
+
 }

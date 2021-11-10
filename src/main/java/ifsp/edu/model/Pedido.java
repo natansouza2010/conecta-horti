@@ -57,4 +57,18 @@ public class Pedido {
     public Double getValor() {
         return calculaTotalPedido();
     }
+
+    @Override
+    public String toString() {
+        return "Pedido{" +
+                "id=" + id +
+                ", cliente=" + cliente +
+                ", items=" + items +
+                ", valor=" + valor +
+                ", dataPedido=" + dataPedido +
+                ", status=" + status +
+                ", endereco=" + endereco +
+                ", pagamento=" + pagamento +
+                '}';
+    }
 }

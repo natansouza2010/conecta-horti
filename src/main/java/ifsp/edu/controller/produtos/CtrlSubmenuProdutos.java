@@ -1,5 +1,7 @@
 package ifsp.edu.controller.produtos;
 
+import ifsp.edu.dao.ProdutoDAO;
+import ifsp.edu.model.Produto;
 import ifsp.edu.view.fornecedores.WindowCadastroFornecedores;
 import ifsp.edu.view.principal.WindowPrincipal;
 import ifsp.edu.view.produtos.WindowCadastroProdutos;
@@ -11,8 +13,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
+import java.util.List;
 
 public class CtrlSubmenuProdutos {
+
+    private static ProdutoDAO dao;
 
     @FXML Button btnAdicionarProdutos;
     @FXML Button btnRemoverProdutos;
@@ -31,25 +36,31 @@ public class CtrlSubmenuProdutos {
     public void adicionarProdutos(ActionEvent actionEvent) {
         WindowCadastroProdutos window = new WindowCadastroProdutos();
         try {
+            Produto produto = null;
             window.show();
+            dao.adicionarProduto(produto);
         } catch (IOException e ) {
             e.printStackTrace();
         }
     }
 
     public void removerProdutos(ActionEvent actionEvent) {
+        dao.removerProduto(1);
     }
 
     public void editarProdutos(ActionEvent actionEvent) {
         WindowCadastroProdutos window = new WindowCadastroProdutos();
         try {
             window.show();
+            dao.editarProduto(null,null,null,null,null,0);
         } catch (IOException e ) {
             e.printStackTrace();
         }
     }
 
     public void buscarProdutos(ActionEvent actionEvent) {
+        List<Produto> produtos = null;
+        produtos = dao.buscarProdutos();
     }
 
     public void voltarParaMenu(ActionEvent actionEvent) {

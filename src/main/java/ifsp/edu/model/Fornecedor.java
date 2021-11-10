@@ -29,6 +29,10 @@ public class Fornecedor {
         this.razaoSocial = razaoSocial;
     }
 
+    public String getNome() {
+        return nome;
+    }
+
     public void addProduto(Produto produto){
         produtos.add(produto);
     }

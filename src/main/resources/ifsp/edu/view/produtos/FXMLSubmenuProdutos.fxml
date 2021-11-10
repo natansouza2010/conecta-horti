@@ -6,13 +6,13 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ifsp.edu.controller.produtos.CtrlSubmenuProdutos">
     <children>
-        <TableView layoutX="13.0" layoutY="61.0" prefHeight="282.0" prefWidth="457.0">
+        <TableView layoutX="13.0" layoutY="61.0" prefHeight="282.0" prefWidth="489.0">
             <columns>
                 <TableColumn fx:id="colIDProdutos" prefWidth="75.0" text="ID" />
                 <TableColumn fx:id="colNomeProdutos" prefWidth="101.0" text="Nome" />
                 <TableColumn fx:id="colDescricaoProdutos" prefWidth="101.0" text="Descrição" />
-                <TableColumn fx:id="colPrecoCustoProdutos" prefWidth="81.0" text="Preço Custo" />
-            <TableColumn fx:id="colPrecoVendaProdutos" prefWidth="97.0" text="Preço Venda" />
+                <TableColumn fx:id="colPrecoCustoProdutos" prefWidth="98.0" text="Preço Custo" />
+            <TableColumn fx:id="colPrecoVendaProdutos" prefWidth="113.0" text="Preço Venda" />
             </columns>
         </TableView>
         <Button fx:id="btnAdicionarProdutos" layoutX="358.0" layoutY="361.0" mnemonicParsing="false" onAction="#adicionarProdutos" prefHeight="25.0" prefWidth="70.0" text="Adicionar" />
@@ -26,9 +26,9 @@
         <Button fx:id="btnBuscarProdutos" layoutX="172.0" layoutY="361.0" mnemonicParsing="false" onAction="#buscarProdutos" text="Buscar" />
         <TextField fx:id="txtBuscarProdutos" layoutX="14.0" layoutY="361.0" />
         <Button fx:id="btnAdicionarProdutos1" layoutX="598.0" layoutY="361.0" mnemonicParsing="false" onAction="#voltarParaMenu" prefHeight="25.0" prefWidth="70.0" text="Voltar" />
-      <TableView layoutX="508.0" layoutY="61.0" prefHeight="282.0" prefWidth="127.0">
+      <TableView layoutX="517.0" layoutY="61.0" prefHeight="282.0" prefWidth="149.0">
         <columns>
-          <TableColumn fx:id="colFornecedoresProduto" prefWidth="126.0" text="Produtos" />
+          <TableColumn fx:id="colFornecedoresProduto" prefWidth="148.0" text="Fornecedores" />
         </columns>
       </TableView>
     </children>

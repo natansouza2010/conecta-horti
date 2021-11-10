@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ifsp.edu.controller.pedidos.CtlrSubmenuPedidos">
+    <children>
+        <Label layoutX="245.0" layoutY="31.0" prefHeight="57.0" prefWidth="191.0" text="GERENCIAR PEDIDOS">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+      <TableView layoutX="14.0" layoutY="102.0" prefHeight="275.0" prefWidth="313.0">
+        <columns>
+          <TableColumn fx:id="idPedido" prefWidth="75.0" text="ID Pedido" />
+          <TableColumn fx:id="statusPedido" prefWidth="99.0" text="Status" />
+            <TableColumn fx:id="dataPedido" prefWidth="138.0" text="Data " />
+        </columns>
+      </TableView>
+      <Label layoutX="348.0" layoutY="102.0" prefHeight="17.0" prefWidth="146.0" text="Dados do cliente">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="348.0" layoutY="141.0" prefHeight="17.0" prefWidth="46.0" text="Nome: " />
+      <Label layoutX="348.0" layoutY="176.0" prefHeight="17.0" prefWidth="33.0" text="CPF: " />
+      <Label layoutX="351.0" layoutY="208.0" text="Endereço: " />
+      <Label layoutX="348.0" layoutY="240.0" text="Telefone 1: " />
+      <Label layoutX="348.0" layoutY="273.0" text="Telefone 2: " />
+      <Button onAction="#voltarMenu" fx:id="btnVoltar" layoutX="614.0" layoutY="361.0" mnemonicParsing="false" text="Voltar" />
+      <Button onAction="#atualizarStatus" fx:id="btnAtualizaStatus" layoutX="507.0" layoutY="361.0" mnemonicParsing="false" text="Atualizar Status" />
+      <Button onAction="#cadastrarPedido" fx:id="btnAdicionarPedido" layoutX="431.0" layoutY="361.0" mnemonicParsing="false" text="Adicionar" />
+      <Label fx:id="txtNomeClientePedido" layoutX="396.0" layoutY="141.0" prefHeight="17.0" prefWidth="76.0" text="." />
+      <Label fx:id="txtCpfClientePedido" layoutX="377.0" layoutY="176.0" prefHeight="17.0" prefWidth="67.0" text="." />
+      <Label fx:id="txtEnderecoClientePedido" layoutX="408.0" layoutY="208.0" prefHeight="17.0" prefWidth="56.0" text="." />
+      <Label fx:id="txtTel1ClientePedido" layoutX="414.0" layoutY="240.0" prefHeight="17.0" prefWidth="76.0" text="." />
+      <Label fx:id="txtEnderecoCliente" layoutX="414.0" layoutY="273.0" prefHeight="17.0" prefWidth="76.0" text="." />
+    </children>
+</AnchorPane>

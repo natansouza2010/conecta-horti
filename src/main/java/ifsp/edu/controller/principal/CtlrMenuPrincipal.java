@@ -3,6 +3,7 @@ package ifsp.edu.controller.principal;
 
 import ifsp.edu.view.clientes.WindowSubmenuClientes;
 import ifsp.edu.view.fornecedores.WindowSubmenuFornecedores;
+import ifsp.edu.view.pedidos.WindowSubmenuPedidos;
 import ifsp.edu.view.produtos.WindowSubmenuProdutos;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -50,6 +51,12 @@ public class CtlrMenuPrincipal {
     }
 
     public void submenuPedidos(ActionEvent actionEvent) {
+        WindowSubmenuPedidos window = new WindowSubmenuPedidos();
+        try {
+            window.show();
+        } catch (IOException e ) {
+            e.printStackTrace();
+        }
     }
 
     public void submenuCatalogo(ActionEvent actionEvent) {

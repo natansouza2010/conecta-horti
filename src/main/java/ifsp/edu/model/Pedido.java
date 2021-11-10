@@ -57,4 +57,8 @@ public class Pedido {
     public Double getValor() {
         return calculaTotalPedido();
     }
+
+    public List<Item> getItems() {
+        return items;
+    }
 }

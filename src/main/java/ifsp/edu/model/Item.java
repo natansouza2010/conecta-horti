@@ -11,5 +11,14 @@ public class Item {
 
     public Double calculaValor(){
         return quantidade * produto.getValorVenda();
+
+    }
+
+    public Integer getQuantidade() {
+        return quantidade;
+    }
+
+    public Produto getProduto() {
+        return produto;
     }
 }

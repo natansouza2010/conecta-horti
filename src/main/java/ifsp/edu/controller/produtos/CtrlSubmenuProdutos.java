@@ -1,6 +1,8 @@
 package ifsp.edu.controller.produtos;
 
+import ifsp.edu.dao.FornecedorDAO;
 import ifsp.edu.dao.ProdutoDAO;
+import ifsp.edu.model.Fornecedor;
 import ifsp.edu.model.Produto;
 import ifsp.edu.view.fornecedores.WindowCadastroFornecedores;
 import ifsp.edu.view.principal.WindowPrincipal;
@@ -36,23 +38,25 @@ public class CtrlSubmenuProdutos {
     public void adicionarProdutos(ActionEvent actionEvent) {
         WindowCadastroProdutos window = new WindowCadastroProdutos();
         try {
-            Produto produto = null;
             window.show();
-            dao.adicionarProduto(produto);
+            Produto produto = getProdutoFromView();
+//            dao.insert(produto);
         } catch (IOException e ) {
             e.printStackTrace();
         }
     }
 
     public void removerProdutos(ActionEvent actionEvent) {
-        dao.removerProduto(1);
+        Produto produto = null;
+        dao.insert(produto);
     }
 
     public void editarProdutos(ActionEvent actionEvent) {
         WindowCadastroProdutos window = new WindowCadastroProdutos();
         try {
             window.show();
-            dao.editarProduto(null,null,null,null,null,0);
+            Produto produto = null;
+            dao.update(produto);
         } catch (IOException e ) {
             e.printStackTrace();
         }
@@ -60,7 +64,7 @@ public class CtrlSubmenuProdutos {
 
     public void buscarProdutos(ActionEvent actionEvent) {
         List<Produto> produtos = null;
-        produtos = dao.buscarProdutos();
+        produtos = dao.listAll();
     }
 
     public void voltarParaMenu(ActionEvent actionEvent) {
@@ -70,5 +74,21 @@ public class CtrlSubmenuProdutos {
         } catch (IOException e ) {
             e.printStackTrace();
         }
+    }
+
+
+    private Produto getProdutoFromView(){
+        Integer idProduto = Integer.valueOf(colIDProdutos.getText());
+        String nomeProduto = String.valueOf(colNomeProdutos.getText());
+        String descProduto = String.valueOf(colDescricaoProdutos.getText());
+        Double precoCustoProduto  = Double.valueOf(colPrecoCustoProdutos.getText());
+        Double precoVendaProduto = Double.valueOf(colPrecoVendaProdutos.getText());
+        String cnpjFornecedor = String.valueOf(colFornecedoresProduto.getText());
+        FornecedorDAO fornecedorDAO = new FornecedorDAO();
+        //Fornecedor fornecedor = fornecedorDAO.findOne(cnpjFornecedor);
+        Fornecedor fornecedor = null;
+        Produto produto = new Produto(nomeProduto,idProduto,descProduto,precoCustoProduto,precoVendaProduto,fornecedor);
+        return produto;
+
     }
 }

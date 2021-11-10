@@ -10,7 +10,9 @@ module ifsp.edu {
 
     exports ifsp.edu.view;
     exports ifsp.edu.model;
+
     exports ifsp.edu.view.clientes;
+
     opens ifsp.edu.view.clientes to javafx.fxml;
 
     exports ifsp.edu.view.fornecedores;

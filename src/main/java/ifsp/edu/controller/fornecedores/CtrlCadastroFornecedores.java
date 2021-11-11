@@ -1,6 +1,6 @@
 package ifsp.edu.controller.fornecedores;
 
-import ifsp.edu.dao.FornecedorDAO;
+import ifsp.edu.usecases.fornecedor.FornecedorDAO;
 import ifsp.edu.model.Fornecedor;
 import ifsp.edu.view.fornecedores.WindowSubmenuFornecedores;
 import javafx.event.ActionEvent;
@@ -9,7 +9,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
-import java.time.LocalDate;
 
 public class CtrlCadastroFornecedores {
 

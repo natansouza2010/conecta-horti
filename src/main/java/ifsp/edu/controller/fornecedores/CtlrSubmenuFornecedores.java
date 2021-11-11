@@ -1,6 +1,6 @@
 package ifsp.edu.controller.fornecedores;
 
-import ifsp.edu.dao.FornecedorDAO;
+import ifsp.edu.usecases.fornecedor.FornecedorDAO;
 import ifsp.edu.model.Fornecedor;
 import ifsp.edu.view.fornecedores.WindowCadastroFornecedores;
 import ifsp.edu.view.principal.WindowPrincipal;

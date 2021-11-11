@@ -1,13 +1,11 @@
 package ifsp.edu.controller.produtos;
 
-import ifsp.edu.dao.FornecedorDAO;
-import ifsp.edu.dao.ProdutoDAO;
+import ifsp.edu.usecases.fornecedor.FornecedorDAO;
+import ifsp.edu.usecases.produto.ProdutoDAO2;
 import ifsp.edu.model.Fornecedor;
 import ifsp.edu.model.Produto;
-import ifsp.edu.view.fornecedores.WindowCadastroFornecedores;
 import ifsp.edu.view.principal.WindowPrincipal;
 import ifsp.edu.view.produtos.WindowCadastroProdutos;
-import ifsp.edu.view.produtos.WindowSubmenuProdutos;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -19,7 +17,7 @@ import java.util.List;
 
 public class CtrlSubmenuProdutos {
 
-    private static ProdutoDAO dao;
+    private static ProdutoDAO2 dao;
 
     @FXML Button btnAdicionarProdutos;
     @FXML Button btnRemoverProdutos;

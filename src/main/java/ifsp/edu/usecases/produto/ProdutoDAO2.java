@@ -1,10 +1,11 @@
-package ifsp.edu.dao;
+package ifsp.edu.usecases.produto;
 
+import ifsp.edu.dao.DAO;
 import ifsp.edu.model.Produto;
 
 import java.util.List;
 
-public class ProdutoDAO implements DAO<Produto,Integer>{
+public class ProdutoDAO2 implements DAO<Produto,Integer> {
     @Override
     public boolean insert(Produto obj) {
 

@@ -1,5 +1,6 @@
-package ifsp.edu.dao;
+package ifsp.edu.usecases.fornecedor;
 
+import ifsp.edu.dao.DAO;
 import ifsp.edu.model.Fornecedor;
 
 import java.util.ArrayList;
@@ -7,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class FornecedorDAO implements DAO<Fornecedor, String>{
+public class FornecedorDAO implements DAO<Fornecedor, String> {
     static Map<String, Fornecedor> fornecedorMap = new HashMap<>();
 
     @Override

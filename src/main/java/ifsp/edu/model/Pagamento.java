@@ -1,11 +1,8 @@
 package ifsp.edu.model;
 
-import ifsp.edu.dao.PagamentoDAO;
+import ifsp.edu.usecases.pagamento.PagamentoDAO;
 import ifsp.edu.enums.FormaDePagamento;
 import lombok.AllArgsConstructor;
-
-import java.util.Objects;
-import java.util.Scanner;
 
 @AllArgsConstructor
 public class Pagamento {

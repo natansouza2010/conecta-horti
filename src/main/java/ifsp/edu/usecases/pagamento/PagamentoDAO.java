@@ -1,4 +1,4 @@
-package ifsp.edu.dao;
+package ifsp.edu.usecases.pagamento;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

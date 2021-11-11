@@ -2,12 +2,18 @@ package ifsp.edu.dao;
 
 import ifsp.edu.model.Fornecedor;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FornecedorDAO implements DAO<Fornecedor, String>{
+    static Map<String, Fornecedor> fornecedorMap = new HashMap<>();
+
     @Override
     public boolean insert(Fornecedor obj) {
-        return false;
+        fornecedorMap.put(obj.getCnpj(), obj);
+        return true;
     }
 
     @Override
@@ -17,7 +23,8 @@ public class FornecedorDAO implements DAO<Fornecedor, String>{
 
     @Override
     public List<Fornecedor> listAll() {
-        return null;
+        List<Fornecedor> fornecedorList = new ArrayList<>(fornecedorMap.values());
+        return fornecedorList;
     }
 
     @Override

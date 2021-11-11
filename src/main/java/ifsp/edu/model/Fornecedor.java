@@ -42,4 +42,23 @@ public class Fornecedor {
     }
 
 
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    public String getTelefone1() {
+        return telefone1;
+    }
+
+    public String getTelefone2() {
+        return telefone2;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public String getRazaoSocial() {
+        return razaoSocial;
+    }
 }

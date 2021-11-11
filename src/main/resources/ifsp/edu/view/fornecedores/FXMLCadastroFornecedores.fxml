@@ -4,10 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="400.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/11.0.1"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="ifsp.edu.controller.fornecedores.CtrlCadastroFornecedores">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ifsp.edu.controller.fornecedores.CtrlCadastroFornecedores">
     <children>
         <TextField fx:id="txtNomeFornecedor" layoutX="258.0" layoutY="157.0" prefHeight="25.0" prefWidth="177.0" />
         <TextField fx:id="txtEnderecoFornecedor" layoutX="258.0" layoutY="201.0" prefHeight="25.0" prefWidth="177.0" />
@@ -27,6 +24,6 @@
         <Button fx:id="btnCadastrarFornecedor" layoutX="540.0" layoutY="361.0" mnemonicParsing="false" onAction="#cadastrarFornecedor" text="Cadastrar" />
       <Button fx:id="btnVoltar" layoutX="618.0" layoutY="361.0" mnemonicParsing="false" onAction="#btnVoltar" text="Voltar" />
       <Label layoutX="164.0" layoutY="333.0" text="Razão Social " />
-      <TextField layoutX="258.0" layoutY="329.0" prefHeight="25.0" prefWidth="177.0" />
+      <TextField fx:id="txtRazaoSocial" layoutX="258.0" layoutY="329.0" prefHeight="25.0" prefWidth="177.0" />
     </children>
 </AnchorPane>

@@ -40,6 +40,7 @@ public class CtrlSubmenuProdutos {
         try {
             window.show();
             Produto produto = getProdutoFromView();
+
 //            dao.insert(produto);
         } catch (IOException e ) {
             e.printStackTrace();

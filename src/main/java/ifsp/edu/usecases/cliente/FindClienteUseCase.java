@@ -17,7 +17,7 @@ public class FindClienteUseCase {
 
     public Optional<Cliente> findOne(String cpf){
         if(cpf == null){
-            throw new IllegalArgumentException("CPF não pod ser nulo.");
+            throw new IllegalArgumentException("CPF não pode ser nulo.");
         }
         return dao.findByCpf(cpf);
     }

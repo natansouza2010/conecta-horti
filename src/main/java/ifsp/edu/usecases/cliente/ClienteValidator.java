@@ -8,23 +8,23 @@ import ifsp.edu.utils.Validator;
 public class ClienteValidator extends Validator <Cliente> {
 
     @Override
-    public Notification validate(Cliente Cliente) {
+    public Notification validate(Cliente cliente) {
         Notification notification = new Notification();
 
-        if(Cliente == null){
+        if(cliente == null){
             notification.addError("Cliente é nulo");
             return notification;
         }
-        if(nullOrEmpty(Cliente.getCpf()))
+        if(nullOrEmpty(cliente.getCpf()))
             notification.addError("CPF do cliente é nulo ou vazio");
 
-        if(nullOrEmpty(Cliente.getNome()))
+        if(nullOrEmpty(cliente.getNome()))
             notification.addError("Nome do cliente é nula ou vazia");
 
-        if(nullOrEmpty(Cliente.getEndereco()))
+        if(nullOrEmpty(cliente.getEndereco()))
             notification.addError("Endereço do cliente é nulo ou vazio");
 
-        if(nullOrEmpty(Cliente.getTelefone1()))
+        if(nullOrEmpty(cliente.getTelefone1()))
             notification.addError("Telefone do cliente é nulo ou vazio");
 
         return notification;

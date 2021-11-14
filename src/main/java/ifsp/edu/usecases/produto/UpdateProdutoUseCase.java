@@ -12,7 +12,8 @@ public class UpdateProdutoUseCase {
         this.dao = dao;
     }
 
-    public boolean update(Produto produto){
+    public boolean update(String nomeProduto){
+        Produto produto = dao.findByNome(nomeProduto);
         Validator<Produto> validator = new ProdutoValidator();
         Notification notification = validator.validate(produto);
 

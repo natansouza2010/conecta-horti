@@ -53,6 +53,33 @@ public class Pedido {
         return sum;
     }
 
+    public LocalDate getDataPedido() {
+        return dataPedido;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public StatusPedido getStatus() {
+        return status;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public Pagamento getPagamento() {
+        return pagamento;
+    }
 
     public Double getValor() {
         return calculaTotalPedido();

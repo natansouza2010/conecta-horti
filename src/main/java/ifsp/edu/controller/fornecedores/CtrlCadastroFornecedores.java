@@ -1,5 +1,6 @@
 package ifsp.edu.controller.fornecedores;
 
+import ifsp.edu.repository.FornecedorRepository;
 import ifsp.edu.usecases.fornecedor.FornecedorDAO;
 import ifsp.edu.model.Fornecedor;
 import ifsp.edu.view.fornecedores.WindowSubmenuFornecedores;
@@ -24,7 +25,7 @@ public class CtrlCadastroFornecedores {
         WindowSubmenuFornecedores window = new WindowSubmenuFornecedores();
         try {
             window.show();
-            FornecedorDAO dao = new FornecedorDAO();
+            FornecedorRepository dao = new FornecedorRepository();
             Fornecedor fornecedor = getFornecedorFromView();
             dao.insert(fornecedor);
         } catch (IOException e ) {

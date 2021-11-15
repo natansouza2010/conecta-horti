@@ -1,5 +1,6 @@
 package ifsp.edu.controller.produtos;
 
+import ifsp.edu.repository.FornecedorRepository;
 import ifsp.edu.usecases.fornecedor.FornecedorDAO;
 import ifsp.edu.usecases.produto.ProdutoDAO2;
 import ifsp.edu.model.Fornecedor;
@@ -83,7 +84,7 @@ public class CtrlSubmenuProdutos {
         Double precoCustoProduto  = Double.valueOf(colPrecoCustoProdutos.getText());
         Double precoVendaProduto = Double.valueOf(colPrecoVendaProdutos.getText());
         String cnpjFornecedor = String.valueOf(colFornecedoresProduto.getText());
-        FornecedorDAO fornecedorDAO = new FornecedorDAO();
+        FornecedorRepository fornecedorDAO = new FornecedorRepository();
         //Fornecedor fornecedor = fornecedorDAO.findOne(cnpjFornecedor);
         Fornecedor fornecedor = null;
         Produto produto = new Produto(nomeProduto,idProduto,descProduto,precoCustoProduto,precoVendaProduto,fornecedor);

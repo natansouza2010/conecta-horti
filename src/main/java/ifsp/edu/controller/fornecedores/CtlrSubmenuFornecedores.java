@@ -1,5 +1,6 @@
 package ifsp.edu.controller.fornecedores;
 
+import ifsp.edu.repository.FornecedorRepository;
 import ifsp.edu.usecases.fornecedor.FornecedorDAO;
 import ifsp.edu.model.Fornecedor;
 import ifsp.edu.view.fornecedores.WindowCadastroFornecedores;
@@ -55,7 +56,7 @@ public class CtlrSubmenuFornecedores {
 
     }
     private void loadTable(){
-        FornecedorDAO dao = new FornecedorDAO();
+        FornecedorRepository dao = new FornecedorRepository();
         List<Fornecedor> forn = new ArrayList<>(dao.listAll());
         fornecedores = FXCollections.observableArrayList(forn);
     }
@@ -81,6 +82,10 @@ public class CtlrSubmenuFornecedores {
     }
 
     public void removerFornecedor(ActionEvent actionEvent) {
+        Fornecedor fornecedor = table.getSelectionModel().getSelectedItem();
+        FornecedorRepository dao = new FornecedorRepository();
+        dao.delete(fornecedor.getCnpj());
+        reloadTable();
 
     }
 
@@ -94,6 +99,13 @@ public class CtlrSubmenuFornecedores {
     }
 
     public void buscarFornecedor(ActionEvent actionEvent) {
+        String cnpj = String.valueOf(txtBuscarFornecedor.getText());
+        FornecedorRepository dao = new FornecedorRepository();
+        Fornecedor one = dao.findOne(cnpj);
+        fornecedores.clear();
+        fornecedores.add(one);
+        table.setItems(fornecedores);
+
     }
 
     public void voltarParaMenu(ActionEvent actionEvent) {

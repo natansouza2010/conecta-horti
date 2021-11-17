@@ -31,10 +31,10 @@ public class WindowCadastroFornecedores {
         Stage stage = new Stage();
 
         if (fornecedor != null) {
-            stage.setTitle("Editar Animal");
+            stage.setTitle("Editar Fornecedor");
             controller.setFornecedoresToView(fornecedor);
         } else{
-            stage.setTitle("Novo Animal");
+            stage.setTitle("Novo Fornecedor");
         }
 
         stage.setScene(scene);

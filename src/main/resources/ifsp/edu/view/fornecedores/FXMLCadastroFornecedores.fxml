@@ -21,7 +21,7 @@
                 <Font size="18.0" />
             </font>
         </Label>
-        <Button fx:id="btnCadastrarFornecedor" layoutX="540.0" layoutY="361.0" mnemonicParsing="false" onAction="#cadastrarFornecedor" text="Cadastrar" />
+        <Button fx:id="btnCadastrarFornecedor" layoutX="540.0" layoutY="361.0" mnemonicParsing="false" onAction="#saveOrUpdate" text="Cadastrar" />
       <Button fx:id="btnVoltar" layoutX="618.0" layoutY="361.0" mnemonicParsing="false" onAction="#btnVoltar" text="Voltar" />
       <Label layoutX="164.0" layoutY="333.0" text="Razão Social " />
       <TextField fx:id="txtRazaoSocial" layoutX="258.0" layoutY="329.0" prefHeight="25.0" prefWidth="177.0" />

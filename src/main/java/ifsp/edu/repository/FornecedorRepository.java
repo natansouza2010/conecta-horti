@@ -2,13 +2,11 @@ package ifsp.edu.repository;
 
 import ifsp.edu.dao.DAO;
 import ifsp.edu.model.Fornecedor;
+import ifsp.edu.usecases.fornecedor.FornecedorDAO;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-public class FornecedorRepository implements DAO<Fornecedor, String> {
+public class FornecedorRepository implements FornecedorDAO {
     static Map<String, Fornecedor> fornecedorMap = new HashMap<>();
 
     @Override
@@ -50,4 +48,11 @@ public class FornecedorRepository implements DAO<Fornecedor, String> {
         return false;
     }
 
+    @Override
+    public Optional<Fornecedor> findByCNPJ(String cnpj) {
+        if(fornecedorMap.containsKey(cnpj)){
+            return Optional.of(fornecedorMap.get(cnpj));
+        }
+        return Optional.empty();
+    }
 }

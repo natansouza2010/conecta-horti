@@ -3,11 +3,13 @@ package ifsp.edu.controller.fornecedores;
 import ifsp.edu.repository.FornecedorRepository;
 import ifsp.edu.usecases.fornecedor.FornecedorDAO;
 import ifsp.edu.model.Fornecedor;
+import ifsp.edu.usecases.fornecedor.InsertFornecedorUseCase;
 import ifsp.edu.view.fornecedores.WindowSubmenuFornecedores;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -21,28 +23,17 @@ public class CtrlCadastroFornecedores {
     @FXML TextField txtRazaoSocial;
     @FXML Button btnCadastrarFornecedor;
 
-    public void cadastrarFornecedor(ActionEvent actionEvent) {
-        WindowSubmenuFornecedores window = new WindowSubmenuFornecedores();
-        try {
-            window.show();
-            FornecedorRepository dao = new FornecedorRepository();
-            Fornecedor fornecedor = getFornecedorFromView();
-            dao.insert(fornecedor);
-        } catch (IOException e ) {
-            e.printStackTrace();
-        }
+    private Fornecedor fornecedor;
+    private InsertFornecedorUseCase insertFornecedorUseCase;
+
+    public void saveOrUpdate(ActionEvent actionEvent) {
+        saveOrUpdate();
+        close();
     }
 
     public void btnVoltar(ActionEvent actionEvent) {
-        WindowSubmenuFornecedores window = new WindowSubmenuFornecedores();
-        try {
-            window.show();
-        } catch (IOException e ) {
-            e.printStackTrace();
-        }
+        close();
     }
-
-
 
     private Fornecedor getFornecedorFromView(){
         String cnpj = String.valueOf(txtCnpjFornecedor.getText());
@@ -54,7 +45,47 @@ public class CtrlCadastroFornecedores {
 
         Fornecedor fornecedor = new Fornecedor(cnpj,nome,tel1,tel2,end,razao);
         return fornecedor;
-
-
     }
+
+    public void setFornecedoresToView(Fornecedor f) {
+        fornecedor=f;
+        txtCnpjFornecedor.setText(f.getCnpj());
+        txtEnderecoFornecedor.setText(f.getEndereco());
+        txtNomeFornecedor.setText(f.getNome());
+        txtTel1Fornecedor.setText(f.getTelefone1());
+        txtTel2Fornecedor.setText(f.getTelefone2());
+        txtRazaoSocial.setText(f.getRazaoSocial());
+    }
+
+    public void saveOrUpdate() throws RuntimeException{
+        Fornecedor a = getFornecedorFromView();
+        if (fornecedor == null && a != null ) {
+            save(a);
+        } else if (fornecedor != null && a != null ) {
+            update(getFornecedorFromView());
+        }
+        Stage stage = (Stage) txtEnderecoFornecedor.getScene().getWindow();
+    }
+
+
+
+    private void update(Fornecedor f) {
+        FornecedorRepository dao = new FornecedorRepository();
+        dao.update(f);
+    }
+
+    private void save(Fornecedor f) {
+        FornecedorDAO dao = new FornecedorRepository();
+        insertFornecedorUseCase = new InsertFornecedorUseCase(dao);
+        insertFornecedorUseCase.insert(f);
+    }
+
+    private void close(){
+        Stage stage = (Stage) txtCnpjFornecedor.getScene().getWindow();
+        stage.close();
+    }
+
+
+
+
 }

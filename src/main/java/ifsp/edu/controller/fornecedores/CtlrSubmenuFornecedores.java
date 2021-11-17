@@ -1,6 +1,8 @@
 package ifsp.edu.controller.fornecedores;
 
 import ifsp.edu.repository.FornecedorRepository;
+import ifsp.edu.usecases.fornecedor.DeleteFornecedorUseCase;
+import ifsp.edu.usecases.fornecedor.FindFornecedorUseCase;
 import ifsp.edu.usecases.fornecedor.FornecedorDAO;
 import ifsp.edu.model.Fornecedor;
 import ifsp.edu.view.fornecedores.WindowCadastroFornecedores;
@@ -14,10 +16,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class CtlrSubmenuFornecedores {
 
@@ -39,6 +43,10 @@ public class CtlrSubmenuFornecedores {
     @FXML TableColumn<Fornecedor, String> colRazaoFornecedor;
 
     ObservableList<Fornecedor> fornecedores;
+    private DeleteFornecedorUseCase deleteFornecedorUseCase;
+    private FindFornecedorUseCase findFornecedorUseCase;
+
+
 
 
     public void initialize(){
@@ -83,8 +91,11 @@ public class CtlrSubmenuFornecedores {
 
     public void removerFornecedor(ActionEvent actionEvent) {
         Fornecedor fornecedor = table.getSelectionModel().getSelectedItem();
-        FornecedorRepository dao = new FornecedorRepository();
-        dao.delete(fornecedor.getCnpj());
+
+        FornecedorDAO dao = new FornecedorRepository();
+        deleteFornecedorUseCase = new DeleteFornecedorUseCase(dao);
+        deleteFornecedorUseCase.delete(fornecedor.getCnpj());
+
         reloadTable();
 
     }
@@ -100,20 +111,24 @@ public class CtlrSubmenuFornecedores {
 
     public void buscarFornecedor(ActionEvent actionEvent) {
         String cnpj = String.valueOf(txtBuscarFornecedor.getText());
-        FornecedorRepository dao = new FornecedorRepository();
-        Fornecedor one = dao.findOne(cnpj);
+
+        FornecedorDAO dao = new FornecedorRepository();
+
+        findFornecedorUseCase = new FindFornecedorUseCase(dao);
+
+        Optional<Fornecedor> one = findFornecedorUseCase.findOne(cnpj);
         fornecedores.clear();
-        fornecedores.add(one);
+        fornecedores.add(one.get());
         table.setItems(fornecedores);
 
     }
 
     public void voltarParaMenu(ActionEvent actionEvent) {
-        WindowPrincipal window = new WindowPrincipal();
-        try {
-            window.show();
-        } catch (IOException e ){
-            e.printStackTrace();
-        }
+        close();
+    }
+
+    private void close(){
+        Stage stage = (Stage) btnAdicionarFornecedor.getScene().getWindow();
+        stage.close();
     }
 }

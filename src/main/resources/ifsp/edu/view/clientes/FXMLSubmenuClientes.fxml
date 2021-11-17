@@ -6,7 +6,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ifsp.edu.controller.clientes.CtlrSubmenuClientes">
     <children>
-        <TableView layoutX="13.0" layoutY="61.0" prefHeight="282.0" prefWidth="655.0">
+        <TableView fx:id="table" layoutX="13.0" layoutY="61.0" prefHeight="282.0" prefWidth="655.0">
             <columns>
                 <TableColumn fx:id="colCpfCliente" prefWidth="75.0" text="CPF" />
                 <TableColumn fx:id="colNomeCliente" prefWidth="139.0" text="Nome" />

@@ -1,6 +1,8 @@
 package ifsp.edu.model;
 
 
+import java.util.List;
+
 public class Produto {
     private String nome;
     private Integer id;
@@ -8,6 +10,9 @@ public class Produto {
     private Double valorCusto;
     private Double valorVenda;
     private Fornecedor fornecedor;
+
+
+
 
     public Produto(String nome, Integer id, String descricao, Double valorCusto, Double valorVenda) {
         this.nome = nome;
@@ -29,6 +34,9 @@ public class Produto {
         fornecedor.addProduto(produto);
 
     }
+
+
+
 
     public String getNome() {
         return nome;
@@ -77,6 +85,9 @@ public class Produto {
     public void setFornecedor(Fornecedor fornecedor) {
         this.fornecedor = fornecedor;
     }
+
+
+
 
     @Override
     public String toString() {

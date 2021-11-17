@@ -12,8 +12,8 @@ public class UpdateProdutoUseCase {
         this.dao = dao;
     }
 
-    public boolean update(String nomeProduto){
-        Produto produto = dao.findByNome(nomeProduto);
+    public boolean update(Integer id){
+        Produto produto = dao.findOne(id);
         Validator<Produto> validator = new ProdutoValidator();
         Notification notification = validator.validate(produto);
 
@@ -21,8 +21,8 @@ public class UpdateProdutoUseCase {
             throw new IllegalArgumentException(notification.errorMessage());
 
 
-        Integer id = produto.getId();
-        if(dao.findById(id).isEmpty()){
+        Integer idProduto = produto.getId();
+        if(dao.findById(idProduto).isEmpty()){
             throw new EntidadeNaoEncontradaException("Produto não encontrado.");
         }
 

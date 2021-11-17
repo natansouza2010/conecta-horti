@@ -5,6 +5,7 @@ import ifsp.edu.model.Fornecedor;
 import ifsp.edu.usecases.fornecedor.FornecedorDAO;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class FornecedorRepository implements FornecedorDAO {
     static Map<String, Fornecedor> fornecedorMap = new HashMap<>();
@@ -54,5 +55,15 @@ public class FornecedorRepository implements FornecedorDAO {
             return Optional.of(fornecedorMap.get(cnpj));
         }
         return Optional.empty();
+    }
+
+    @Override
+    public Fornecedor findByName(String name) {
+        List<Fornecedor> forns = new ArrayList<>(fornecedorMap.values());
+        for (Fornecedor forn : forns) {
+            if(forn.getNome() == name)
+                return forn;
+        }
+        return null;
     }
 }

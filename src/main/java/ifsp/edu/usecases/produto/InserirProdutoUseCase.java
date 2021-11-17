@@ -28,7 +28,7 @@ public class InserirProdutoUseCase {
         }
 
         String cnpj = produto.getFornecedor().getCnpj();
-        if(dao.findByFornecedor(cnpj).isEmpty()){
+        if(!dao.findByFornecedor(cnpj).isEmpty()){
             throw new EntidadeNaoEncontradaException("CNPJ do fornecedor não encontrado.");
         }
         return dao.insert(produto);

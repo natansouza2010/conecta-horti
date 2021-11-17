@@ -5,6 +5,7 @@ import ifsp.edu.usecases.fornecedor.DeleteFornecedorUseCase;
 import ifsp.edu.usecases.fornecedor.FindFornecedorUseCase;
 import ifsp.edu.usecases.fornecedor.FornecedorDAO;
 import ifsp.edu.model.Fornecedor;
+import ifsp.edu.usecases.fornecedor.InsertFornecedorUseCase;
 import ifsp.edu.view.fornecedores.WindowCadastroFornecedores;
 import ifsp.edu.view.principal.WindowPrincipal;
 import javafx.collections.FXCollections;
@@ -45,6 +46,7 @@ public class CtlrSubmenuFornecedores {
     ObservableList<Fornecedor> fornecedores;
     private DeleteFornecedorUseCase deleteFornecedorUseCase;
     private FindFornecedorUseCase findFornecedorUseCase;
+    private InsertFornecedorUseCase insertFornecedorUseCase;
 
 
 
@@ -57,6 +59,15 @@ public class CtlrSubmenuFornecedores {
         colEnderecoFornecedor.setCellValueFactory(new PropertyValueFactory<Fornecedor, String>("endereco"));
         colRazaoFornecedor.setCellValueFactory(new PropertyValueFactory<Fornecedor, String>("razaoSocial"));
         fornecedores = FXCollections.observableArrayList();
+        FornecedorDAO dao = new FornecedorRepository();
+        insertFornecedorUseCase = new InsertFornecedorUseCase(dao);
+        Fornecedor fornecedor = new Fornecedor("1","um","3","5000","São carlos", "Oi");
+        Fornecedor fornecedor2 = new Fornecedor("2","dois","3","5000","São carlos", "Oi");
+        Fornecedor fornecedor3 = new Fornecedor("3","tres","3","5000","São carlos", "Oi");
+        insertFornecedorUseCase.insert(fornecedor);
+        insertFornecedorUseCase.insert(fornecedor2);
+        insertFornecedorUseCase.insert(fornecedor3);
+
         loadTable();
 
         table.setItems(fornecedores);

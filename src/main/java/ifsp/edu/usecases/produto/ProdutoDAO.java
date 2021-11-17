@@ -4,6 +4,7 @@ import ifsp.edu.dao.DAO;
 import ifsp.edu.model.Fornecedor;
 import ifsp.edu.model.Produto;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface ProdutoDAO extends DAO <Produto, Integer>  {

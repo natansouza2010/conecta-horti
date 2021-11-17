@@ -7,4 +7,5 @@ import java.util.*;
 
 public interface FornecedorDAO extends DAO<Fornecedor, String> {
     Optional<Fornecedor> findByCNPJ(String cnpj);
+    Fornecedor findByName(String name);
 }

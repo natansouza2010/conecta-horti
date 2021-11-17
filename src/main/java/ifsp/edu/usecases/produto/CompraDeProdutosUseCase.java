@@ -7,6 +7,8 @@ import ifsp.edu.utils.EntidadeNaoEncontradaException;
 import ifsp.edu.utils.Notification;
 import ifsp.edu.utils.Validator;
 
+import java.util.List;
+
 public class CompraDeProdutosUseCase {
 
     private ProdutoDAO dao;
@@ -15,7 +17,7 @@ public class CompraDeProdutosUseCase {
         this.dao = dao;
     }
 
-    public Fornecedor getFornecedor(Produto produto){
+    public List<Fornecedor> getFornecedor(Produto produto){
         Validator<Produto> validator = new ProdutoValidator();
         Notification notification = validator.validate(produto);
 
@@ -28,6 +30,7 @@ public class CompraDeProdutosUseCase {
             throw new EntidadeNaoEncontradaException("Id do produto não encontrado.");
         }
 
-        return dao.findFornecedorByProduto(produto);
+//        return dao.findFornecedorByProduto(produto);
+        return null;
     }
 }

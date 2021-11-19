@@ -1,14 +1,19 @@
 package ifsp.edu.usecases.catalogo;
 
 import ifsp.edu.model.Catalogo;
+import ifsp.edu.model.Produto;
+import ifsp.edu.usecases.produto.ProdutoDAO;
 import ifsp.edu.utils.EntidadeExistenteException;
 import ifsp.edu.utils.EntidadeNaoEncontradaException;
 import ifsp.edu.utils.Notification;
 import ifsp.edu.utils.Validator;
 
+import java.time.LocalDate;
+
 public class InserirCatalogoUseCase {
 
     private CatalogoDAO dao;
+    private ProdutoDAO daoProduto;
 
     public InserirCatalogoUseCase(CatalogoDAO dao) {
         this.dao = dao;
@@ -22,15 +27,19 @@ public class InserirCatalogoUseCase {
             throw new IllegalArgumentException(notification.errorMessage());
 
 
-        Integer idCatalogo = catalogo.getId();
-        if(dao.findOne(idCatalogo)!= null){
-            throw new EntidadeExistenteException(notification.errorMessage());
-        }
-
         Integer idProduto = catalogo.getProduto().getId();
-        if(dao.findProdutoById(idProduto).isEmpty()){
+        if(daoProduto.findById(idProduto).isEmpty()){
             throw new EntidadeNaoEncontradaException("Id do produto selecionado não encontrado.");
         }
+
+        if(dao.findDataInicial(catalogo.getDataInicial()).isPresent()){
+            throw new EntidadeExistenteException("Data inicial já existe.");
+        }
+
+        if(dao.findDataFinal(catalogo.getDataFinal()).isPresent()){
+            throw new EntidadeExistenteException("Data final já existe.");
+        }
+
         return dao.insert(catalogo);
     }
 }

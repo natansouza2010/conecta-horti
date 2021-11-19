@@ -69,12 +69,24 @@ public class Pedido {
         return items;
     }
 
+    public void setStatus(StatusPedido status) {
+        this.status = status;
+    }
+
     public StatusPedido getStatus() {
         return status;
     }
 
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+
     public Endereco getEndereco() {
         return endereco;
+    }
+
+    public void setPagamento(Pagamento pagamento) {
+        this.pagamento = pagamento;
     }
 
     public Pagamento getPagamento() {

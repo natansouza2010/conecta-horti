@@ -15,13 +15,14 @@ public class CatalogoValidator extends Validator<Catalogo> {
             return notification;
         }
         if(nullOrEmpty(catalogo.getDataInicial().toString()))
-            notification.addError("Data inical do catálogo é nula ou vazia");
+            notification.addError("Data inicial do catálogo é nula ou vazia");
 
         if(nullOrEmpty(catalogo.getDataFinal().toString()))
             notification.addError("Data final do catálogo é nula ou vazia");
 
         if(nullOrEmpty(catalogo.getProduto().getNome()))
             notification.addError("Nome do produto é nulo ou vazio");
+
 
 
         return notification;

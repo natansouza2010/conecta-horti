@@ -16,4 +16,7 @@ public interface PedidoDAO extends DAO<Pedido, Integer> {
     List<Pedido> findByStatus(StatusPedido statusPedido);
     Optional<Pedido> findById(Integer id);
     Optional<Cliente> findClienteByCpf(String cpf);
+    boolean atualizarStatusPedido(Pedido pedido);
+    boolean escolherMetodoPagamento(Pedido pedido);
+    boolean informarEntrega(Pedido pedido);
 }

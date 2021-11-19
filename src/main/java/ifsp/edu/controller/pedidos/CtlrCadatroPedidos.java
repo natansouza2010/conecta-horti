@@ -44,6 +44,7 @@ public class CtlrCadatroPedidos {
     @FXML TableView<Pedido> table;
     ObservableList produtosDoPedido;
 
+
     private Pedido pedido;
     private InsertPedidoUseCase insertPedidoUseCase;
     private UpdatePedidoUseCase updatePedidoUseCase;
@@ -100,11 +101,13 @@ public class CtlrCadatroPedidos {
 
     public void btnAdicionarProdutoToTable(ActionEvent actionEvent) {
         loadTable();
+
     }
 
     public Pedido criarPedido(PedidoDTO dto){
         Double valorTotalPedido = listaItens.stream().mapToDouble(c->c.calculaValor()).sum();
         Pedido pedidoFinal = new Pedido(1,dto.getCliente(), listaItens, valorTotalPedido,LocalDate.now(),StatusPedido.A_PAGAR,dto.getCliente().getEndereco(), dto.getFormaDePagamento() );
+        System.out.println(pedidoFinal.getCliente().getNome());
         return pedidoFinal;
     }
 

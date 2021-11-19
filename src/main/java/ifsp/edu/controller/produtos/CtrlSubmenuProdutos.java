@@ -1,10 +1,12 @@
 package ifsp.edu.controller.produtos;
 
+import ifsp.edu.repository.ClienteRepository;
 import ifsp.edu.repository.FornecedorRepository;
 import ifsp.edu.repository.ProdutoRepository;
+import ifsp.edu.usecases.cliente.ClienteDAO;
+import ifsp.edu.usecases.cliente.InserirClienteUseCase;
 import ifsp.edu.usecases.fornecedor.FornecedorDAO;
-import ifsp.edu.usecases.produto.ProdutoDAO;
-import ifsp.edu.usecases.produto.ProdutoDAO2;
+import ifsp.edu.usecases.produto.*;
 import ifsp.edu.model.Fornecedor;
 import ifsp.edu.model.Produto;
 import ifsp.edu.view.principal.WindowPrincipal;
@@ -22,8 +24,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class CtrlSubmenuProdutos {
+
     @FXML Button btnAdicionarProdutos;
     @FXML Button btnRemoverProdutos;
     @FXML Button btnEditarProdutos;
@@ -42,6 +46,11 @@ public class CtrlSubmenuProdutos {
     @FXML TableColumn<Produto, Double> colPrecoVendaProdutos;
     @FXML TableColumn<Fornecedor, Fornecedor> colFornecedor;
 
+    private DeleteProdutoUseCase deleteProdutoUseCase;
+    private FindProdutoUseCase findProdutoUseCase;
+    private InserirProdutoUseCase inserirProdutoUseCase;
+
+
 
     public void initialize(){
         colIDProdutos.setCellValueFactory(new PropertyValueFactory<Produto, Integer>("id"));
@@ -50,6 +59,16 @@ public class CtrlSubmenuProdutos {
         colPrecoCustoProdutos.setCellValueFactory(new PropertyValueFactory<Produto, Double>("valorCusto"));
         colPrecoVendaProdutos.setCellValueFactory(new PropertyValueFactory<Produto, Double>("valorVenda"));
         colFornecedor.setCellValueFactory(new PropertyValueFactory<Fornecedor, Fornecedor>("fornecedor"));
+        FornecedorDAO daoForn = new FornecedorRepository();
+        List<Fornecedor> fornecedors = daoForn.listAll();
+        ProdutoDAO dao = new ProdutoRepository();
+        inserirProdutoUseCase = new InserirProdutoUseCase(dao);
+        Produto p1 = new Produto("banana",1,"1kg",3.00,5.00,fornecedors.get(1));
+        Produto p2 = new Produto("tomate",2,"1kg",5.00,8.00, fornecedors.get(2));
+        Produto p3 = new Produto("vagem",3,"1pct",1.50,7.00, fornecedors.get(1));
+        inserirProdutoUseCase.insert(p1);
+        inserirProdutoUseCase.insert(p2);
+        inserirProdutoUseCase.insert(p3);
         produtos = FXCollections.observableArrayList();
         loadTable();
         tableProduto.setItems(produtos);
@@ -81,24 +100,34 @@ public class CtrlSubmenuProdutos {
     }
 
     public void removerProdutos(ActionEvent actionEvent) {
-        Produto produto = null;
-//        dao.insert(produto);
+        Produto produto = tableProduto.getSelectionModel().getSelectedItem();
+        ProdutoDAO dao = new ProdutoRepository();
+        deleteProdutoUseCase = new DeleteProdutoUseCase(dao);
+        deleteProdutoUseCase.delete(produto);
+        reloadTable();
     }
 
     public void editarProdutos(ActionEvent actionEvent) {
-        WindowCadastroProdutos window = new WindowCadastroProdutos();
+       /* WindowCadastroProdutos window = new WindowCadastroProdutos();
         try {
             window.show();
             Produto produto = null;
 //            dao.update(produto);
         } catch (IOException e ) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     public void buscarProdutos(ActionEvent actionEvent) {
-//        List<Produto> produtos = null;
-//        produtos = dao.listAll();
+        Integer idProduto = Integer.valueOf(txtBuscarProdutos.getText());
+        ProdutoDAO dao = new ProdutoRepository();
+        findProdutoUseCase = new FindProdutoUseCase(dao);
+        Optional<Produto> p = findProdutoUseCase.findOne(idProduto);
+
+        produtos.clear();
+        produtos.add(p.get());
+        tableProduto.setItems(produtos);
+
     }
 
     public void voltarParaMenu(ActionEvent actionEvent) {
@@ -108,20 +137,5 @@ public class CtrlSubmenuProdutos {
         } catch (IOException e ) {
             e.printStackTrace();
         }
-    }
-
-
-    private Produto getProdutoFromView(){
-        Integer idProduto = Integer.valueOf(colIDProdutos.getText());
-        String nomeProduto = String.valueOf(colNomeProdutos.getText());
-        String descProduto = String.valueOf(colDescricaoProdutos.getText());
-        Double precoCustoProduto  = Double.valueOf(colPrecoCustoProdutos.getText());
-        Double precoVendaProduto = Double.valueOf(colPrecoVendaProdutos.getText());
-        Fornecedor fornecedor = (Fornecedor) colFornecedor.getCellValueFactory();
-//        FornecedorDAO fornecedorDAO = new FornecedorRepository();
-//        //Fornecedor fornecedor = fornecedorDAO.findOne(cnpjFornecedor);
-        Produto produto = new Produto(nomeProduto,idProduto,descProduto,precoCustoProduto,precoVendaProduto,fornecedor);
-        return produto;
-
     }
 }

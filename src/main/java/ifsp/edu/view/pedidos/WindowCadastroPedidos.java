@@ -2,6 +2,7 @@ package ifsp.edu.view.pedidos;
 
 import ifsp.edu.controller.pedidos.CtlrCadatroPedidos;
 import ifsp.edu.controller.pedidos.CtlrSubmenuPedidos;
+import ifsp.edu.model.Pedido;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -12,8 +13,14 @@ import java.io.IOException;
 
 public class WindowCadastroPedidos {
     private CtlrCadatroPedidos controller;
+    private Pedido pedido;
 
-    public void show() throws IOException {
+
+    public void show() throws IOException{
+        show(null);
+    }
+
+    public void show(Pedido pedido) throws IOException {
 
         FXMLLoader loader = new FXMLLoader();
 
@@ -23,9 +30,16 @@ public class WindowCadastroPedidos {
         Scene scene = new Scene(graph, 680, 400);
         Stage stage = new Stage();
 
+        if (pedido != null) {
+            stage.setTitle("Editar Pedido");
+            controller.saveOrUpdate();
+        } else{
+            stage.setTitle("Novo Pedido");
+        }
+
         stage.setScene(scene);
         stage.initModality(Modality.APPLICATION_MODAL);
 
-        stage.show();
+        stage.showAndWait();
     }
 }

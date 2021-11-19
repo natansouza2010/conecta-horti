@@ -59,20 +59,20 @@ public class ProdutoRepository implements ProdutoDAO {
     @Override
     public Produto findByNome(String nome) {
        List<Produto> array = new ArrayList<>(produtoMap.values());
-       Produto produto = (Produto) array.stream().filter(p -> p.getNome().toLowerCase().equals(nome.toLowerCase())).collect(Collectors.toList());
+       Produto produto =  array.stream().filter(a -> a.getNome() == nome).findFirst().get();
        return produto;
     }
 
     @Override
     public Optional<Produto> findByFornecedor(String cnpj) {
-        List<Produto> array = new ArrayList<>(produtoMap.values());
+        /*List<Produto> array = new ArrayList<>(produtoMap.values());
         for (Produto produto : array) {
             if(produto.getFornecedor().getCnpj() == cnpj){
                 return Optional.of(produto);
             }
 
 
-        }
+        }*/
         return Optional.empty();
 
     }

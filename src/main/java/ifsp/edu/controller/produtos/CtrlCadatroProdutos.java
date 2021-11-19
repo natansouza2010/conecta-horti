@@ -105,7 +105,6 @@ public class CtrlCadatroProdutos {
 
 
     private Produto getFromProdutoToView() {
-
         Integer id = Integer.valueOf(txtIdProduto.getText());
         String nome = String.valueOf(txtNomeProduto.getText());
         String descricao = String.valueOf(txtDescricaoProduto.getText());

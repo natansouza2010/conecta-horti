@@ -26,13 +26,13 @@ import java.util.Optional;
 
 public class CtlrSubmenuFornecedores {
 
-
     @FXML
     Button btnAdicionarFornecedor;
     @FXML Button btnRemoverFornecedor;
     @FXML Button btnEditarFornecedor;
     @FXML Button btnBuscarFornecedor;
     @FXML TextField txtBuscarFornecedor;
+    @FXML Button btnVoltar;
 
     @FXML TableView<Fornecedor> table;
 
@@ -48,9 +48,6 @@ public class CtlrSubmenuFornecedores {
     private FindFornecedorUseCase findFornecedorUseCase;
     private InsertFornecedorUseCase insertFornecedorUseCase;
 
-
-
-
     public void initialize(){
         colCnpjFornecedor.setCellValueFactory(new PropertyValueFactory<Fornecedor, String>("cnpj"));
         colNomeFornecedor.setCellValueFactory(new PropertyValueFactory<Fornecedor, String>("nome"));
@@ -58,9 +55,12 @@ public class CtlrSubmenuFornecedores {
         colTel2Fornecedor.setCellValueFactory(new PropertyValueFactory<Fornecedor, String>("telefone2"));
         colEnderecoFornecedor.setCellValueFactory(new PropertyValueFactory<Fornecedor, String>("endereco"));
         colRazaoFornecedor.setCellValueFactory(new PropertyValueFactory<Fornecedor, String>("razaoSocial"));
+
         fornecedores = FXCollections.observableArrayList();
+
         FornecedorDAO dao = new FornecedorRepository();
         insertFornecedorUseCase = new InsertFornecedorUseCase(dao);
+
         Fornecedor fornecedor = new Fornecedor("1","um","3","5000","São carlos", "Oi");
         Fornecedor fornecedor2 = new Fornecedor("2","dois","3","5000","São carlos", "Oi");
         Fornecedor fornecedor3 = new Fornecedor("3","tres","3","5000","São carlos", "Oi");
@@ -74,6 +74,7 @@ public class CtlrSubmenuFornecedores {
 
 
     }
+
     private void loadTable(){
         FornecedorRepository dao = new FornecedorRepository();
         List<Fornecedor> forn = new ArrayList<>(dao.listAll());
@@ -84,11 +85,7 @@ public class CtlrSubmenuFornecedores {
         fornecedores.clear();
         loadTable();
         table.setItems(fornecedores);
-
     }
-
-
-
 
     public void adicionarFornecedor(ActionEvent actionEvent) {
         WindowCadastroFornecedores window = new WindowCadastroFornecedores();
@@ -112,11 +109,16 @@ public class CtlrSubmenuFornecedores {
     }
 
     public void editarFornecedor(ActionEvent actionEvent) {
-        WindowCadastroFornecedores window = new WindowCadastroFornecedores();
-        try {
-            window.show();
-        } catch (IOException e ) {
-            e.printStackTrace();
+        final Fornecedor selectedItem = table.getSelectionModel().getSelectedItem();
+
+        if (selectedItem != null) {
+            WindowCadastroFornecedores window = new WindowCadastroFornecedores();
+            try {
+                window.show(selectedItem);
+                reloadTable();
+            }catch (IOException e){
+                e.printStackTrace();
+            }
         }
     }
 
@@ -138,8 +140,8 @@ public class CtlrSubmenuFornecedores {
         close();
     }
 
-    private void close(){
-        Stage stage = (Stage) btnAdicionarFornecedor.getScene().getWindow();
+    public void close(){
+        Stage stage = (Stage) btnBuscarFornecedor.getScene().getWindow();
         stage.close();
     }
 }

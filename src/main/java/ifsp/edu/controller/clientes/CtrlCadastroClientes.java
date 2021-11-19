@@ -6,6 +6,7 @@ import ifsp.edu.repository.ClienteRepository;
 import ifsp.edu.repository.FornecedorRepository;
 import ifsp.edu.usecases.cliente.ClienteDAO;
 import ifsp.edu.usecases.cliente.InserirClienteUseCase;
+import ifsp.edu.usecases.cliente.UpdateClienteUseCase;
 import ifsp.edu.usecases.fornecedor.FornecedorDAO;
 import ifsp.edu.usecases.fornecedor.InsertFornecedorUseCase;
 import ifsp.edu.view.clientes.WindowSubmenuClientes;
@@ -28,6 +29,7 @@ public class CtrlCadastroClientes {
 
     private Cliente cliente;
     private InserirClienteUseCase inserirClienteUseCase;
+    private UpdateClienteUseCase updateClienteUseCase;
 
     public void saveOrUpdate(ActionEvent actionEvent) {
         saveOrUpdate();
@@ -65,14 +67,12 @@ public class CtrlCadastroClientes {
         } else if (cliente != null && a != null ) {
             update(getClienteFromView());
         }
-        Stage stage = (Stage) txtEnderecoCliente.getScene().getWindow();
     }
 
-
-
     private void update(Cliente c) {
-        ClienteRepository dao = new ClienteRepository();
-        dao.update(c);
+        ClienteDAO dao = new ClienteRepository();
+        updateClienteUseCase = new UpdateClienteUseCase(dao);
+        updateClienteUseCase.update(c);
     }
 
     private void save(Cliente c) {
@@ -86,12 +86,4 @@ public class CtrlCadastroClientes {
         stage.close();
     }
 
-    public void cadastrarCliente(ActionEvent actionEvent) {
-        WindowSubmenuClientes window = new WindowSubmenuClientes();
-        try {
-            window.show();
-        } catch (IOException e ){
-            e.printStackTrace();
-        }
-    }
 }

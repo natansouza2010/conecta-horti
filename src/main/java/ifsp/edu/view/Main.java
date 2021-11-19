@@ -18,8 +18,8 @@ public class Main {
 
         Item item1 = new Item(4,p1);
         Item item2 = new Item(1,p1);
-        Endereco end = new Endereco(1,"Carlos del nero","292");
-        Pagamento pagamento = new Pagamento(1, FormaDePagamento.CARTAO);
+        String end = ("endereço asdfgh");
+        FormaDePagamento pagamento = FormaDePagamento.CARTAO;
         Pedido pedido  = new Pedido(1, cliente, LocalDate.now(), StatusPedido.A_PAGAR, end, pagamento);
         pedido.addItems(item1);
         pedido.addItems(item2);

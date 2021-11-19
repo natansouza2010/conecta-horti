@@ -11,11 +11,11 @@
                 <Font size="18.0" />
             </font>
         </Label>
-      <TableView layoutX="14.0" layoutY="102.0" prefHeight="275.0" prefWidth="313.0">
+      <TableView fx:id="table" layoutX="14.0" layoutY="102.0" prefHeight="275.0" prefWidth="313.0">
         <columns>
-          <TableColumn fx:id="idPedido" prefWidth="75.0" text="ID Pedido" />
-          <TableColumn fx:id="statusPedido" prefWidth="99.0" text="Status" />
-            <TableColumn fx:id="dataPedido" prefWidth="138.0" text="Data " />
+          <TableColumn fx:id="colIdPedido" prefWidth="75.0" text="ID Pedido" />
+          <TableColumn fx:id="colStatusPedido" prefWidth="99.0" text="Status" />
+            <TableColumn fx:id="colDataPedido" prefWidth="138.0" text="Data " />
         </columns>
       </TableView>
       <Label layoutX="348.0" layoutY="102.0" prefHeight="17.0" prefWidth="146.0" text="Dados do cliente">

@@ -4,6 +4,7 @@ import ifsp.edu.repository.FornecedorRepository;
 import ifsp.edu.usecases.fornecedor.FornecedorDAO;
 import ifsp.edu.model.Fornecedor;
 import ifsp.edu.usecases.fornecedor.InsertFornecedorUseCase;
+import ifsp.edu.usecases.fornecedor.UpdateFornecedorUseCase;
 import ifsp.edu.view.fornecedores.WindowSubmenuFornecedores;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -25,6 +26,7 @@ public class CtrlCadastroFornecedores {
 
     private Fornecedor fornecedor;
     private InsertFornecedorUseCase insertFornecedorUseCase;
+    private UpdateFornecedorUseCase updateFornecedorUseCase;
 
     public void saveOrUpdate(ActionEvent actionEvent) {
         saveOrUpdate();
@@ -64,14 +66,13 @@ public class CtrlCadastroFornecedores {
         } else if (fornecedor != null && a != null ) {
             update(getFornecedorFromView());
         }
-        Stage stage = (Stage) txtEnderecoFornecedor.getScene().getWindow();
+
     }
 
-
-
     private void update(Fornecedor f) {
-        FornecedorRepository dao = new FornecedorRepository();
-        dao.update(f);
+        FornecedorDAO dao = new FornecedorRepository();
+        updateFornecedorUseCase = new UpdateFornecedorUseCase(dao);
+        updateFornecedorUseCase.update(f);
     }
 
     private void save(Fornecedor f) {

@@ -1,15 +1,10 @@
 package ifsp.edu.controller.clientes;
 
 import ifsp.edu.model.Cliente;
-import ifsp.edu.model.Fornecedor;
 import ifsp.edu.repository.ClienteRepository;
-import ifsp.edu.repository.FornecedorRepository;
 import ifsp.edu.usecases.cliente.ClienteDAO;
 import ifsp.edu.usecases.cliente.DeleteClienteUseCase;
 import ifsp.edu.usecases.cliente.FindClienteUseCase;
-import ifsp.edu.usecases.fornecedor.DeleteFornecedorUseCase;
-import ifsp.edu.usecases.fornecedor.FindFornecedorUseCase;
-import ifsp.edu.usecases.fornecedor.FornecedorDAO;
 import ifsp.edu.view.clientes.WindowCadastroClientes;
 import ifsp.edu.view.principal.WindowPrincipal;
 import javafx.collections.FXCollections;
@@ -95,11 +90,16 @@ public class CtlrSubmenuClientes {
     }
 
     public void editarCliente(ActionEvent actionEvent) {
-        WindowCadastroClientes window = new WindowCadastroClientes();
-        try {
-            window.show();
-        } catch (IOException e ){
-            e.printStackTrace();
+        final Cliente selectedItem = table.getSelectionModel().getSelectedItem();
+
+        if (selectedItem != null) {
+            WindowCadastroClientes window = new WindowCadastroClientes();
+            try {
+                window.show(selectedItem);
+                reloadTable();
+            }catch (IOException e){
+                e.printStackTrace();
+            }
         }
     }
 

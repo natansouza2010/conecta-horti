@@ -1,14 +1,11 @@
 package ifsp.edu.usecases.catalogo;
 
 import ifsp.edu.model.Catalogo;
-import ifsp.edu.model.Produto;
 import ifsp.edu.usecases.produto.ProdutoDAO;
 import ifsp.edu.utils.EntidadeExistenteException;
 import ifsp.edu.utils.EntidadeNaoEncontradaException;
 import ifsp.edu.utils.Notification;
 import ifsp.edu.utils.Validator;
-
-import java.time.LocalDate;
 
 public class InserirCatalogoUseCase {
 

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Font?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ifsp.edu.controller.catalogo.CtrlCadastroCatalogo">
+
+    <children>
+        <TextField fx:id="txtNomeProduto" layoutX="258.0" layoutY="157.0" prefHeight="25.0" prefWidth="177.0" />
+        <TextField fx:id="txtDataInicial" layoutX="258.0" layoutY="201.0" prefHeight="25.0" prefWidth="177.0" />
+        <TextField fx:id="txtDataFinal" layoutX="258.0" layoutY="244.0" prefHeight="25.0" prefWidth="177.0" />
+        <Label layoutX="162.0" layoutY="244.0" prefHeight="25.0" prefWidth="84.0" text="Nome do produto" />
+        <Label layoutX="174.0" layoutY="286.0" prefHeight="25.0" prefWidth="72.0" text="Data inicial do catálogo" />
+        <Label layoutX="167.0" layoutY="201.0" prefHeight="25.0" prefWidth="84.0" text="Data final do catálogo" />
+        <Label layoutX="245.0" layoutY="14.0" prefHeight="57.0" prefWidth="191.0" text="CADASTRAR CATÁLOGO">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+
+        <Button fx:id="btnCadastrarCatalogo" layoutX="540.0" layoutY="361.0" mnemonicParsing="false" onAction="#saveOrUpdate" text="Inserir" />
+        <Button fx:id="btnVoltar" layoutX="618.0" layoutY="361.0" mnemonicParsing="false" onAction="#btnVoltar" text="Voltar" />
+        <ChoiceBox fx:id="cbProdutosDisponiveis" layoutX="258.0" layoutY="286.0" prefHeight="25.0" prefWidth="177.0" />
+        <TextField fx:id="txtIdProduto" layoutX="258.0" layoutY="82.0" prefHeight="25.0" prefWidth="177.0" />
+    </children>
+
+</AnchorPane>

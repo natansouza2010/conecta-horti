@@ -15,7 +15,7 @@ public class InformarEntregaUseCase {
         this.dao = dao;
     }
 
-    public boolean infEntrega(Pedido pedido, Endereco endereco){
+    public boolean infEntrega(Pedido pedido, String endereco){
         Validator<Pedido> validator = new PedidoValidator();
         Notification notification = validator.validate(pedido);
 

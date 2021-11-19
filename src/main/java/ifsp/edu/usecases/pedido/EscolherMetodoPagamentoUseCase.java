@@ -1,5 +1,6 @@
 package ifsp.edu.usecases.pedido;
 
+import ifsp.edu.enums.FormaDePagamento;
 import ifsp.edu.model.Pagamento;
 import ifsp.edu.model.Pedido;
 import ifsp.edu.utils.EntidadeExistenteException;
@@ -15,7 +16,7 @@ public class EscolherMetodoPagamentoUseCase {
         this.dao = dao;
     }
 
-    public boolean escolherMetodo(Pedido pedido, Pagamento pagamento){
+    public boolean escolherMetodo(Pedido pedido, FormaDePagamento pagamento){
         Validator<Pedido> validator = new PedidoValidator();
         Notification notification = validator.validate(pedido);
 

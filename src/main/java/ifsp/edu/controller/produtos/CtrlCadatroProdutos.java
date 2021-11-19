@@ -39,6 +39,7 @@ public class CtrlCadatroProdutos {
     ChoiceBox cbFornecedoresProdutos;
     @FXML
     Button btnAdicionarFornecedor;
+
     @FXML
     Button btnCadastrarProduto;
 
@@ -104,7 +105,13 @@ public class CtrlCadatroProdutos {
     }
 
 
+    private void delete(){
+
+    }
+
+
     private Produto getFromProdutoToView() {
+
         Integer id = Integer.valueOf(txtIdProduto.getText());
         String nome = String.valueOf(txtNomeProduto.getText());
         String descricao = String.valueOf(txtDescricaoProduto.getText());

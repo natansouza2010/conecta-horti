@@ -1,10 +1,12 @@
 package ifsp.edu.controller.clientes;
 
 import ifsp.edu.model.Cliente;
+import ifsp.edu.model.Cliente;
 import ifsp.edu.repository.ClienteRepository;
 import ifsp.edu.usecases.cliente.ClienteDAO;
 import ifsp.edu.usecases.cliente.DeleteClienteUseCase;
 import ifsp.edu.usecases.cliente.FindClienteUseCase;
+import ifsp.edu.usecases.cliente.InserirClienteUseCase;
 import ifsp.edu.view.clientes.WindowCadastroClientes;
 import ifsp.edu.view.principal.WindowPrincipal;
 import javafx.collections.FXCollections;
@@ -43,6 +45,7 @@ public class CtlrSubmenuClientes {
     ObservableList<Cliente> clientes;
     private DeleteClienteUseCase deleteClienteUseCase;
     private FindClienteUseCase findClienteUseCase;
+    private InserirClienteUseCase inserirClienteUseCase;
 
     public void initialize(){
         colCpfCliente.setCellValueFactory(new PropertyValueFactory<Cliente, String>("cpf"));
@@ -50,6 +53,14 @@ public class CtlrSubmenuClientes {
         colTel1Cliente.setCellValueFactory(new PropertyValueFactory<Cliente, String>("telefone1"));
         colTel2Cliente.setCellValueFactory(new PropertyValueFactory<Cliente, String>("telefone2"));
         colEnderecoCliente.setCellValueFactory(new PropertyValueFactory<Cliente, String>("endereco"));
+        ClienteDAO dao = new ClienteRepository();
+        inserirClienteUseCase = new InserirClienteUseCase(dao);
+        Cliente c1 = new Cliente("123456789","Julia","Rua das Torres","33064477",null);
+        Cliente c2 = new Cliente("987654321","Lucca","Rua Abilo Rodrigues","33264477",null);
+        Cliente c3 = new Cliente("111222333","Natan","Rua Carlos del Nero","12365466",null);
+        inserirClienteUseCase.insert(c1);
+        inserirClienteUseCase.insert(c2);
+        inserirClienteUseCase.insert(c3);
         clientes = FXCollections.observableArrayList();
         loadTable();
 
@@ -90,16 +101,11 @@ public class CtlrSubmenuClientes {
     }
 
     public void editarCliente(ActionEvent actionEvent) {
-        final Cliente selectedItem = table.getSelectionModel().getSelectedItem();
-
-        if (selectedItem != null) {
-            WindowCadastroClientes window = new WindowCadastroClientes();
-            try {
-                window.show(selectedItem);
-                reloadTable();
-            }catch (IOException e){
-                e.printStackTrace();
-            }
+        WindowCadastroClientes window = new WindowCadastroClientes();
+        try {
+            window.show();
+        } catch (IOException e ){
+            e.printStackTrace();
         }
     }
 

@@ -24,9 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CtrlSubmenuProdutos {
-
-
-
     @FXML Button btnAdicionarProdutos;
     @FXML Button btnRemoverProdutos;
     @FXML Button btnEditarProdutos;

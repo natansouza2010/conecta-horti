@@ -7,7 +7,9 @@ import ifsp.edu.model.Pedido;
 import ifsp.edu.model.Pedido;
 import ifsp.edu.repository.PedidoRepository;
 import ifsp.edu.repository.PedidoRepository;
+import ifsp.edu.usecases.pedido.AtualizarStatusPedidoUseCase;
 import ifsp.edu.usecases.pedido.PedidoDAO;
+import ifsp.edu.usecases.pedido.RemoverPedidoUseCase;
 import ifsp.edu.view.clientes.WindowCadastroClientes;
 import ifsp.edu.view.pedidos.WindowCadastroPedidos;
 import ifsp.edu.view.pedidos.WindowSubmenuPedidos;
@@ -21,6 +23,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -35,20 +38,25 @@ public class CtlrSubmenuPedidos {
     @FXML Label txtCpfClientePedido;
     @FXML Label txtEnderecoClientePedido;
     @FXML Label txtTel1ClientePedido;
-    @FXML Label txtEnderecoCliente;
+    @FXML Label txtTel2ClientePedido;
     @FXML Button btnVoltar;
     @FXML Button btnAtualizaStatus;
     @FXML Button btnAdicionarPedido;
     @FXML TableColumn colIdPedido;
     @FXML TableColumn colStatusPedido;
     @FXML TableColumn colDataPedido;
+    @FXML TableColumn colValorPedido;
 
     ObservableList<Pedido> pedidos;
+
+    RemoverPedidoUseCase removerPedidoUseCase;
+    AtualizarStatusPedidoUseCase atualizarStatusPedidoUseCase;
 
     public void initialize(){
         colDataPedido.setCellValueFactory(new PropertyValueFactory<Pedido, String>("dataPedido"));
         colIdPedido.setCellValueFactory(new PropertyValueFactory<Pedido, String>("id"));
         colStatusPedido.setCellValueFactory(new PropertyValueFactory<Pedido, String>("status"));
+        colValorPedido.setCellValueFactory(new PropertyValueFactory<Pedido, Double >("valor"));
 
         pedidos = FXCollections.observableArrayList();
         PedidoDAO dao = new PedidoRepository();
@@ -57,10 +65,12 @@ public class CtlrSubmenuPedidos {
         loadTable();
     }
 
+
+
     private void loadTable(){
         PedidoRepository dao = new PedidoRepository();
-        List<Pedido> forn = new ArrayList<>(dao.listAll());
-        pedidos = FXCollections.observableArrayList(forn);
+        List<Pedido> peds = new ArrayList<>(dao.listAll());
+        pedidos = FXCollections.observableArrayList(peds);
     }
 
     private void reloadTable(){
@@ -74,7 +84,20 @@ public class CtlrSubmenuPedidos {
     }
 
     public void atualizarStatus(ActionEvent actionEvent) {
+        Pedido p = table.getSelectionModel().getSelectedItem();
+        PedidoDAO dao = new PedidoRepository();
+        atualizarStatusPedidoUseCase = new AtualizarStatusPedidoUseCase(dao);
+        atualizarStatusPedidoUseCase.updateStatus(p, StatusPedido.PAGO);
+        reloadTable();
 
+    }
+
+    public void removePedido(ActionEvent actionEvent){
+        Pedido p = table.getSelectionModel().getSelectedItem();
+        PedidoDAO dao = new PedidoRepository();
+        removerPedidoUseCase = new RemoverPedidoUseCase(dao);
+        removerPedidoUseCase.delete(p.getId());
+        reloadTable();
     }
 
     public void cadastrarPedido(ActionEvent actionEvent) {
@@ -90,5 +113,20 @@ public class CtlrSubmenuPedidos {
     private void close(){
         Stage stage = (Stage) btnAtualizaStatus.getScene().getWindow();
         stage.close();
+    }
+
+    public void transferDataToLabels(MouseEvent mouseEvent) {
+        if(mouseEvent.getClickCount() == 1){
+            Pedido p = table.getSelectionModel().getSelectedItem();
+            if(p != null){
+                txtCpfClientePedido.setText(p.getCliente().getCpf());
+                txtNomeClientePedido.setText(p.getCliente().getNome());
+                txtEnderecoClientePedido.setText(p.getEndereco());
+                txtTel1ClientePedido.setText(p.getCliente().getTelefone1());
+                txtTel2ClientePedido.setText(p.getCliente().getTelefone2());
+            }
+
+
+        }
     }
 }

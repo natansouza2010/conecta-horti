@@ -4,10 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-@AllArgsConstructor
+
 @NoArgsConstructor
 @Data
 public class Cliente {
@@ -16,7 +17,6 @@ public class Cliente {
     private String endereco;
     private String telefone1;
     private String telefone2;
-    private List<Pedido> pedidos;
 
 
     public Cliente(String cpf, String nome, String endereco, String telefone1, String telefone2) {
@@ -26,6 +26,8 @@ public class Cliente {
         this.telefone1 = telefone1;
         this.telefone2 = telefone2;
     }
+
+
 
     @Override
     public boolean equals(Object o) {

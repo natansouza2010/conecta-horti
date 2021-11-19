@@ -24,7 +24,7 @@ public class AtualizarStatusPedidoUseCase {
 
 
         Integer id = pedido.getId();
-        if(dao.findById(id).isPresent()){
+        if(!dao.findById(id).isPresent()){
             throw new EntidadeExistenteException(notification.errorMessage());
         }
 
@@ -36,7 +36,6 @@ public class AtualizarStatusPedidoUseCase {
         if(statusPedido == null){
             throw new EntidadeNaoEncontradaException("Status inexistente");
         }
-        pedido.setStatus(statusPedido);
         return dao.atualizarStatusPedido(pedido);
     }
 }

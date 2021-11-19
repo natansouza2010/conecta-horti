@@ -11,30 +11,32 @@
                 <Font size="18.0" />
             </font>
         </Label>
-      <TableView fx:id="table" layoutX="14.0" layoutY="102.0" prefHeight="275.0" prefWidth="313.0">
+      <TableView fx:id="table" layoutX="14.0" layoutY="102.0" onMouseClicked="#transferDataToLabels" prefHeight="238.0" prefWidth="350.0">
         <columns>
           <TableColumn fx:id="colIdPedido" prefWidth="75.0" text="ID Pedido" />
           <TableColumn fx:id="colStatusPedido" prefWidth="99.0" text="Status" />
-            <TableColumn fx:id="colDataPedido" prefWidth="138.0" text="Data " />
+            <TableColumn fx:id="colDataPedido" prefWidth="87.0" text="Data " />
+            <TableColumn fx:id="colValorPedido" prefWidth="88.0" text="Valor " />
         </columns>
       </TableView>
-      <Label layoutX="348.0" layoutY="102.0" prefHeight="17.0" prefWidth="146.0" text="Dados do cliente">
+      <Label layoutX="417.0" layoutY="102.0" prefHeight="17.0" prefWidth="146.0" text="Dados do cliente">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="348.0" layoutY="141.0" prefHeight="17.0" prefWidth="46.0" text="Nome: " />
-      <Label layoutX="348.0" layoutY="176.0" prefHeight="17.0" prefWidth="33.0" text="CPF: " />
-      <Label layoutX="351.0" layoutY="208.0" text="Endereço: " />
-      <Label layoutX="348.0" layoutY="240.0" text="Telefone 1: " />
-      <Label layoutX="348.0" layoutY="273.0" text="Telefone 2: " />
-      <Button onAction="#voltarMenu" fx:id="btnVoltar" layoutX="614.0" layoutY="361.0" mnemonicParsing="false" text="Voltar" />
-      <Button onAction="#atualizarStatus" fx:id="btnAtualizaStatus" layoutX="507.0" layoutY="361.0" mnemonicParsing="false" text="Atualizar Status" />
-      <Button onAction="#cadastrarPedido" fx:id="btnAdicionarPedido" layoutX="431.0" layoutY="361.0" mnemonicParsing="false" text="Adicionar" />
-      <Label fx:id="txtNomeClientePedido" layoutX="396.0" layoutY="141.0" prefHeight="17.0" prefWidth="76.0" text="." />
-      <Label fx:id="txtCpfClientePedido" layoutX="377.0" layoutY="176.0" prefHeight="17.0" prefWidth="67.0" text="." />
-      <Label fx:id="txtEnderecoClientePedido" layoutX="408.0" layoutY="208.0" prefHeight="17.0" prefWidth="56.0" text="." />
-      <Label fx:id="txtTel1ClientePedido" layoutX="414.0" layoutY="240.0" prefHeight="17.0" prefWidth="76.0" text="." />
-      <Label fx:id="txtEnderecoCliente" layoutX="414.0" layoutY="273.0" prefHeight="17.0" prefWidth="76.0" text="." />
+      <Label layoutX="407.0" layoutY="141.0" prefHeight="17.0" prefWidth="46.0" text="Nome: " />
+      <Label layoutX="407.0" layoutY="176.0" prefHeight="17.0" prefWidth="33.0" text="CPF: " />
+      <Label layoutX="410.0" layoutY="208.0" text="Endereço: " />
+      <Label layoutX="407.0" layoutY="240.0" text="Telefone 1: " />
+      <Label layoutX="407.0" layoutY="273.0" text="Telefone 2: " />
+      <Button fx:id="btnVoltar" layoutX="613.0" layoutY="361.0" mnemonicParsing="false" onAction="#voltarMenu" text="Voltar" />
+      <Button fx:id="btnAtualizaStatus" layoutX="503.0" layoutY="361.0" mnemonicParsing="false" onAction="#atualizarStatus" text="Atualizar Status" />
+      <Button fx:id="btnAdicionarPedido" layoutX="341.0" layoutY="361.0" mnemonicParsing="false" onAction="#cadastrarPedido" text="Adicionar" />
+      <Label fx:id="txtNomeClientePedido" layoutX="455.0" layoutY="141.0" prefHeight="17.0" prefWidth="197.0" text="." />
+      <Label fx:id="txtCpfClientePedido" layoutX="436.0" layoutY="176.0" prefHeight="17.0" prefWidth="213.0" text="." />
+      <Label fx:id="txtEnderecoClientePedido" layoutX="467.0" layoutY="208.0" prefHeight="17.0" prefWidth="205.0" text="." />
+      <Label fx:id="txtTel1ClientePedido" layoutX="473.0" layoutY="240.0" prefHeight="17.0" prefWidth="158.0" text="." />
+      <Label fx:id="txtTel2ClientePedido" layoutX="473.0" layoutY="273.0" prefHeight="17.0" prefWidth="146.0" text="." />
+      <Button fx:id="btnRemoverPedido" layoutX="420.0" layoutY="361.0" mnemonicParsing="false" onAction="#removePedido" text="Remover " />
     </children>
 </AnchorPane>

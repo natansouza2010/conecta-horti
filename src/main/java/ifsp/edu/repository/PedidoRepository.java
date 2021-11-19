@@ -44,6 +44,12 @@ public class PedidoRepository implements PedidoDAO {
 
     @Override
     public boolean delete(Integer key) {
+        if(pedidosMap.containsKey(key)){
+            pedidosMap.remove(key);
+            return true;
+        }
+
+
         return false;
     }
 
@@ -76,5 +82,26 @@ public class PedidoRepository implements PedidoDAO {
             return cliente.findByCpf(cpf);
         }
         return Optional.empty();
+    }
+
+    @Override
+    public boolean atualizarStatusPedido(Pedido pedido) {
+        if (pedido.getStatus() == StatusPedido.A_PAGAR) {
+            pedido.setStatus(StatusPedido.PAGO);
+            return true;
+
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean escolherMetodoPagamento(Pedido pedido) {
+        return false;
+    }
+
+    @Override
+    public boolean informarEntrega(Pedido pedido) {
+        return false;
     }
 }

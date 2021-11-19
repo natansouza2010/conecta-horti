@@ -36,9 +36,9 @@ public class CtlrCadatroPedidos {
     @FXML ChoiceBox<String> cbPagamento;
     @FXML TextField txtQuantidadeProduto;
     @FXML Label txtValorTotal;
-    @FXML TableColumn colIdProduto;
-    @FXML TableColumn colQuantidadeProduto;
-    @FXML TableColumn colValorProduto;
+    @FXML TableColumn<Item, Produto> colProduto;
+    @FXML TableColumn<Item, Integer> colQuantidadeProduto;
+    @FXML TableColumn<Item ,Double> colValorProduto;
     @FXML Button btnAddProduto;
 
     @FXML TableView<Item> table;
@@ -48,37 +48,47 @@ public class CtlrCadatroPedidos {
     private Pedido pedido;
     private InsertPedidoUseCase insertPedidoUseCase;
     private UpdatePedidoUseCase updatePedidoUseCase;
-     ArrayList<Item> listaItens = new ArrayList();
+    ArrayList<Item> listaItens = new ArrayList();
+    ClienteRepository daoCliente = new ClienteRepository();
+    ProdutoRepository daoProdutos = new ProdutoRepository();
 
     static Integer cont=0;
 
-    //CLIENTES
-    ClienteRepository daoCliente = new ClienteRepository();
-    List<Cliente> clienteArrayList = new ArrayList<>(daoCliente.listAll());
-    ObservableList<String> clientes = FXCollections.observableArrayList(clienteArrayList.stream().map(c -> c.getCpf()).collect(Collectors.toList()));
-    ObservableList<String> cpfClientesCadastrados = FXCollections.observableArrayList(clientes);
 
-    //FORNECEDORES
-    ProdutoRepository daoProdutos = new ProdutoRepository();
-    List<Produto> produtosArrayList = new ArrayList<>(daoProdutos.listAll());
-    ObservableList<String> produtos = FXCollections.observableArrayList(produtosArrayList.stream().map(c -> c.getNome()).collect(Collectors.toList()));
-    ObservableList<String> produtosCadastrados = FXCollections.observableArrayList(produtos);
 
-    //FORMA PAGAMENTO
-    ObservableList<String> formaPagamento = FXCollections.observableArrayList("DINHEIRO","CARTAO");
 
     @FXML
     private void initialize(){
-        cbCpfCliente.setItems(cpfClientesCadastrados);
-        cbProdutos.setItems(produtosCadastrados);
-        cbPagamento.setItems(formaPagamento);
-        colValorProduto.setCellValueFactory(new PropertyValueFactory<Produto, Double>("valorVenda"));
-        colQuantidadeProduto.setCellValueFactory(new PropertyValueFactory<Item, Integer>("quantidade"));
-        colIdProduto.setCellValueFactory(new PropertyValueFactory<Produto, Integer>("id"));
-
+        colValorProduto.setCellValueFactory(new PropertyValueFactory<>("valorVenda"));
+        colQuantidadeProduto.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
+        colProduto.setCellValueFactory(new PropertyValueFactory<>("produto"));
+        addDataInCb();
         produtosDoPedido = FXCollections.observableArrayList();
 
     }
+
+
+    public void addDataInCb(){
+        //CLIENTES
+
+        List<Cliente> clienteArrayList = new ArrayList<>(daoCliente.listAll());
+        ObservableList<String> clientes = FXCollections.observableArrayList(clienteArrayList.stream().map(c -> c.getCpf()).collect(Collectors.toList()));
+        ObservableList<String> cpfClientesCadastrados = FXCollections.observableArrayList(clientes);
+
+        //FORNECEDORES
+
+        List<Produto> produtosArrayList = new ArrayList<>(daoProdutos.listAll());
+        ObservableList<String> produtos = FXCollections.observableArrayList(produtosArrayList.stream().map(c -> c.getNome()).collect(Collectors.toList()));
+        ObservableList<String> produtosCadastrados = FXCollections.observableArrayList(produtos);
+
+        //FORMA PAGAMENTO
+        ObservableList<String> formaPagamento = FXCollections.observableArrayList("DINHEIRO","CARTAO");
+        cbCpfCliente.setItems(cpfClientesCadastrados);
+        cbProdutos.setItems(produtosCadastrados);
+        cbPagamento.setItems(formaPagamento);
+
+    }
+
 
     private PedidoDTO getPedidoFromView(){
         String cpfCliente = String.valueOf(cbCpfCliente.getSelectionModel().getSelectedItem());
@@ -86,30 +96,61 @@ public class CtlrCadatroPedidos {
         Cliente c = daoCliente.findOne(cpfCliente);
         Produto p = daoProdutos.findByNome(nomeProduto);
 
-        Integer quantidadeProduto = Integer.valueOf(txtQuantidadeProduto.getText());
+//        Item item = new Item();
+//        Integer quantidadeProduto = Integer.valueOf(txtQuantidadeProduto.getText());
+//        item.setQuantidade(quantidadeProduto);
+//        item.setProduto(p);
+//        item.setValorVenda(p.getValorVenda());
         FormaDePagamento formaDePagamento = FormaDePagamento.valueOf(cbPagamento.getSelectionModel().getSelectedItem());
 
-        Item i = new Item(quantidadeProduto,p);
-        PedidoDTO pedido = new PedidoDTO(c,i,formaDePagamento);
+//        pedido.getItems().add(item);
+//        pedido.setValor(pedido.calculaTotalPedido());
+//        Item i = new Item(quantidadeProduto,p);
+         PedidoDTO pedido = new PedidoDTO(c,listaItens,formaDePagamento);
+
 
         return pedido;
     }
 
-    private void loadTable(){
-        table.setItems(FXCollections.observableArrayList(listaItens));
-    }
+////    private void loadTable(){
+//        System.out.println(pedido.getItems());
+//        table.setItems(FXCollections.observableArrayList(pedido.getItems()));
+//        txtValorTotal.setText(String.valueOf(pedido.getValor()));
+//    }
 
     public void btnAdicionarProdutoToTable(ActionEvent actionEvent) {
-        PedidoDTO pedidoDTO = getPedidoFromView();
-        listaItens.add(pedidoDTO.getItem());
-        System.out.println(listaItens.size());
-        loadTable();
+        String nomeProduto = String.valueOf(cbProdutos.getSelectionModel().getSelectedItem());
+        Produto produto = daoProdutos.findByNome(nomeProduto);
+        Item item = new Item();
+        item.setProduto(produto);
+        item.setQuantidade( Integer.valueOf(txtQuantidadeProduto.getText()));
+        item.setValorVenda(item.calculaValor());
+        listaItens.add(item);
+        table.setItems(FXCollections.observableArrayList(listaItens));
+
+        Double valorTotal = getValorTotalFromList();
+
+        txtValorTotal.setText(String.valueOf(valorTotal));
+//        Pedido pedido = getPedidoFromView();
+//        System.out.println(pedido.getItems().size());
+//        System.out.println(pedido.getItems());
+//        table.setItems(FXCollections.observableArrayList(pedido.getItems()));
+//        txtValorTotal.setText(String.valueOf(pedido.getValor()));
     }
 
-    public Pedido criarPedido(PedidoDTO dto){
-        Double valorTotalPedido = listaItens.stream().mapToDouble(c->c.calculaValor()).sum();
-        Pedido pedidoFinal = new Pedido(cont,dto.getCliente(), listaItens, valorTotalPedido,LocalDate.now(),StatusPedido.A_PAGAR,dto.getCliente().getEndereco(), dto.getFormaDePagamento() );
-        System.out.println(listaItens.toString());
+    private Double getValorTotalFromList() {
+        Double sum = 0.0;
+        for (Item i : listaItens) {
+            sum += i.getProduto().getValorVenda() * i.getQuantidade();
+        }
+        return sum;
+    }
+
+    public Pedido criarPedido(PedidoDTO pedido){
+//        Double valorTotalPedido = listaItens.stream().mapToDouble(c->c.calculaValor()).sum();
+        Pedido pedidoFinal = new Pedido(cont,pedido.getCliente(), pedido.getItems(), pedido.calculaTotalPedido(),LocalDate.now(),StatusPedido.A_PAGAR,pedido.getCliente().getEndereco(), pedido.getFormaDePagamento() );
+        System.out.println(pedido.getItems().toString());
+        System.out.println(pedidoFinal.toString());
         cont++;
         return pedidoFinal;
     }
@@ -132,16 +173,10 @@ public class CtlrCadatroPedidos {
         Pedido a = criarPedido(getPedidoFromView());
         if (pedido == null && a != null ) {
             save(a);
-        } else if (pedido != null && a != null ) {
-            update(a);
         }
 
     }
-    private void update(Pedido f) {
-        PedidoDAO dao = new PedidoRepository();
-        updatePedidoUseCase = new UpdatePedidoUseCase(dao);
-        updatePedidoUseCase.update(f);
-    }
+
     private void save(Pedido f) {
         PedidoDAO dao = new PedidoRepository();
         insertPedidoUseCase = new InsertPedidoUseCase(dao);
@@ -151,4 +186,6 @@ public class CtlrCadatroPedidos {
         Stage stage = (Stage) btnAddProduto.getScene().getWindow();
         stage.close();
     }
+
+
 }

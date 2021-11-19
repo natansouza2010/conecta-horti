@@ -19,7 +19,7 @@
         <ChoiceBox fx:id="cbCpfCliente" layoutX="143.0" layoutY="176.0" prefHeight="25.0" prefWidth="191.0" />
       <TableView fx:id="table" layoutX="407.0" layoutY="101.0" prefHeight="201.0" prefWidth="218.0">
         <columns>
-          <TableColumn fx:id="colIdProduto" prefWidth="66.0" text="Id " />
+          <TableColumn fx:id="colProduto" prefWidth="66.0" text="Produto" />
             <TableColumn fx:id="colQuantidadeProduto" prefWidth="75.0" text="Quantidade" />
             <TableColumn fx:id="colValorProduto" prefWidth="75.0" text="Valor" />
         </columns>

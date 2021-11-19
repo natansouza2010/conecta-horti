@@ -1,30 +1,31 @@
-package ifsp.edu.usecases.fornecedor;
+package ifsp.edu.usecases.pedido;
 
 import ifsp.edu.model.Fornecedor;
+import ifsp.edu.model.Pedido;
+import ifsp.edu.usecases.pedido.PedidoDAO;
 import ifsp.edu.utils.EntidadeNaoEncontradaException;
 import ifsp.edu.utils.Notification;
 import ifsp.edu.utils.Validator;
 
-public class UpdateFornecedorUseCase {
-    private FornecedorDAO dao;
+public class UpdatePedidoUseCase {
+    private PedidoDAO dao;
 
-    public UpdateFornecedorUseCase(FornecedorDAO dao) {
+    public UpdatePedidoUseCase(PedidoDAO dao) {
         this.dao = dao;
     }
 
-    public boolean update(Fornecedor fornecedor){
-        Validator<Fornecedor> validator = new FornecedorValidator();
-        Notification notification = validator.validate(fornecedor);
+    public boolean update(Pedido pedido){
+        Validator<Pedido> validator = new PedidoValidator();
+        Notification notification = validator.validate(pedido);
 
         if(notification.hasErrors()){
             throw new IllegalArgumentException(notification.errorMessage());
         }
-        if(dao.findByCNPJ(fornecedor.getCnpj()).isEmpty()){
+        if(dao.findById(pedido.getId()).isEmpty()){
             throw new EntidadeNaoEncontradaException("Cnpj não existe");
-
         }
         System.out.println("Dfghfjgkhliykujyhdtgsrfertdhfytdghfdtrgfefb gtr54rtgbcfvd");
-        return dao.update(fornecedor);
+        return dao.update(pedido);
 
     }
 }

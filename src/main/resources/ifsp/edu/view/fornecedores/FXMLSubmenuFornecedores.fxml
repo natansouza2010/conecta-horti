@@ -26,6 +26,6 @@
         </Label>
         <Button fx:id="btnBuscarFornecedor" layoutX="172.0" layoutY="361.0" mnemonicParsing="false" onAction="#buscarFornecedor" text="Buscar" />
         <TextField fx:id="txtBuscarFornecedor" layoutX="14.0" layoutY="361.0" />
-        <Button fx:id="btnAdicionarFornecedor1" layoutX="598.0" layoutY="361.0" mnemonicParsing="false" onAction="#voltarParaMenu" prefHeight="25.0" prefWidth="70.0" text="Voltar" />
+        <Button fx:id="btnVoltar" layoutX="598.0" layoutY="361.0" mnemonicParsing="false" onAction="#voltarParaMenu" prefHeight="25.0" prefWidth="70.0" text="Voltar" />
     </children>
 </AnchorPane>

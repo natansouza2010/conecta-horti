@@ -39,6 +39,7 @@ public class CtrlCadatroProdutos {
     ChoiceBox cbFornecedoresProdutos;
     @FXML
     Button btnAdicionarFornecedor;
+
     @FXML
     Button btnCadastrarProduto;
 
@@ -101,6 +102,11 @@ public class CtrlCadatroProdutos {
         ProdutoDAO dao = new ProdutoRepository();
         inserirProdutoUseCase = new InserirProdutoUseCase(dao);
         inserirProdutoUseCase.insert(p);
+    }
+
+
+    private void delete(){
+
     }
 
 

@@ -21,7 +21,7 @@
                 <Font size="18.0" />
             </font>
         </Label>
-        <Button fx:id="btnCadastrarCliente" layoutX="544.0" layoutY="361.0" mnemonicParsing="false" onAction="#cadastrarCliente" text="Cadastrar" />
+        <Button fx:id="btnCadastrarCliente" layoutX="544.0" layoutY="361.0" mnemonicParsing="false" onAction="#saveOrUpdate" text="Cadastrar" />
       <Button fx:id="btnVoltar" layoutX="618.0" layoutY="361.0" mnemonicParsing="false" onAction="#btnVoltar" text="Voltar" />
     </children>
 </AnchorPane>

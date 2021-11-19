@@ -26,7 +26,6 @@ public class WindowPrincipal extends Application {
 
     }
 
-
     private CtlrMenuPrincipal controller;
     public void show() throws IOException {
         FXMLLoader loader = new FXMLLoader();
@@ -40,7 +39,7 @@ public class WindowPrincipal extends Application {
         stage.setScene(scene);
         stage.initModality(Modality.APPLICATION_MODAL);
 
-        stage.show();
+        stage.showAndWait();
 
     }
 }

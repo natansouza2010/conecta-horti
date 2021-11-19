@@ -8,7 +8,6 @@ import lombok.Data;
 @Data
 public class PedidoDTO{
     private Cliente cliente;
-    private Produto produto;
-    private Integer quantidade;
+    private Item item;
     private FormaDePagamento formaDePagamento;
 }

@@ -5,6 +5,7 @@ import ifsp.edu.enums.StatusPedido;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Pedido {
     private Integer id;
     private Cliente cliente;
@@ -33,6 +35,17 @@ public class Pedido {
 
     public Pedido(Integer id, Cliente cliente, List<Item> items, LocalDate dataPedido, StatusPedido status, String endereco, FormaDePagamento pagamento) {
         this.id = id;
+        this.cliente = cliente;
+        this.items = items;
+        this.valor = calculaTotalPedido();
+        this.dataPedido = dataPedido;
+        this.status = status;
+        this.endereco = endereco;
+        this.pagamento = pagamento;
+    }
+
+
+    public Pedido(Cliente cliente, ArrayList<Item> listaItens, Double valorTotalPedido, LocalDate now, StatusPedido aPagar, String endereco, FormaDePagamento formaDePagamento) {
         this.cliente = cliente;
         this.items = items;
         this.valor = calculaTotalPedido();

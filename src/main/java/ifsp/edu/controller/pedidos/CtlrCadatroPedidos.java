@@ -41,15 +41,16 @@ public class CtlrCadatroPedidos {
     @FXML TableColumn colValorProduto;
     @FXML Button btnAddProduto;
 
-    @FXML TableView<Pedido> table;
+    @FXML TableView<Item> table;
     ObservableList produtosDoPedido;
 
 
     private Pedido pedido;
     private InsertPedidoUseCase insertPedidoUseCase;
     private UpdatePedidoUseCase updatePedidoUseCase;
-    ArrayList<Item> listaItens = new ArrayList();
+     ArrayList<Item> listaItens = new ArrayList();
 
+    static Integer cont=0;
 
     //CLIENTES
     ClienteRepository daoCliente = new ClienteRepository();
@@ -89,25 +90,27 @@ public class CtlrCadatroPedidos {
         FormaDePagamento formaDePagamento = FormaDePagamento.valueOf(cbPagamento.getSelectionModel().getSelectedItem());
 
         Item i = new Item(quantidadeProduto,p);
-        PedidoDTO pedido = new PedidoDTO(c, p, quantidadeProduto, formaDePagamento);
-        listaItens.add(i);
+        PedidoDTO pedido = new PedidoDTO(c,i,formaDePagamento);
 
         return pedido;
     }
 
     private void loadTable(){
-        FXCollections.observableArrayList(listaItens);
+        table.setItems(FXCollections.observableArrayList(listaItens));
     }
 
     public void btnAdicionarProdutoToTable(ActionEvent actionEvent) {
+        PedidoDTO pedidoDTO = getPedidoFromView();
+        listaItens.add(pedidoDTO.getItem());
+        System.out.println(listaItens.size());
         loadTable();
-
     }
 
     public Pedido criarPedido(PedidoDTO dto){
         Double valorTotalPedido = listaItens.stream().mapToDouble(c->c.calculaValor()).sum();
-        Pedido pedidoFinal = new Pedido(1,dto.getCliente(), listaItens, valorTotalPedido,LocalDate.now(),StatusPedido.A_PAGAR,dto.getCliente().getEndereco(), dto.getFormaDePagamento() );
-        System.out.println(pedidoFinal.getCliente().getNome());
+        Pedido pedidoFinal = new Pedido(cont,dto.getCliente(), listaItens, valorTotalPedido,LocalDate.now(),StatusPedido.A_PAGAR,dto.getCliente().getEndereco(), dto.getFormaDePagamento() );
+        System.out.println(listaItens.toString());
+        cont++;
         return pedidoFinal;
     }
 
@@ -119,7 +122,7 @@ public class CtlrCadatroPedidos {
         close();
     }
 
-    public void setPedidosToView(Pedido p) {
+    public void changeStatusPedido(Pedido p) {
         pedido=p;
         p.setStatus(StatusPedido.PAGO);
 

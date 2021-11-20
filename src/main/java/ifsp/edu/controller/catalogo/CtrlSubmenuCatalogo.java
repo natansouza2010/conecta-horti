@@ -15,6 +15,7 @@ import ifsp.edu.usecases.produto.DeleteProdutoUseCase;
 import ifsp.edu.usecases.produto.FindProdutoUseCase;
 import ifsp.edu.usecases.produto.InserirProdutoUseCase;
 import ifsp.edu.usecases.produto.ProdutoDAO;
+import ifsp.edu.view.catalogo.WindowCadastroCatalogo;
 import ifsp.edu.view.principal.WindowPrincipal;
 import ifsp.edu.view.produtos.WindowCadastroProdutos;
 import javafx.collections.FXCollections;
@@ -49,8 +50,8 @@ public class CtrlSubmenuCatalogo {
     @FXML
     TableColumn<Produto,String> colNomeProdutos;
     @FXML TableColumn<Produto, String>colDescricaoProdutos;
-    @FXML TableColumn<Catalogo, Integer> colDataInicial;
-    @FXML TableColumn<Catalogo, Integer> colDataFinal;
+    @FXML TableColumn<Catalogo, LocalDate> colDataInicial;
+    @FXML TableColumn<Catalogo, LocalDate> colDataFinal;
     @FXML TableColumn<Produto, Double> colPrecoVendaProdutos;
 
     private InserirCatalogoUseCase inserirCatalogoUseCase;
@@ -60,18 +61,18 @@ public class CtrlSubmenuCatalogo {
     public void initialize(){
         colNomeProdutos.setCellValueFactory(new PropertyValueFactory<Produto, String>("nome"));
         colDescricaoProdutos.setCellValueFactory(new PropertyValueFactory<Produto, String>("descricao"));
-        colDataInicial.setCellValueFactory(new PropertyValueFactory<Catalogo, Integer>("dataInicial"));
+        colDataInicial.setCellValueFactory(new PropertyValueFactory<Catalogo, LocalDate>("dataInicial"));
         colPrecoVendaProdutos.setCellValueFactory(new PropertyValueFactory<Produto, Double>("valorVenda"));
-        colDataFinal.setCellValueFactory(new PropertyValueFactory<Catalogo, Integer>("dataFinal"));
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate dataInicial = LocalDate.parse(colDataInicial.getText(),formatter);
-        LocalDate dataFinal = LocalDate.parse(colDataFinal.getText(),formatter);
-        CatalogoDAO daoCatalogo = new CatalogoRepository();
-        Produto p = daoCatalogo.findProdutoByName(colNomeProdutos.getText()).get();
+        colDataFinal.setCellValueFactory(new PropertyValueFactory<Catalogo, LocalDate>("dataFinal"));
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//        LocalDate dataInicial = LocalDate.parse(colDataInicial.getText(),formatter);
+//        LocalDate dataFinal = LocalDate.parse(colDataFinal.getText(),formatter);
+//        CatalogoDAO daoCatalogo = new CatalogoRepository();
+//        Produto p = daoCatalogo.findProdutoByName(colNomeProdutos.getText()).get();
 
-        inserirCatalogoUseCase = new InserirCatalogoUseCase(daoCatalogo);
-        Catalogo catalogo = new Catalogo(1,dataInicial,dataFinal,p);
-        inserirCatalogoUseCase.insert(catalogo);
+//        inserirCatalogoUseCase = new InserirCatalogoUseCase(daoCatalogo);
+//        Catalogo catalogo = new Catalogo(1,dataInicial,dataFinal,p);
+//        inserirCatalogoUseCase.insert(catalogo);
 
         catalogos = FXCollections.observableArrayList();
         loadTable();
@@ -93,7 +94,7 @@ public class CtrlSubmenuCatalogo {
     }
 
     public void adicionarProdutosNoCatalogo(ActionEvent actionEvent) {
-        WindowCadastroProdutos window = new WindowCadastroProdutos();
+        WindowCadastroCatalogo window = new WindowCadastroCatalogo();
         try {
             window.show();
             reloadTable();
@@ -110,7 +111,7 @@ public class CtrlSubmenuCatalogo {
         deleteProdutoDoCatalogoUseCase = new DeleteProdutoDoCatalogoUseCase(dao);
         deleteProdutoDoCatalogoUseCase.deleteProduto(catalogo.getDataInicial(),catalogo.getDataFinal(),produto);
         reloadTable();
-    }
+   }
 
     public void voltarParaMenu(ActionEvent actionEvent) {
         WindowPrincipal window = new WindowPrincipal();

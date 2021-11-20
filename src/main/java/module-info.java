@@ -48,4 +48,9 @@ module ifsp.edu {
     exports ifsp.edu.controller.renda;
     opens  ifsp.edu.controller.renda to javafx.fxml;
 
+    exports ifsp.edu.view.catalogo;
+    opens ifsp.edu.view.catalogo to javafx.fxml;
+
+    exports  ifsp.edu.controller.catalogo;
+    opens ifsp.edu.controller.catalogo to javafx.fxml;
 }

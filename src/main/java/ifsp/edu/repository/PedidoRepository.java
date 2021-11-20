@@ -7,7 +7,9 @@ import ifsp.edu.usecases.cliente.ClienteDAO;
 import ifsp.edu.usecases.pedido.PedidoDAO;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class PedidoRepository implements PedidoDAO {
     ClienteRepository cliente = new ClienteRepository();
@@ -55,7 +57,18 @@ public class PedidoRepository implements PedidoDAO {
 
     @Override
     public List<Pedido> findByDate(LocalDate data) {
-        return null;
+        List<Pedido> array = new ArrayList<>(pedidosMap.values());
+
+        return array.stream().filter(p-> p.getDataPedido().equals(data)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Pedido> findByPeriodo(LocalDate data, LocalDate dataFinal) {
+        List<Pedido> array = new ArrayList<>(pedidosMap.values());
+
+
+        return array.stream().filter(p-> p.getDataPedido().isEqual(data) || p.getDataPedido().isAfter(data)
+                && p.getDataPedido().isBefore(dataFinal) || p.getDataPedido().isEqual(dataFinal)).collect(Collectors.toList());
     }
 
     @Override

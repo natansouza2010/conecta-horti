@@ -15,18 +15,24 @@ public class Renda {
     private LocalDate dataInicial;
     private LocalDate dataFinal;
     private List<Pedido> pedidos = new ArrayList<>();
-    private List<Produto> produtos = new ArrayList<>();
+    private List<Produto> produtos  = new ArrayList<>();
 
-    public Renda(Integer id, LocalDate dataInicial) {
+////    public Renda(Integer id, LocalDate dataInicial) {
+//        this.id = id;
+//        this.dataInicial = dataInicial;
+//    }
+
+    public Renda(Integer id, LocalDate dataInicial, LocalDate dataFinal, List<Pedido> pedidos, List<Produto> produtos) {
         this.id = id;
         this.dataInicial = dataInicial;
-    }
-
-    public Renda(Integer id, LocalDate dataInicial, List<Pedido> pedidos) {
-        this.id = id;
-        this.dataInicial = dataInicial;
+        this.dataFinal = dataFinal;
         this.pedidos = pedidos;
+        this.produtos = produtos;
+        this.despesa = calculaValorDespesa();
+        this.lucroObtido = calculaLucro();
     }
+
+
 
     public Integer getId() {
         return id;
@@ -44,11 +50,35 @@ public class Renda {
         this.dataInicial = data;
     }
 
-    public Double atualizarRenda(){
+    public Double getReceita() {
+        return receita;
+    }
+
+    public Double getDespesa() {
+        return despesa;
+    }
+
+    public Double getLucroObtido() {
+        return lucroObtido;
+    }
+
+    public LocalDate getDataFinal() {
+        return dataFinal;
+    }
+
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public Double calculaLucro(){
         Double valorPedidos = calculaValorPedidos();
         Double valorCustos = calculaValorDespesa();
         double lucro = valorPedidos - valorCustos;
-        return this.lucroObtido = lucro;
+        return lucro;
     }
 
     private Double calculaValorPedidos() {
@@ -64,7 +94,7 @@ public class Renda {
         for (Produto produto : produtos) {
             sum+= produto.getValorCusto();
         }
-        return this.despesa = sum;
+        return sum;
     }
 
     public void addPedido(Pedido pedido){
@@ -73,5 +103,18 @@ public class Renda {
 
     public void addProduto(Produto produto){
         produtos.add(produto);
+    }
+
+    @Override
+    public String toString() {
+        return "Renda{" +
+                "id=" + id +
+                ", despesa=" + despesa +
+                ", lucroObtido=" + lucroObtido +
+                ", dataInicial=" + dataInicial +
+                ", dataFinal=" + dataFinal +
+                ", pedidos=" + pedidos +
+                ", produtos=" + produtos +
+                '}';
     }
 }

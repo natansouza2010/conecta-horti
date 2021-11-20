@@ -23,7 +23,7 @@ public class InsertPedidoUseCase {
         }
         Integer id = pedido.getId();
         if(dao.findById(id).isPresent()){
-            throw new EntidadeExistenteException("Cnpj já existente.");
+            throw new EntidadeExistenteException("Id já existente");
         }
         return dao.insert(pedido);
     }

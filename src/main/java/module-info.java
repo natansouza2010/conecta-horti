@@ -42,4 +42,10 @@ module ifsp.edu {
     exports ifsp.edu.controller.pedidos;
     opens ifsp.edu.controller.pedidos to javafx.fxml;
 
+    exports ifsp.edu.view.renda;
+    opens  ifsp.edu.view.renda to java.fxml;
+
+    exports ifsp.edu.controller.renda;
+    opens  ifsp.edu.controller.renda to javafx.fxml;
+
 }

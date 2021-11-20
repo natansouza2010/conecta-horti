@@ -27,17 +27,17 @@ public class Main {
         System.out.println(pedido.getValor());
         //        System.out.println(pedido.getValor());
 
-        Renda renda = new Renda(1, LocalDate.now());
-
-        renda.addPedido(pedido);
-        renda.addProduto(p1);
-        renda.addProduto(p2);
-        renda.addProduto(p3);
-        renda.addProduto(p4);
-        renda.addProduto(p5);
-        System.out.println(renda.calculaValorDespesa());
-
-        System.out.println(renda.atualizarRenda());
+//        Renda renda = new Renda(1, LocalDate.now());
+//
+//        renda.addPedido(pedido);
+//        renda.addProduto(p1);
+//        renda.addProduto(p2);
+//        renda.addProduto(p3);
+//        renda.addProduto(p4);
+//        renda.addProduto(p5);
+//        System.out.println(renda.calculaValorDespesa());
+//
+//        System.out.println(renda.calculaLucro());
 
 
 

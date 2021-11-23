@@ -5,7 +5,8 @@ import ifsp.edu.utils.EntidadeExistenteException;
 import ifsp.edu.utils.Notification;
 import ifsp.edu.utils.Validator;
 
-public class InsertFornecedorUseCase {
+public class InsertFornecedorUseCase{
+
     private FornecedorDAO dao;
 
     public InsertFornecedorUseCase(FornecedorDAO dao) {

@@ -11,9 +11,6 @@ public class Produto {
     private Double valorVenda;
     private Fornecedor fornecedor;
 
-
-
-
     public Produto(String nome, Integer id, String descricao, Double valorCusto, Double valorVenda) {
         this.nome = nome;
         this.id = id;

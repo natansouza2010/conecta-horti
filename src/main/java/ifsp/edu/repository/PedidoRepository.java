@@ -58,15 +58,12 @@ public class PedidoRepository implements PedidoDAO {
     @Override
     public List<Pedido> findByDate(LocalDate data) {
         List<Pedido> array = new ArrayList<>(pedidosMap.values());
-
         return array.stream().filter(p-> p.getDataPedido().equals(data)).collect(Collectors.toList());
     }
 
     @Override
     public List<Pedido> findByPeriodo(LocalDate data, LocalDate dataFinal) {
         List<Pedido> array = new ArrayList<>(pedidosMap.values());
-
-
         return array.stream().filter(p-> p.getDataPedido().isEqual(data) || p.getDataPedido().isAfter(data)
                 && p.getDataPedido().isBefore(dataFinal) || p.getDataPedido().isEqual(dataFinal)).collect(Collectors.toList());
     }

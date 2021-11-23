@@ -74,20 +74,6 @@ public class CtrlCadastroCatalogo {
         close();
     }
 
-    private void close() {
-        Stage stage = (Stage) txtIdProduto.getScene().getWindow();
-        stage.close();
-    }
-
-    public void btnVoltar(ActionEvent actionEvent) {
-        WindowSubmenuCatalogo window = new WindowSubmenuCatalogo();
-        try {
-            window.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void saveOrUpdate() throws RuntimeException{
         Catalogo c = getFromCatalogoToView();
 //        if (p == null && p != null ) {
@@ -128,5 +114,14 @@ public class CtrlCadastroCatalogo {
         Catalogo catalogo = new Catalogo( idCatalogo,dataInicial,dataFinal,produto);
         idCatalogo++;
         return catalogo;
+    }
+
+    public void voltar(ActionEvent actionEvent) {
+        close();
+    }
+
+    public void close(){
+        Stage stage = (Stage) btnCadastrarCatalogo.getScene().getWindow();
+        stage.close();
     }
 }

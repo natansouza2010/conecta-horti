@@ -33,8 +33,7 @@ public class CtlrSubmenuClientes {
     @FXML Button btnBuscarCliente;
     @FXML TextField txtBuscarCliente;
 
-    @FXML
-    TableView<Cliente> table;
+    @FXML TableView<Cliente> table;
 
     @FXML TableColumn colCpfCliente;
     @FXML TableColumn colNomeCliente;
@@ -55,9 +54,9 @@ public class CtlrSubmenuClientes {
         colEnderecoCliente.setCellValueFactory(new PropertyValueFactory<Cliente, String>("endereco"));
         ClienteDAO dao = new ClienteRepository();
         inserirClienteUseCase = new InserirClienteUseCase(dao);
-        Cliente c1 = new Cliente("123456789","Julia","Rua das Torres","33064477",null);
-        Cliente c2 = new Cliente("987654321","Lucca","Rua Abilo Rodrigues","33264477",null);
-        Cliente c3 = new Cliente("111222333","Natan","Rua Carlos del Nero","12365466",null);
+        Cliente c1 = new Cliente("123456789","Cliente 1","Rua das Torres","33064412","33064413");
+        Cliente c2 = new Cliente("987654321","Cliente 2","Rua Abilo Rodrigues","33264422","33064111");
+        Cliente c3 = new Cliente("111222333","Cliente 3","Rua Carlos del Nero","12313123","33012311");
         inserirClienteUseCase.insert(c1);
         inserirClienteUseCase.insert(c2);
         inserirClienteUseCase.insert(c3);
@@ -122,7 +121,7 @@ public class CtlrSubmenuClientes {
         table.setItems(clientes);
     }
 
-    public void voltarParaMenu(ActionEvent actionEvent) {
+    public void voltar(ActionEvent actionEvent) {
         close();
     }
 
@@ -130,4 +129,6 @@ public class CtlrSubmenuClientes {
         Stage stage = (Stage) btnAdicionarCliente.getScene().getWindow();
         stage.close();
     }
+
+
 }

@@ -32,7 +32,7 @@ public class WindowCadastroPedidos {
 
         if (pedido != null) {
             stage.setTitle("Editar Pedido");
-            controller.saveOrUpdate();
+            controller.savePedido();
         } else{
             stage.setTitle("Novo Pedido");
         }

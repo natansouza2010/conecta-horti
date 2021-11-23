@@ -69,8 +69,6 @@ public class CtlrSubmenuPedidos {
 
         pedidos = FXCollections.observableArrayList();
 
-
-
         loadTable();
         table.setItems(pedidos);
     }
@@ -135,7 +133,6 @@ public class CtlrSubmenuPedidos {
         insertPedidoUseCase.insert(p2);
     }
 
-
     private void loadTable(){
         PedidoRepository dao = new PedidoRepository();
         List<Pedido> peds = new ArrayList<>(dao.listAll());
@@ -146,10 +143,6 @@ public class CtlrSubmenuPedidos {
         pedidos.clear();
         loadTable();
         table.setItems(pedidos);
-    }
-
-    public void voltarMenu(ActionEvent actionEvent) {
-       close();
     }
 
     public void atualizarStatus(ActionEvent actionEvent) {
@@ -179,11 +172,6 @@ public class CtlrSubmenuPedidos {
         }
     }
 
-    private void close(){
-        Stage stage = (Stage) btnAtualizaStatus.getScene().getWindow();
-        stage.close();
-    }
-
     public void transferDataToLabels(MouseEvent mouseEvent) {
         if(mouseEvent.getClickCount() == 1){
             Pedido p = table.getSelectionModel().getSelectedItem();
@@ -198,4 +186,14 @@ public class CtlrSubmenuPedidos {
 
         }
     }
+
+    public void voltar(ActionEvent actionEvent) {
+        close();
+    }
+
+    private void close(){
+        Stage stage = (Stage) btnAtualizaStatus.getScene().getWindow();
+        stage.close();
+    }
+
 }

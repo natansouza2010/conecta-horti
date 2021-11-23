@@ -34,11 +34,6 @@ public class CtrlCadastroRenda {
 
     static Integer cont = 0;
 
-
-
-
-
-    
     public void criarNovaRenda(ActionEvent actionEvent) {
         Renda r = getRendaFromView();
         if(r != null) {
@@ -57,8 +52,6 @@ public class CtrlCadastroRenda {
 
 
     }
-
-
 
     public Renda getRendaFromView(){
         if( dpDataInicial.getValue() != null && dpDataFinal.getValue() != null){
@@ -82,5 +75,6 @@ public class CtrlCadastroRenda {
     }
 
     public void voltar(ActionEvent actionEvent) {
+        close();
     }
 }

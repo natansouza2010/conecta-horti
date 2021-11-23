@@ -36,10 +36,6 @@ public class CtrlCadastroClientes {
         close();
     }
 
-    public void btnVoltar(ActionEvent actionEvent) {
-        close();
-    }
-
     private Cliente getClienteFromView(){
         String cpf = String.valueOf(txtCpfCliente.getText());
         String nome = String.valueOf(txtNomeCliente.getText());
@@ -79,6 +75,10 @@ public class CtrlCadastroClientes {
         ClienteDAO dao = new ClienteRepository();
         inserirClienteUseCase = new InserirClienteUseCase(dao);
         inserirClienteUseCase.insert(c);
+    }
+
+    public void voltar(ActionEvent actionEvent) {
+        close();
     }
 
     private void close(){

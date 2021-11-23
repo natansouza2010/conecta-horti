@@ -38,8 +38,7 @@ import java.util.Optional;
 
 public class CtrlSubmenuCatalogo {
 
-    @FXML
-    Button btnAdicionarProdutosNoCatalogo;
+    @FXML Button btnAdicionarProdutosNoCatalogo;
     @FXML Button btnRemoverProdutos;
 
     @FXML
@@ -113,16 +112,11 @@ public class CtrlSubmenuCatalogo {
         reloadTable();
    }
 
-    public void voltarParaMenu(ActionEvent actionEvent) {
-        WindowPrincipal window = new WindowPrincipal();
-        try {
-            window.show();
-        } catch (IOException e ) {
-            e.printStackTrace();
-        }
+    public void voltar(ActionEvent actionEvent) {
+        close();
     }
 
-    private void close(){
+    public void close(){
         Stage stage = (Stage) btnAdicionarProdutosNoCatalogo.getScene().getWindow();
         stage.close();
     }

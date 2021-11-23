@@ -54,9 +54,6 @@ public class CtlrCadatroPedidos {
 
     static Integer cont=0;
 
-
-
-
     @FXML
     private void initialize(){
         colValorProduto.setCellValueFactory(new PropertyValueFactory<>("valorVenda"));
@@ -147,7 +144,6 @@ public class CtlrCadatroPedidos {
     }
 
     public Pedido criarPedido(PedidoDTO pedido){
-//        Double valorTotalPedido = listaItens.stream().mapToDouble(c->c.calculaValor()).sum();
         Pedido pedidoFinal = new Pedido(cont,pedido.getCliente(), pedido.getItems(), pedido.calculaTotalPedido(),LocalDate.now(),StatusPedido.A_PAGAR,pedido.getCliente().getEndereco(), pedido.getFormaDePagamento() );
         System.out.println(pedido.getItems().toString());
         System.out.println(pedidoFinal.toString());
@@ -155,26 +151,16 @@ public class CtlrCadatroPedidos {
         return pedidoFinal;
     }
 
-    public void saveOrUpdate(ActionEvent actionEvent) {
-        saveOrUpdate();
-        close();
-    }
-    public void btnVoltar(ActionEvent actionEvent) {
+    public void save(ActionEvent actionEvent) {
+        savePedido();
         close();
     }
 
-    public void changeStatusPedido(Pedido p) {
-        pedido=p;
-        p.setStatus(StatusPedido.PAGO);
-
-    }
-
-    public void saveOrUpdate() throws RuntimeException{
+    public void savePedido() throws RuntimeException{
         Pedido a = criarPedido(getPedidoFromView());
         if (pedido == null && a != null ) {
             save(a);
         }
-
     }
 
     private void save(Pedido f) {
@@ -182,10 +168,16 @@ public class CtlrCadatroPedidos {
         insertPedidoUseCase = new InsertPedidoUseCase(dao);
         insertPedidoUseCase.insert(f);
     }
+
+    public void voltar(ActionEvent actionEvent) {
+        close();
+    }
+
     private void close(){
         Stage stage = (Stage) btnAddProduto.getScene().getWindow();
         stage.close();
     }
+
 
 
 }

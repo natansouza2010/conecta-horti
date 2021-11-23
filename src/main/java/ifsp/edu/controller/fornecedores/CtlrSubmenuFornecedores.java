@@ -49,6 +49,7 @@ public class CtlrSubmenuFornecedores {
     private InsertFornecedorUseCase insertFornecedorUseCase;
 
     public void initialize(){
+        //atribuindo as colunas da interface com os atributos do model
         colCnpjFornecedor.setCellValueFactory(new PropertyValueFactory<Fornecedor, String>("cnpj"));
         colNomeFornecedor.setCellValueFactory(new PropertyValueFactory<Fornecedor, String>("nome"));
         colTel1Fornecedor.setCellValueFactory(new PropertyValueFactory<Fornecedor, String>("telefone1"));
@@ -56,23 +57,26 @@ public class CtlrSubmenuFornecedores {
         colEnderecoFornecedor.setCellValueFactory(new PropertyValueFactory<Fornecedor, String>("endereco"));
         colRazaoFornecedor.setCellValueFactory(new PropertyValueFactory<Fornecedor, String>("razaoSocial"));
 
+        //cria a observableList de fornecedores
         fornecedores = FXCollections.observableArrayList();
 
+        //instancia o FornecedorRepository
         FornecedorDAO dao = new FornecedorRepository();
         insertFornecedorUseCase = new InsertFornecedorUseCase(dao);
 
-        Fornecedor fornecedor = new Fornecedor("1","um","3","5000","São carlos", "Oi");
-        Fornecedor fornecedor2 = new Fornecedor("2","dois","3","5000","São carlos", "Oi");
-        Fornecedor fornecedor3 = new Fornecedor("3","tres","3","5000","São carlos", "Oi");
+        //setta alguns valores
+        Fornecedor fornecedor = new Fornecedor("1","Fornecedor 1","(16)996161005","5000","São Carlos", "--");
+        Fornecedor fornecedor2 = new Fornecedor("2","Fornecedor 2","3","(16)996161006","Ribeirão", "--");
+        Fornecedor fornecedor3 = new Fornecedor("3","Fornecedor 3","3","(16)996161007","Araraquara", "--");
         insertFornecedorUseCase.insert(fornecedor);
         insertFornecedorUseCase.insert(fornecedor2);
         insertFornecedorUseCase.insert(fornecedor3);
 
+        //coloca o valor na observableList
         loadTable();
 
+        //setta os dados da tabela
         table.setItems(fornecedores);
-
-
     }
 
     private void loadTable(){
@@ -81,6 +85,7 @@ public class CtlrSubmenuFornecedores {
         fornecedores = FXCollections.observableArrayList(forn);
     }
 
+    //limpa e recarrega os dados
     private void reloadTable(){
         fornecedores.clear();
         loadTable();
@@ -105,7 +110,6 @@ public class CtlrSubmenuFornecedores {
         deleteFornecedorUseCase.delete(fornecedor.getCnpj());
 
         reloadTable();
-
     }
 
     public void editarFornecedor(ActionEvent actionEvent) {

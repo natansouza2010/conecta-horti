@@ -19,6 +19,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -40,7 +41,6 @@ public class CtrlSubmenuRenda {
 
     InserirRendaUseCase inserirRendaUseCase;
     DeleteRendaUseCase deleteRendaUseCase;
-
 
     public void initialize(){
         colIdRenda.setCellValueFactory(new PropertyValueFactory<Renda,Integer>("id"));
@@ -75,7 +75,6 @@ public class CtrlSubmenuRenda {
         System.out.println(rendas);
     }
 
-
     public void criarRenda(ActionEvent actionEvent) {
         WindowCadastroRenda window = new WindowCadastroRenda();
         try{
@@ -95,4 +94,13 @@ public class CtrlSubmenuRenda {
             reloadTable();
         }
     }
+    public void voltar(ActionEvent actionEvent) {
+        close();
+    }
+
+    public void close(){
+        Stage stage = (Stage) tableRenda.getScene().getWindow();
+        stage.close();
+    }
+
 }

@@ -67,20 +67,6 @@ public class CtrlCadatroProdutos {
         close();
     }
 
-    private void close() {
-        Stage stage = (Stage) txtIdProduto.getScene().getWindow();
-        stage.close();
-    }
-
-    public void btnVoltar(ActionEvent actionEvent) {
-        WindowSubmenuProdutos window = new WindowSubmenuProdutos();
-        try {
-            window.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void adicionarFornecedor() {
 
 
@@ -109,7 +95,6 @@ public class CtrlCadatroProdutos {
 
     }
 
-
     private Produto getFromProdutoToView() {
 
         Integer id = Integer.valueOf(txtIdProduto.getText());
@@ -123,5 +108,13 @@ public class CtrlCadatroProdutos {
         Produto produto = new Produto( nome,id, descricao, precoCusto, precoVenda, f);
         return produto;
     }
-//
+
+    public void voltar(ActionEvent actionEvent) {
+        close();
+    }
+
+    private void close() {
+        Stage stage = (Stage) txtIdProduto.getScene().getWindow();
+        stage.close();
+    }
 }

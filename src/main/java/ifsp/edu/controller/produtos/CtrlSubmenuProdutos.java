@@ -20,6 +20,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -49,8 +50,6 @@ public class CtrlSubmenuProdutos {
     private DeleteProdutoUseCase deleteProdutoUseCase;
     private FindProdutoUseCase findProdutoUseCase;
     private InserirProdutoUseCase inserirProdutoUseCase;
-
-
 
     public void initialize(){
         colIDProdutos.setCellValueFactory(new PropertyValueFactory<Produto, Integer>("id"));
@@ -130,12 +129,12 @@ public class CtrlSubmenuProdutos {
 
     }
 
-    public void voltarParaMenu(ActionEvent actionEvent) {
-        WindowPrincipal window = new WindowPrincipal();
-        try {
-            window.show();
-        } catch (IOException e ) {
-            e.printStackTrace();
-        }
+    public void voltar(ActionEvent actionEvent) {
+        close();
+    }
+
+    public void close(){
+        Stage stage = (Stage) btnAdicionarProdutos.getScene().getWindow();
+        stage.close();
     }
 }

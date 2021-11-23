@@ -13,7 +13,6 @@ public class Fornecedor {
     private String telefone2;
     private String endereco;
     private String razaoSocial;
-    private final List<Produto> produtos = new ArrayList<>();
 
     public Fornecedor(String cnpj, String nome) {
         this.cnpj = cnpj;
@@ -31,14 +30,6 @@ public class Fornecedor {
 
     public String getNome() {
         return nome;
-    }
-
-    public void addProduto(Produto produto){
-        produtos.add(produto);
-    }
-
-    public List<Produto> getProdutos() {
-        return produtos;
     }
 
 

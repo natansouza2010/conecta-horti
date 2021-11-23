@@ -27,8 +27,6 @@ public class Produto {
         this.valorCusto = valorCusto;
         this.valorVenda = valorVenda;
         this.fornecedor = fornecedor;
-        Produto produto = new Produto(nome,id,descricao,valorCusto,valorVenda);
-        fornecedor.addProduto(produto);
 
     }
 

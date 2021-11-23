@@ -43,7 +43,6 @@ public class CtrlCadatroProdutos {
     @FXML
     Button btnCadastrarProduto;
 
-    List<Fornecedor> fornecedoresProduto = new ArrayList<>();
 
     private InserirProdutoUseCase inserirProdutoUseCase;
 

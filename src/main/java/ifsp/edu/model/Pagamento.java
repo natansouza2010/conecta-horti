@@ -8,7 +8,7 @@ import lombok.AllArgsConstructor;
 public class Pagamento {
     private Integer id;
     private FormaDePagamento formaDePagamento;
-    private static PagamentoDAO dao;
+
 
     public Integer getId() {
         return id;
@@ -26,9 +26,6 @@ public class Pagamento {
         formaDePagamento = FormaDePagamento.CARTAO;
     }
 
-    public void atualizaStatusPedido(int idPedido){
-        dao.atualizaStatusPedido(idPedido);
-    }
 
     @Override
     public String toString() {

@@ -16,7 +16,7 @@ import java.util.List;
 public class Pedido {
     private Integer id;
     private Cliente cliente;
-    private List<Item> items = new ArrayList<>();
+    private List<Item> items ;
     private Double valor;
     private LocalDate dataPedido;
     private StatusPedido status;

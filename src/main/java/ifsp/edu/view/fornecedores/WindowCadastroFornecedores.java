@@ -15,7 +15,6 @@ public class WindowCadastroFornecedores {
     private CtrlCadastroFornecedores controller;
     private Fornecedor fornecedor;
 
-
     public void show() throws IOException{
         show(null);
     }

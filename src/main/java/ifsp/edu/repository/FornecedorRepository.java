@@ -24,7 +24,6 @@ public class FornecedorRepository implements FornecedorDAO {
         return null;
     }
 
-
     @Override
     public List<Fornecedor> listAll() {
         List<Fornecedor> fornecedorList = new ArrayList<>(fornecedorMap.values());

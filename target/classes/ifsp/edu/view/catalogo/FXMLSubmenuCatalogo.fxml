@@ -17,6 +17,6 @@
         </TableView>
         <Button fx:id="btnAdicionarProdutosNoCatalogo" layoutX="204.0" layoutY="361.0" mnemonicParsing="false" onAction="#adicionarProdutosNoCatalogo" prefHeight="25.0" prefWidth="182.0" text="Adicionar produto no catálogo" />
         <Button fx:id="btnRemoverProdutos" layoutX="396.0" layoutY="361.0" mnemonicParsing="false" onAction="#removerProdutosDoCatalogo" prefHeight="25.0" prefWidth="182.0" text="Remover produto do catálogo" />
-      <Button layoutX="584.0" layoutY="361.0" mnemonicParsing="false" text="Voltar" />
+      <Button fx:id="btnVoltar" onAction="#voltar" layoutX="584.0" layoutY="361.0" mnemonicParsing="false" text="Voltar" />
     </children>
 </AnchorPane>

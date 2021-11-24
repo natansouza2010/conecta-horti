@@ -66,7 +66,6 @@ public class CtrlCadastroFornecedores {
         } else if (fornecedor != null && a != null ) {
             update(getFornecedorFromView());
         }
-
     }
 
     private void update(Fornecedor f) {
@@ -85,8 +84,5 @@ public class CtrlCadastroFornecedores {
         Stage stage = (Stage) txtCnpjFornecedor.getScene().getWindow();
         stage.close();
     }
-
-
-
 
 }

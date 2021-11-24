@@ -4,7 +4,6 @@ module ifsp.edu {
     requires java.sql;
     requires lombok;
 
-
     opens ifsp.edu.view to javafx.fxml;
     opens ifsp.edu.model to javafx.fxml;
 

@@ -18,7 +18,6 @@ public class Cliente {
     private String telefone1;
     private String telefone2;
 
-
     public Cliente(String cpf, String nome, String endereco, String telefone1, String telefone2) {
         this.cpf = cpf;
         this.nome = nome;

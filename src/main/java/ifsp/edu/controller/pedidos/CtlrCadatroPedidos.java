@@ -52,12 +52,9 @@ public class CtlrCadatroPedidos {
     private FindClienteUseCase findClienteUseCase;
     private FindProdutoUseCase findProdutoUseCase;
 
-
     ArrayList<Item> listaItens = new ArrayList();
     ClienteDAO daoCliente = new ClienteRepository();
     ProdutoDAO daoProdutos = new ProdutoRepository();
-
-
 
     static Integer cont=3;
 
@@ -71,17 +68,14 @@ public class CtlrCadatroPedidos {
 
     }
 
-
     public void addDataInCb(){
         //CLIENTES
-
-        List<Cliente> clienteArrayList = new ArrayList<>(daoCliente.listAll());
+        List<Cliente> clienteArrayList = new ArrayList<>(daoCliente.listAll());                       //retorna apenas os cpfs
         ObservableList<String> clientes = FXCollections.observableArrayList(clienteArrayList.stream().map(c -> c.getCpf()).collect(Collectors.toList()));
         ObservableList<String> cpfClientesCadastrados = FXCollections.observableArrayList(clientes);
 
         //FORNECEDORES
-
-        List<Produto> produtosArrayList = new ArrayList<>(daoProdutos.listAll());
+        List<Produto> produtosArrayList = new ArrayList<>(daoProdutos.listAll());                     //retorna
         ObservableList<String> produtos = FXCollections.observableArrayList(produtosArrayList.stream().map(c -> c.getNome()).collect(Collectors.toList()));
         ObservableList<String> produtosCadastrados = FXCollections.observableArrayList(produtos);
 
@@ -93,14 +87,11 @@ public class CtlrCadatroPedidos {
 
     }
 
-
     private Pedido getPedidoFromView(){
         findClienteUseCase = new FindClienteUseCase(daoCliente);
         String cpfCliente = String.valueOf(cbCpfCliente.getSelectionModel().getSelectedItem());
         Cliente c = findClienteUseCase.findOne(cpfCliente).get();
         FormaDePagamento formaDePagamento = FormaDePagamento.valueOf(cbPagamento.getSelectionModel().getSelectedItem());
-
-
         Pedido pedido = new Pedido(cont,c,listaItens,LocalDate.now(),StatusPedido.A_PAGAR, c.getEndereco(),formaDePagamento );
         System.out.println(pedido.getItems().toString());
         System.out.println(pedido.toString());
@@ -108,9 +99,6 @@ public class CtlrCadatroPedidos {
 
         return pedido;
     }
-
-
-//    }
 
     public void btnAdicionarProdutoToTable(ActionEvent actionEvent) {
         String nomeProduto = String.valueOf(cbProdutos.getSelectionModel().getSelectedItem());
@@ -136,10 +124,6 @@ public class CtlrCadatroPedidos {
         }
         return sum;
     }
-
-
-
-
 
     public void savePedido() throws RuntimeException{
         Pedido a = getPedidoFromView();

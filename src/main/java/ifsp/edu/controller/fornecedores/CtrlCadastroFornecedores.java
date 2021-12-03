@@ -1,5 +1,6 @@
 package ifsp.edu.controller.fornecedores;
 
+import ifsp.edu.model.Endereco;
 import ifsp.edu.repository.FornecedorRepository;
 import ifsp.edu.usecases.fornecedor.FornecedorDAO;
 import ifsp.edu.model.Fornecedor;
@@ -42,7 +43,7 @@ public class CtrlCadastroFornecedores {
         String nome = String.valueOf(txtNomeFornecedor.getText());
         String tel1 = String.valueOf(txtTel1Fornecedor.getText());
         String tel2 = String.valueOf(txtTel2Fornecedor.getText());
-        String end = String.valueOf(txtEnderecoFornecedor.getText());
+        Endereco end = String.valueOf(txtEnderecoFornecedor.getText());
         String razao = String.valueOf(txtRazaoSocial.getText());
 
         Fornecedor fornecedor = new Fornecedor(cnpj,nome,tel1,tel2,end,razao);
@@ -52,7 +53,7 @@ public class CtrlCadastroFornecedores {
     public void setFornecedoresToView(Fornecedor f) {
         fornecedor=f;
         txtCnpjFornecedor.setText(f.getCnpj());
-        txtEnderecoFornecedor.setText(f.getEndereco());
+        txtEnderecoFornecedor.setText(f.getEndereco().toString());
         txtNomeFornecedor.setText(f.getNome());
         txtTel1Fornecedor.setText(f.getTelefone1());
         txtTel2Fornecedor.setText(f.getTelefone2());

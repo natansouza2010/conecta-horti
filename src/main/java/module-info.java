@@ -3,6 +3,7 @@ module ifsp.edu {
     requires javafx.fxml;
     requires java.sql;
     requires lombok;
+    requires org.xerial.sqlitejdbc;
 
     opens ifsp.edu.view to javafx.fxml;
     opens ifsp.edu.model to javafx.fxml;

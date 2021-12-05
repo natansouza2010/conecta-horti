@@ -9,7 +9,7 @@ import java.time.LocalDate;
 public class Main {
     public static void main(String[] args) {
         Cliente cliente = new Cliente("489751","Natan","Olá","222","2000");
-        Fornecedor fornecedor = new Fornecedor("1","dois0","3","5000","São carlos", "Oi");
+        Fornecedor fornecedor = new Fornecedor("1","dois0","3","5000",new Endereco(2,"eo","w"), "Oi");
         Produto p1 = new Produto("Pão",2,"pacote",5.0, 9.0, fornecedor);
         Produto p2 = new Produto("abacate",3,"pacote",1.0, 9.0, fornecedor);
         Produto p3 = new Produto("arroz",4,"pacote",3.0, 8.0, fornecedor);

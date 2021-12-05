@@ -39,6 +39,8 @@ public class CtrlSubmenuRenda {
 
     ObservableList<Renda> rendas;
 
+    //RendaRepository rendaRepository = new RendaRepository();
+    RendaDAO rendaDAO = new RendaRepository();
     InserirRendaUseCase inserirRendaUseCase;
     DeleteRendaUseCase deleteRendaUseCase;
 
@@ -61,11 +63,8 @@ public class CtrlSubmenuRenda {
     }
 
     private void loadTable() {
-        RendaRepository dao = new RendaRepository();
-        List<Renda> rendasArray = new ArrayList<>(dao.listAll());
+        List<Renda> rendasArray = new ArrayList<>(rendaDAO.listAll());
         rendas = FXCollections.observableArrayList(rendasArray);
-
-
     }
 
     private void reloadTable(){
@@ -86,8 +85,7 @@ public class CtrlSubmenuRenda {
     }
 
     public void removerRenda(ActionEvent actionEvent) {
-        RendaDAO dao = new RendaRepository();
-        deleteRendaUseCase = new DeleteRendaUseCase(dao);
+        deleteRendaUseCase = new DeleteRendaUseCase(rendaDAO);
         Renda r = tableRenda.getSelectionModel().getSelectedItem();
         if(r != null){
             deleteRendaUseCase.delete(r.getId());

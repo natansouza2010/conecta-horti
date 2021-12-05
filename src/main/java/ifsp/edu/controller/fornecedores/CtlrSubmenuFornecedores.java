@@ -44,9 +44,11 @@ public class CtlrSubmenuFornecedores {
     @FXML TableColumn<Fornecedor, String> colRazaoFornecedor;
 
     ObservableList<Fornecedor> fornecedores;
+
+    //dao | usecases
+    private FornecedorDAO fornecedorDAO = new FornecedorRepository();
     private DeleteFornecedorUseCase deleteFornecedorUseCase;
     private FindFornecedorUseCase findFornecedorUseCase;
-    private InsertFornecedorUseCase insertFornecedorUseCase;
 
     public void initialize(){
         //atribuindo as colunas da interface com os atributos do model
@@ -59,18 +61,6 @@ public class CtlrSubmenuFornecedores {
 
         //cria a observableList de fornecedores
         fornecedores = FXCollections.observableArrayList();
-
-        //instancia o FornecedorRepository
-        FornecedorDAO dao = new FornecedorRepository();
-        insertFornecedorUseCase = new InsertFornecedorUseCase(dao);
-
-        //setta alguns valores
-        Fornecedor fornecedor = new Fornecedor("1","Fornecedor 1","(16)996161005","5000","São Carlos", "--");
-        Fornecedor fornecedor2 = new Fornecedor("2","Fornecedor 2","3","(16)996161006","Ribeirão", "--");
-        Fornecedor fornecedor3 = new Fornecedor("3","Fornecedor 3","3","(16)996161007","Araraquara", "--");
-        insertFornecedorUseCase.insert(fornecedor);
-        insertFornecedorUseCase.insert(fornecedor2);
-        insertFornecedorUseCase.insert(fornecedor3);
 
         //coloca o valor na observableList
         loadTable();
@@ -104,9 +94,7 @@ public class CtlrSubmenuFornecedores {
 
     public void removerFornecedor(ActionEvent actionEvent) {
         Fornecedor fornecedor = table.getSelectionModel().getSelectedItem();
-
-        FornecedorDAO dao = new FornecedorRepository();
-        deleteFornecedorUseCase = new DeleteFornecedorUseCase(dao);
+        deleteFornecedorUseCase = new DeleteFornecedorUseCase(fornecedorDAO);
         deleteFornecedorUseCase.delete(fornecedor.getCnpj());
 
         reloadTable();
@@ -129,9 +117,7 @@ public class CtlrSubmenuFornecedores {
     public void buscarFornecedor(ActionEvent actionEvent) {
         String cnpj = String.valueOf(txtBuscarFornecedor.getText());
 
-        FornecedorDAO dao = new FornecedorRepository();
-
-        findFornecedorUseCase = new FindFornecedorUseCase(dao);
+        findFornecedorUseCase = new FindFornecedorUseCase(fornecedorDAO);
 
         Optional<Fornecedor> one = findFornecedorUseCase.findOne(cnpj);
         fornecedores.clear();

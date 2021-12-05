@@ -1,12 +1,16 @@
 package ifsp.edu.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@NoArgsConstructor
 @AllArgsConstructor
+@Data
 public class Renda {
     private Integer id;
     private Double receita;
@@ -30,48 +34,6 @@ public class Renda {
         this.produtos = produtos;
         this.despesa = calculaValorDespesa();
         this.lucroObtido = calculaLucro();
-    }
-
-
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public LocalDate getDataInicial() {
-        return dataInicial;
-    }
-
-    public void setDataInicial(LocalDate data) {
-        this.dataInicial = data;
-    }
-
-    public Double getReceita() {
-        return receita;
-    }
-
-    public Double getDespesa() {
-        return despesa;
-    }
-
-    public Double getLucroObtido() {
-        return lucroObtido;
-    }
-
-    public LocalDate getDataFinal() {
-        return dataFinal;
-    }
-
-    public List<Pedido> getPedidos() {
-        return pedidos;
-    }
-
-    public List<Produto> getProdutos() {
-        return produtos;
     }
 
     public Double calculaLucro(){

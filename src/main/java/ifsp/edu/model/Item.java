@@ -1,5 +1,13 @@
 package ifsp.edu.model;
 
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class Item {
 //    private Integer id;
     private Double valorVenda;
@@ -8,39 +16,12 @@ public class Item {
     private Produto produto;
     private Pedido pedido;
 
-    public Item() {
-    }
-
     public Item(Integer quantidade, Produto produto) {
         this.quantidade = quantidade;
         this.produto = produto;
 //        this.id = produto.getId();
 //        this.valorVenda = produto.getValorVenda();
 
-    }
-
-    public void setValorVenda(Double valorVenda) {
-        this.valorVenda = valorVenda;
-    }
-
-    public void setQuantidade(Integer quantidade) {
-        this.quantidade = quantidade;
-    }
-
-    public void setProduto(Produto produto) {
-        this.produto = produto;
-    }
-
-    public void setPedido(Pedido pedido) {
-        this.pedido = pedido;
-    }
-
-    public Double getValorVenda() {
-        return valorVenda;
-    }
-
-    public Pedido getPedido() {
-        return pedido;
     }
 
 

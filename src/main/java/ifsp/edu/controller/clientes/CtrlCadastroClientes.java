@@ -4,6 +4,7 @@ import ifsp.edu.model.Cliente;
 import ifsp.edu.model.Fornecedor;
 import ifsp.edu.repository.ClienteRepository;
 import ifsp.edu.repository.FornecedorRepository;
+import ifsp.edu.sqlitedao.ClienteDAOImpl;
 import ifsp.edu.usecases.cliente.ClienteDAO;
 import ifsp.edu.usecases.cliente.InserirClienteUseCase;
 import ifsp.edu.usecases.cliente.UpdateClienteUseCase;
@@ -66,13 +67,13 @@ public class CtrlCadastroClientes {
     }
 
     private void update(Cliente c) {
-        ClienteDAO dao = new ClienteRepository();
+        ClienteDAO dao = new ClienteDAOImpl();
         updateClienteUseCase = new UpdateClienteUseCase(dao);
         updateClienteUseCase.update(c);
     }
 
     private void save(Cliente c) {
-        ClienteDAO dao = new ClienteRepository();
+        ClienteDAO dao = new ClienteDAOImpl();
         inserirClienteUseCase = new InserirClienteUseCase(dao);
         inserirClienteUseCase.insert(c);
     }

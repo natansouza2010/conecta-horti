@@ -43,6 +43,8 @@ public class CtrlCadatroProdutos {
     @FXML
     Button btnCadastrarProduto;
 
+    private FornecedorDAO fornecedorDAO = new FornecedorRepository();
+    ProdutoDAO produtoDAO = new ProdutoRepository();
 
     private InserirProdutoUseCase inserirProdutoUseCase;
 
@@ -51,9 +53,8 @@ public class CtrlCadatroProdutos {
     }
 
     private void popularCbFornecedores() {
-        FornecedorDAO dao = new FornecedorRepository();
 //        List<Fornecedor> fornecedores = dao.listAll();
-        List<Fornecedor> fornecedores = dao.listAll();
+        List<Fornecedor> fornecedores = fornecedorDAO.listAll();
         List<String> newArray = fornecedores.stream().map(f -> f.getNome()).collect(Collectors.toList());
         System.out.println(fornecedores);
 
@@ -84,8 +85,7 @@ public class CtrlCadatroProdutos {
     }
 
     private void save(Produto p) {
-        ProdutoDAO dao = new ProdutoRepository();
-        inserirProdutoUseCase = new InserirProdutoUseCase(dao);
+        inserirProdutoUseCase = new InserirProdutoUseCase(produtoDAO);
         inserirProdutoUseCase.insert(p);
     }
 
@@ -102,8 +102,7 @@ public class CtrlCadatroProdutos {
         Double precoCusto = Double.valueOf(txtPrecoCustoProduto.getText());
         Double precoVenda = Double.valueOf(txtPrecoVendaProduto.getText());
         String nomeFornecedor = (String) cbFornecedoresProdutos.getValue();
-        FornecedorDAO dao = new FornecedorRepository();
-        Fornecedor f = dao.findByName(nomeFornecedor);
+        Fornecedor f = fornecedorDAO.findByName(nomeFornecedor);
         Produto produto = new Produto( nome,id, descricao, precoCusto, precoVenda, f);
         return produto;
     }

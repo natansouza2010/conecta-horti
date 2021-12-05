@@ -14,13 +14,14 @@ public class ClienteDAOImpl implements ClienteDAO {
 
     @Override
     public boolean insert(Cliente cliente) {
-        String sql = "INSERT INTO CLIENTES(cpf, nome, endereco, telefone1, telefone2) VALUES(?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO CLIENTE(cpf, nome, endereco, telefone1, telefone2) VALUES(?, ?, ?, ?, ?)";
         try(PreparedStatement ps = ConnectionFactory.criarPreparedStatement(sql)) {
             ps.setString(1, cliente.getCpf());
             ps.setString(2, cliente.getNome());
             ps.setString(3, cliente.getEndereco());
             ps.setString(4, cliente.getTelefone1());
             ps.setString(5, cliente.getTelefone2());
+            ps.execute();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -40,7 +41,6 @@ public class ClienteDAOImpl implements ClienteDAO {
 
     @Override
     public Cliente findOne(String cpf) {
-
         Cliente cliente = null;
         String sql = "SELECT * FROM CLIENTE WHERE cpf = ?";
         try(PreparedStatement ps = ConnectionFactory.criarPreparedStatement(sql)) {
@@ -73,14 +73,14 @@ public class ClienteDAOImpl implements ClienteDAO {
 
     @Override
     public boolean update(Cliente cliente) {
-        String sql = "UPDATE CLIENTES SET nome = ?, endereco = ?, telefone1 = ?, telefone2 = ? WHERE cpf = ?";
+        String sql = "UPDATE CLIENTE SET nome = ?, endereco = ?, telefone1 = ?, telefone2 = ? WHERE cpf = ?";
         try(PreparedStatement ps = ConnectionFactory.criarPreparedStatement(sql)) {
-
             ps.setString(1, cliente.getNome());
             ps.setString(2, cliente.getEndereco());
             ps.setString(3, cliente.getTelefone1());
             ps.setString(4, cliente.getTelefone2());
             ps.setString(5, cliente.getCpf());
+            ps.execute();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -90,8 +90,7 @@ public class ClienteDAOImpl implements ClienteDAO {
 
     @Override
     public boolean delete(String cpf) {
-
-        String sql = "DELTE * FROM CLIENTE WHERE cpf = ?";
+        String sql = "DELETE FROM CLIENTE WHERE cpf = ?";
         try(PreparedStatement ps = ConnectionFactory.criarPreparedStatement(sql)) {
             ps.setString(1, cpf);
             ps.execute();

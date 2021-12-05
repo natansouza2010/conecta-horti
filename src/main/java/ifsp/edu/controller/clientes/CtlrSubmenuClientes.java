@@ -2,12 +2,15 @@ package ifsp.edu.controller.clientes;
 
 import ifsp.edu.model.Cliente;
 import ifsp.edu.model.Cliente;
+import ifsp.edu.model.Fornecedor;
 import ifsp.edu.repository.ClienteRepository;
+import ifsp.edu.sqlitedao.ClienteDAOImpl;
 import ifsp.edu.usecases.cliente.ClienteDAO;
 import ifsp.edu.usecases.cliente.DeleteClienteUseCase;
 import ifsp.edu.usecases.cliente.FindClienteUseCase;
 import ifsp.edu.usecases.cliente.InserirClienteUseCase;
 import ifsp.edu.view.clientes.WindowCadastroClientes;
+import ifsp.edu.view.fornecedores.WindowCadastroFornecedores;
 import ifsp.edu.view.principal.WindowPrincipal;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -42,9 +45,11 @@ public class CtlrSubmenuClientes {
     @FXML TableColumn colEnderecoCliente;
 
     ObservableList<Cliente> clientes;
+
+    //dao | usecases
+    ClienteDAO clienteDAO = new ClienteDAOImpl();
     private DeleteClienteUseCase deleteClienteUseCase;
     private FindClienteUseCase findClienteUseCase;
-    private InserirClienteUseCase inserirClienteUseCase;
 
     public void initialize(){
         colCpfCliente.setCellValueFactory(new PropertyValueFactory<Cliente, String>("cpf"));
@@ -52,23 +57,14 @@ public class CtlrSubmenuClientes {
         colTel1Cliente.setCellValueFactory(new PropertyValueFactory<Cliente, String>("telefone1"));
         colTel2Cliente.setCellValueFactory(new PropertyValueFactory<Cliente, String>("telefone2"));
         colEnderecoCliente.setCellValueFactory(new PropertyValueFactory<Cliente, String>("endereco"));
-        ClienteDAO dao = new ClienteRepository();
-        inserirClienteUseCase = new InserirClienteUseCase(dao);
-        Cliente c1 = new Cliente("123456789","Cliente 1","Rua das Torres","33064412","33064413");
-        Cliente c2 = new Cliente("987654321","Cliente 2","Rua Abilo Rodrigues","33264422","33064111");
-        Cliente c3 = new Cliente("111222333","Cliente 3","Rua Carlos del Nero","12313123","33012311");
-        inserirClienteUseCase.insert(c1);
-        inserirClienteUseCase.insert(c2);
-        inserirClienteUseCase.insert(c3);
+
         clientes = FXCollections.observableArrayList();
         loadTable();
-
         table.setItems(clientes);
     }
 
     private void loadTable(){
-        ClienteRepository dao = new ClienteRepository();
-        List<Cliente> clienteArrayList = new ArrayList<>(dao.listAll());
+        List<Cliente> clienteArrayList = new ArrayList<>(clienteDAO.listAll());
         clientes = FXCollections.observableArrayList(clienteArrayList);
     }
 
@@ -76,7 +72,6 @@ public class CtlrSubmenuClientes {
         clientes.clear();
         loadTable();
         table.setItems(clientes);
-
     }
 
     public void adicionarCliente(ActionEvent actionEvent) throws IOException {
@@ -91,30 +86,29 @@ public class CtlrSubmenuClientes {
 
     public void removerCliente(ActionEvent actionEvent) {
         Cliente cliente = table.getSelectionModel().getSelectedItem();
-
-        ClienteDAO dao = new ClienteRepository();
-        deleteClienteUseCase = new DeleteClienteUseCase(dao);
+        deleteClienteUseCase = new DeleteClienteUseCase(clienteDAO);
         deleteClienteUseCase.delete(cliente.getCpf());
 
         reloadTable();
     }
 
     public void editarCliente(ActionEvent actionEvent) {
-        WindowCadastroClientes window = new WindowCadastroClientes();
-        try {
-            window.show();
-        } catch (IOException e ){
-            e.printStackTrace();
+       final Cliente selectedItem = table.getSelectionModel().getSelectedItem();
+
+        if (selectedItem != null) {
+            WindowCadastroClientes window = new WindowCadastroClientes();
+            try {
+                window.show(selectedItem);
+                reloadTable();
+            }catch (IOException e){
+                e.printStackTrace();
+            }
         }
     }
 
     public void buscarCliente(ActionEvent actionEvent) {
         String cpf = String.valueOf(txtBuscarCliente.getText());
-
-        ClienteDAO dao = new ClienteRepository();
-
-        findClienteUseCase = new FindClienteUseCase(dao);
-
+        findClienteUseCase = new FindClienteUseCase(clienteDAO);
         Optional<Cliente> one = findClienteUseCase.findOne(cpf);
         clientes.clear();
         clientes.add(one.get());

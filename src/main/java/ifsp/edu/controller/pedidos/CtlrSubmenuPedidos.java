@@ -55,6 +55,11 @@ public class CtlrSubmenuPedidos {
     @FXML TableColumn colValorPedido;
 
     ObservableList<Pedido> pedidos;
+
+    //dao | usecases
+    PedidoDAO pedidoDAO = new PedidoRepository();
+    ClienteDAO clienteDAO = new ClienteRepository();
+    ProdutoDAO produtoDAO = new ProdutoRepository();
     InsertPedidoUseCase insertPedidoUseCase;
     RemoverPedidoUseCase removerPedidoUseCase;
     AtualizarStatusPedidoUseCase atualizarStatusPedidoUseCase;
@@ -74,11 +79,9 @@ public class CtlrSubmenuPedidos {
     }
 
     private void loadData() {
-        ClienteDAO daoCliente = new ClienteRepository();
-        List<Cliente> clientes = new ArrayList<>(daoCliente.listAll());
+        List<Cliente> clientes = new ArrayList<>(clienteDAO.listAll());
 
-        ProdutoDAO daoProduto = new ProdutoRepository();
-        List<Produto> produtos = new ArrayList<>(daoProduto.listAll());
+        List<Produto> produtos = new ArrayList<>(produtoDAO.listAll());
 
         Item i1 = new Item();
         i1.setQuantidade(2);
@@ -124,9 +127,7 @@ public class CtlrSubmenuPedidos {
         LocalDate datainicial = LocalDate.of(2021,11,1);
         LocalDate datainicial2 = LocalDate.of(2021,11,2);
 
-
-        PedidoDAO dao = new PedidoRepository();
-        insertPedidoUseCase = new InsertPedidoUseCase(dao);
+        insertPedidoUseCase = new InsertPedidoUseCase(pedidoDAO);
         Pedido p1 = new Pedido(1,clientes.get(0),items, valorTotal,datainicial,StatusPedido.A_PAGAR,clientes.get(0).getEndereco(), FormaDePagamento.CARTAO);
         Pedido p2 = new Pedido(2,clientes.get(1),items2, valorTotal2,datainicial2,StatusPedido.A_PAGAR,clientes.get(0).getEndereco(), FormaDePagamento.CARTAO);
         insertPedidoUseCase.insert(p1);
@@ -134,8 +135,7 @@ public class CtlrSubmenuPedidos {
     }
 
     private void loadTable(){
-        PedidoRepository dao = new PedidoRepository();
-        List<Pedido> peds = new ArrayList<>(dao.listAll());
+        List<Pedido> peds = new ArrayList<>(pedidoDAO.listAll());
         pedidos = FXCollections.observableArrayList(peds);
     }
 
@@ -147,8 +147,7 @@ public class CtlrSubmenuPedidos {
 
     public void atualizarStatus(ActionEvent actionEvent) {
         Pedido p = table.getSelectionModel().getSelectedItem();
-        PedidoDAO dao = new PedidoRepository();
-        atualizarStatusPedidoUseCase = new AtualizarStatusPedidoUseCase(dao);
+        atualizarStatusPedidoUseCase = new AtualizarStatusPedidoUseCase(pedidoDAO);
         atualizarStatusPedidoUseCase.updateStatus(p, StatusPedido.PAGO);
         reloadTable();
 
@@ -156,8 +155,7 @@ public class CtlrSubmenuPedidos {
 
     public void removePedido(ActionEvent actionEvent){
         Pedido p = table.getSelectionModel().getSelectedItem();
-        PedidoDAO dao = new PedidoRepository();
-        removerPedidoUseCase = new RemoverPedidoUseCase(dao);
+        removerPedidoUseCase = new RemoverPedidoUseCase(pedidoDAO);
         removerPedidoUseCase.delete(p.getId());
         reloadTable();
     }
@@ -182,8 +180,6 @@ public class CtlrSubmenuPedidos {
                 txtTel1ClientePedido.setText(p.getCliente().getTelefone1());
                 txtTel2ClientePedido.setText(p.getCliente().getTelefone2());
             }
-
-
         }
     }
 

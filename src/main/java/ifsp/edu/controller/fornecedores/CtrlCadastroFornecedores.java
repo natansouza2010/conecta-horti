@@ -43,10 +43,10 @@ public class CtrlCadastroFornecedores {
         String nome = String.valueOf(txtNomeFornecedor.getText());
         String tel1 = String.valueOf(txtTel1Fornecedor.getText());
         String tel2 = String.valueOf(txtTel2Fornecedor.getText());
-        Endereco end = String.valueOf(txtEnderecoFornecedor.getText());
+        //Endereco end = String.valueOf(txtEnderecoFornecedor.getText());
         String razao = String.valueOf(txtRazaoSocial.getText());
 
-        Fornecedor fornecedor = new Fornecedor(cnpj,nome,tel1,tel2,end,razao);
+        Fornecedor fornecedor = new Fornecedor(cnpj,nome,tel1,tel2,new Endereco(2,"eo","w"),razao);
         return fornecedor;
     }
 

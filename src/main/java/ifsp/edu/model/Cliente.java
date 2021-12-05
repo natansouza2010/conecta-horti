@@ -10,6 +10,7 @@ import java.util.Objects;
 
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
 public class Cliente {
     private String cpf;
@@ -17,15 +18,6 @@ public class Cliente {
     private String endereco;
     private String telefone1;
     private String telefone2;
-
-    public Cliente(String cpf, String nome, String endereco, String telefone1, String telefone2) {
-        this.cpf = cpf;
-        this.nome = nome;
-        this.endereco = endereco;
-        this.telefone1 = telefone1;
-        this.telefone2 = telefone2;
-    }
-
 
 
     @Override

@@ -36,8 +36,8 @@ public class FornecedorDAOImpl implements FornecedorDAO {
                 rs.getString("NOME"),
                 rs.getString("TELEFONE1"),
                 rs.getString("TELEFONE2"),
-                rs.getString("ENDERECO"),
-                rs.getString("RAZAOSOCIAL")
+                rs.getString("RAZAO_SOCIAL"),
+                rs.getString("ENDERECO")
         );
     }
 

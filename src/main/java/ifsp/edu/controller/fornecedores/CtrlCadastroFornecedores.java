@@ -1,7 +1,7 @@
 package ifsp.edu.controller.fornecedores;
 
 import ifsp.edu.model.Endereco;
-import ifsp.edu.repository.FornecedorRepository;
+import ifsp.edu.sqlitedao.FornecedorDAOImpl;
 import ifsp.edu.usecases.fornecedor.FornecedorDAO;
 import ifsp.edu.model.Fornecedor;
 import ifsp.edu.usecases.fornecedor.InsertFornecedorUseCase;
@@ -46,7 +46,7 @@ public class CtrlCadastroFornecedores {
         //Endereco end = String.valueOf(txtEnderecoFornecedor.getText());
         String razao = String.valueOf(txtRazaoSocial.getText());
 
-        Fornecedor fornecedor = new Fornecedor(cnpj,nome,tel1,tel2,new Endereco(2,"eo","w"),razao);
+        Fornecedor fornecedor = new Fornecedor(cnpj,nome,tel1,tel2,"uuij",razao);
         return fornecedor;
     }
 
@@ -70,13 +70,13 @@ public class CtrlCadastroFornecedores {
     }
 
     private void update(Fornecedor f) {
-        FornecedorDAO dao = new FornecedorRepository();
+        FornecedorDAO dao = new FornecedorDAOImpl();
         updateFornecedorUseCase = new UpdateFornecedorUseCase(dao);
         updateFornecedorUseCase.update(f);
     }
 
     private void save(Fornecedor f) {
-        FornecedorDAO dao = new FornecedorRepository();
+        FornecedorDAO dao = new FornecedorDAOImpl();
         insertFornecedorUseCase = new InsertFornecedorUseCase(dao);
         insertFornecedorUseCase.insert(f);
     }

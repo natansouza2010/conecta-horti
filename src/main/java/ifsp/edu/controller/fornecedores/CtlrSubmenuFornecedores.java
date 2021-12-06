@@ -1,6 +1,7 @@
 package ifsp.edu.controller.fornecedores;
 
 import ifsp.edu.repository.FornecedorRepository;
+import ifsp.edu.sqlitedao.FornecedorDAOImpl;
 import ifsp.edu.usecases.fornecedor.DeleteFornecedorUseCase;
 import ifsp.edu.usecases.fornecedor.FindFornecedorUseCase;
 import ifsp.edu.usecases.fornecedor.FornecedorDAO;
@@ -46,7 +47,7 @@ public class CtlrSubmenuFornecedores {
     ObservableList<Fornecedor> fornecedores;
 
     //dao | usecases
-    private FornecedorDAO fornecedorDAO = new FornecedorRepository();
+     FornecedorDAO fornecedorDAO = new FornecedorDAOImpl();
     private DeleteFornecedorUseCase deleteFornecedorUseCase;
     private FindFornecedorUseCase findFornecedorUseCase;
 
@@ -70,8 +71,7 @@ public class CtlrSubmenuFornecedores {
     }
 
     private void loadTable(){
-        FornecedorRepository dao = new FornecedorRepository();
-        List<Fornecedor> forn = new ArrayList<>(dao.listAll());
+        List<Fornecedor> forn = new ArrayList<>(fornecedorDAO.listAll());
         fornecedores = FXCollections.observableArrayList(forn);
     }
 

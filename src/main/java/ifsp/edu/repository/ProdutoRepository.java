@@ -64,7 +64,8 @@ public class ProdutoRepository implements ProdutoDAO {
     }
 
     @Override
-    public Optional<Produto> findByFornecedor(String cnpj) {
+    public List<Produto> findByFornecedor(String cnpj) {
+        List<Produto> produtos = null;
         /*List<Produto> array = new ArrayList<>(produtoMap.values());
         for (Produto produto : array) {
             if(produto.getFornecedor().getCnpj() == cnpj){
@@ -73,7 +74,7 @@ public class ProdutoRepository implements ProdutoDAO {
 
 
         }*/
-        return Optional.empty();
+        return produtos;
 
     }
 

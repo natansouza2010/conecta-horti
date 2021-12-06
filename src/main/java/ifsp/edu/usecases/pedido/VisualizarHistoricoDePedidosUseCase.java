@@ -28,7 +28,7 @@ public class VisualizarHistoricoDePedidosUseCase {
 
     public List<Pedido> getPedidoByNomeCliente(String nome){
         if(nome != null){
-            return dao.findByNomeCliente(nome);
+            return dao.findByCpfCliente(nome);
         }
         return null;
     }

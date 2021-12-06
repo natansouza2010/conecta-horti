@@ -1,7 +1,6 @@
 package ifsp.edu.sqlitedao;
 
 import ifsp.edu.model.Catalogo;
-import ifsp.edu.model.Cliente;
 import ifsp.edu.model.Produto;
 import ifsp.edu.usecases.catalogo.CatalogoDAO;
 
@@ -22,6 +21,7 @@ public class CatalogoDAOImpl implements CatalogoDAO {
             ps.setInt(1, catalogo.getId());
             ps.setString(2, catalogo.getDataInicial().toString());
             ps.setString(3, catalogo.getDataFinal().toString());
+            ps.execute();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -78,12 +78,13 @@ public class CatalogoDAOImpl implements CatalogoDAO {
     @Override
     public boolean update(Catalogo catalogo) {
 
-        String sql = "UPDATE CATALOGOS SET datainicial = ?, datafinal = ? WHERE id = ?";
+        String sql = "UPDATE CATALOGO SET datainicial = ?, datafinal = ? WHERE id = ?";
         try(PreparedStatement ps = ConnectionFactory.criarPreparedStatement(sql)) {
 
             ps.setString(1, catalogo.getDataInicial().toString());
             ps.setString(2, catalogo.getDataFinal().toString());
             ps.setInt(3, catalogo.getId());
+            ps.execute();
 
             return true;
         } catch (SQLException e) {

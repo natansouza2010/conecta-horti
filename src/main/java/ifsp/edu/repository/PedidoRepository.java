@@ -69,7 +69,7 @@ public class PedidoRepository implements PedidoDAO {
     }
 
     @Override
-    public List<Pedido> findByNomeCliente(String nome) {
+    public List<Pedido> findByCpfCliente(String nome) {
         return null;
     }
 

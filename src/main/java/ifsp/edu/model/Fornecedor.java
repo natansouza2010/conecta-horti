@@ -15,6 +15,6 @@ public class Fornecedor {
     private String nome;
     private String telefone1;
     private String telefone2;
-    private Endereco endereco;
+    private String endereco;
     private String razaoSocial;
 }

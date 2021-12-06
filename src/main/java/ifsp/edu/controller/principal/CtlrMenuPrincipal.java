@@ -3,6 +3,7 @@ package ifsp.edu.controller.principal;
 
 import ifsp.edu.view.catalogo.WindowSubmenuCatalogo;
 import ifsp.edu.view.clientes.WindowSubmenuClientes;
+import ifsp.edu.view.compraproduto.WindowSubmenuCompraProduto;
 import ifsp.edu.view.fornecedores.WindowSubmenuFornecedores;
 import ifsp.edu.view.pedidos.WindowSubmenuPedidos;
 import ifsp.edu.view.produtos.WindowSubmenuProdutos;
@@ -21,6 +22,7 @@ public class CtlrMenuPrincipal {
     @FXML Button btnGerenciarCatalogo;
     @FXML Button btnRenda;
     @FXML Button btnGerenciarPedido;
+    @FXML Button btnComprasDeProduto;
     
     public void submenuClientes(ActionEvent actionEvent) throws IOException {
         WindowSubmenuClientes window = new WindowSubmenuClientes();
@@ -69,6 +71,15 @@ public class CtlrMenuPrincipal {
 
     public void submenuCatalogo(ActionEvent actionEvent) {
         WindowSubmenuCatalogo window = new WindowSubmenuCatalogo();
+        try{
+            window.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void submenuCompraProduto(ActionEvent actionEvent) {
+        WindowSubmenuCompraProduto window = new WindowSubmenuCompraProduto();
         try{
             window.show();
         } catch (IOException e) {

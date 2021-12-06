@@ -17,5 +17,6 @@
                 <Font name="Cambria" size="20.0" />
             </font>
         </Label>
+      <Button fx:id="btnComprasDeProduto" layoutX="269.0" layoutY="316.0" mnemonicParsing="false" onAction="#submenuCompraProduto" prefHeight="25.0" prefWidth="142.0" text="Compras de Produto" />
     </children>
 </AnchorPane>

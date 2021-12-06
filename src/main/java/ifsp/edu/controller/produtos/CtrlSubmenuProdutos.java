@@ -3,6 +3,7 @@ package ifsp.edu.controller.produtos;
 import ifsp.edu.repository.ClienteRepository;
 import ifsp.edu.repository.FornecedorRepository;
 import ifsp.edu.repository.ProdutoRepository;
+import ifsp.edu.sqlitedao.FornecedorDAOImpl;
 import ifsp.edu.usecases.cliente.ClienteDAO;
 import ifsp.edu.usecases.cliente.InserirClienteUseCase;
 import ifsp.edu.usecases.fornecedor.FornecedorDAO;
@@ -58,8 +59,9 @@ public class CtrlSubmenuProdutos {
         colPrecoCustoProdutos.setCellValueFactory(new PropertyValueFactory<Produto, Double>("valorCusto"));
         colPrecoVendaProdutos.setCellValueFactory(new PropertyValueFactory<Produto, Double>("valorVenda"));
         colFornecedor.setCellValueFactory(new PropertyValueFactory<Fornecedor, Fornecedor>("fornecedor"));
-        FornecedorDAO daoForn = new FornecedorRepository();
+        FornecedorDAO daoForn = new FornecedorDAOImpl();
         List<Fornecedor> fornecedors = daoForn.listAll();
+        System.out.println(fornecedors.toString());
         ProdutoDAO dao = new ProdutoRepository();
         inserirProdutoUseCase = new InserirProdutoUseCase(dao);
         Produto p1 = new Produto("banana",1,"1kg",3.00,5.00,fornecedors.get(1));

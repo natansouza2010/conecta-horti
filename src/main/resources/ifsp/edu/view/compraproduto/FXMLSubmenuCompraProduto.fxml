@@ -9,14 +9,14 @@
         <columns>
           <TableColumn fx:id="colProduto" prefWidth="82.0" text="Produto" />
           <TableColumn fx:id="colData" prefWidth="79.0" text="Data" />
-            <TableColumn text="Valor" />
+            <TableColumn fx:id="colValor" text="Valor" />
         </columns>
       </TableView>
       <ChoiceBox fx:id="cbProdutos" layoutX="45.0" layoutY="141.0" prefWidth="150.0" />
       <Label layoutX="64.0" layoutY="99.0" text="Produtos Disponiveis" />
       <TextField fx:id="txtValorProduto" layoutX="46.0" layoutY="194.0" promptText="Valor" />
-      <Button fx:id="btnComprar" layoutX="45.0" layoutY="330.0" mnemonicParsing="false" text="Comprar Produto" />
+      <Button fx:id="btnComprar" layoutX="45.0" layoutY="330.0" mnemonicParsing="false" onAction="#comprarProduto" text="Comprar Produto" />
       <Label layoutX="226.0" layoutY="21.0" text="Compras de Produtos" />
-      <Button fx:id="btnRemover" layoutX="182.0" layoutY="330.0" mnemonicParsing="false" text="Remover Compra" />
+      <Button fx:id="btnRemover" layoutX="182.0" layoutY="330.0" mnemonicParsing="false" onAction="#removerCompra" text="Remover Compra" />
    </children>
 </AnchorPane>

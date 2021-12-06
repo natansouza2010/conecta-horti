@@ -1,14 +1,24 @@
 package ifsp.edu.controller.compraproduto;
 
+import ifsp.edu.enums.FormaDePagamento;
+import ifsp.edu.enums.StatusPedido;
 import ifsp.edu.model.Cliente;
 import ifsp.edu.model.CompraProduto;
+import ifsp.edu.model.Pedido;
 import ifsp.edu.model.Produto;
+import ifsp.edu.repository.CompraProdutoRepository;
 import ifsp.edu.repository.ProdutoRepository;
+import ifsp.edu.usecases.cliente.FindClienteUseCase;
+import ifsp.edu.usecases.compraproduto.CompraProdutoDAO;
+import ifsp.edu.usecases.compraproduto.InsertCompraProdutoUseCase;
+import ifsp.edu.usecases.compraproduto.RemoveCompraProdutoUseCase;
 import ifsp.edu.usecases.produto.ProdutoDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -34,12 +44,40 @@ public class CtrlSubmenuCompraProduto {
     @FXML
     Button btnRemover;
 
+    ObservableList<CompraProduto> compras;
+    InsertCompraProdutoUseCase insertCompraProdutoUseCase;
+    RemoveCompraProdutoUseCase removeCompraProdutoUseCase;
+
     ProdutoDAO daoProdutos = new ProdutoRepository();
+    Integer id = 0;
+
 
 
     public void initialize(){
+        colProduto.setCellValueFactory(new PropertyValueFactory<>("produto"));
+        colData.setCellValueFactory(new PropertyValueFactory<>("momento"));
+        colValor.setCellValueFactory(new PropertyValueFactory<>("valor"));
+        addDataInCb();
+        compras = FXCollections.observableArrayList();
+        loadTable();
+        tableCompra.setItems(compras);
+
 
     }
+
+    private Produto getProdutoFromView(){
+        String nomeProduto = String.valueOf(cbProdutos.getSelectionModel().getSelectedItem());
+        Produto produto = daoProdutos.findByNome(nomeProduto);
+        Double valor = Double.valueOf(txtValorProduto.getText());
+        if(valor != null && valor > 0.0){
+            produto.setValorCusto(valor);
+        }
+
+
+        return produto;
+    }
+
+
 
 
     public void addDataInCb(){
@@ -50,5 +88,44 @@ public class CtrlSubmenuCompraProduto {
     }
 
 
+    public void comprarProduto(ActionEvent actionEvent) {
+        Produto prod = getProdutoFromView();
+        if(prod != null){
+            save(prod);
+            reloadTable();
+        }
+    }
 
+    private void reloadTable() {
+        compras.clear();
+        loadTable();
+        System.out.println(compras);
+        tableCompra.setItems(compras);
+
+    }
+
+    private void loadTable() {
+        CompraProdutoDAO dao = new CompraProdutoRepository();
+        List<CompraProduto> comps = new ArrayList<>(dao.listAll());
+        compras.setAll(comps);
+    }
+
+    private void save(Produto prod) {
+        CompraProduto comp = new CompraProduto(id,prod,LocalDate.now());
+        CompraProdutoDAO dao = new CompraProdutoRepository();
+        insertCompraProdutoUseCase = new InsertCompraProdutoUseCase(dao);
+        insertCompraProdutoUseCase.insert(comp);
+        id++;
+
+    }
+
+
+    public void removerCompra(ActionEvent actionEvent) {
+        CompraProduto comp = tableCompra.getSelectionModel().getSelectedItem();
+        CompraProdutoDAO dao = new CompraProdutoRepository();
+        removeCompraProdutoUseCase = new RemoveCompraProdutoUseCase(dao);
+        removeCompraProdutoUseCase.delete(comp);
+        reloadTable();
+
+    }
 }

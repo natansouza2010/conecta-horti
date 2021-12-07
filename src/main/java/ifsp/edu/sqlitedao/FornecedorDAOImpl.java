@@ -13,7 +13,7 @@ import java.util.Optional;
 public class FornecedorDAOImpl implements FornecedorDAO {
     @Override
     public boolean insert(Fornecedor fornecedor) {
-        String sql = "INSERT INTO FORNECEDOR(cnpj, nome, telefone1, telefone2, razaosocial, endereco) VALUES(?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO FORNECEDOR(cnpj, nome, telefone1, telefone2, razao_social, endereco) VALUES(?, ?, ?, ?, ?, ?)";
         try(PreparedStatement ps = ConnectionFactory.criarPreparedStatement(sql)) {
             ps.setString(1, fornecedor.getCnpj());
             ps.setString(2, fornecedor.getNome());

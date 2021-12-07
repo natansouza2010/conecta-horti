@@ -4,6 +4,7 @@ import ifsp.edu.repository.ClienteRepository;
 import ifsp.edu.repository.FornecedorRepository;
 import ifsp.edu.repository.ProdutoRepository;
 import ifsp.edu.sqlitedao.FornecedorDAOImpl;
+import ifsp.edu.sqlitedao.ProdutoDAOImpl;
 import ifsp.edu.usecases.cliente.ClienteDAO;
 import ifsp.edu.usecases.cliente.InserirClienteUseCase;
 import ifsp.edu.usecases.fornecedor.FornecedorDAO;
@@ -51,6 +52,9 @@ public class CtrlSubmenuProdutos {
     private DeleteProdutoUseCase deleteProdutoUseCase;
     private FindProdutoUseCase findProdutoUseCase;
     private InserirProdutoUseCase inserirProdutoUseCase;
+    ProdutoDAO produtoDAO = new ProdutoDAOImpl();
+    FornecedorDAO fornecedorDAO = new FornecedorDAOImpl();
+
 
     public void initialize(){
         colIDProdutos.setCellValueFactory(new PropertyValueFactory<Produto, Integer>("id"));
@@ -59,17 +63,7 @@ public class CtrlSubmenuProdutos {
         colPrecoCustoProdutos.setCellValueFactory(new PropertyValueFactory<Produto, Double>("valorCusto"));
         colPrecoVendaProdutos.setCellValueFactory(new PropertyValueFactory<Produto, Double>("valorVenda"));
         colFornecedor.setCellValueFactory(new PropertyValueFactory<Fornecedor, Fornecedor>("fornecedor"));
-        FornecedorDAO daoForn = new FornecedorDAOImpl();
-        List<Fornecedor> fornecedors = daoForn.listAll();
-        System.out.println(fornecedors.toString());
-        ProdutoDAO dao = new ProdutoRepository();
-        inserirProdutoUseCase = new InserirProdutoUseCase(dao);
-        Produto p1 = new Produto("banana",1,"1kg",3.00,5.00,fornecedors.get(1));
-        Produto p2 = new Produto("tomate",2,"1kg",5.00,8.00, fornecedors.get(2));
-        Produto p3 = new Produto("vagem",3,"1pct",1.50,7.00, fornecedors.get(1));
-        inserirProdutoUseCase.insert(p1);
-        inserirProdutoUseCase.insert(p2);
-        inserirProdutoUseCase.insert(p3);
+
         produtos = FXCollections.observableArrayList();
         loadTable();
         tableProduto.setItems(produtos);
@@ -77,8 +71,7 @@ public class CtrlSubmenuProdutos {
     }
 
     private void loadTable() {
-        ProdutoDAO dao = new ProdutoRepository();
-        List<Produto> prod = new ArrayList<>(dao.listAll());
+        List<Produto> prod = new ArrayList<>(produtoDAO.listAll());
         produtos = FXCollections.observableArrayList(prod);
 
     }
@@ -102,21 +95,19 @@ public class CtrlSubmenuProdutos {
 
     public void removerProdutos(ActionEvent actionEvent) {
         Produto produto = tableProduto.getSelectionModel().getSelectedItem();
-        ProdutoDAO dao = new ProdutoRepository();
-        deleteProdutoUseCase = new DeleteProdutoUseCase(dao);
+        deleteProdutoUseCase = new DeleteProdutoUseCase(produtoDAO);
         deleteProdutoUseCase.delete(produto);
         reloadTable();
     }
 
     public void editarProdutos(ActionEvent actionEvent) {
-       /* WindowCadastroProdutos window = new WindowCadastroProdutos();
+        WindowCadastroProdutos window = new WindowCadastroProdutos();
+        Produto produto = tableProduto.getSelectionModel().getSelectedItem();
         try {
-            window.show();
-            Produto produto = null;
-//            dao.update(produto);
+            window.show(produto);
         } catch (IOException e ) {
             e.printStackTrace();
-        }*/
+        }
     }
 
     public void buscarProdutos(ActionEvent actionEvent) {

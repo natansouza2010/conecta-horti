@@ -8,6 +8,9 @@ import ifsp.edu.repository.ClienteRepository;
 import ifsp.edu.repository.PedidoRepository;
 import ifsp.edu.repository.PedidoRepository;
 import ifsp.edu.repository.ProdutoRepository;
+import ifsp.edu.sqlitedao.ClienteDAOImpl;
+import ifsp.edu.sqlitedao.PedidoDAOImpl;
+import ifsp.edu.sqlitedao.ProdutoDAOImpl;
 import ifsp.edu.usecases.cliente.ClienteDAO;
 import ifsp.edu.usecases.pedido.AtualizarStatusPedidoUseCase;
 import ifsp.edu.usecases.pedido.InsertPedidoUseCase;
@@ -55,11 +58,13 @@ public class CtlrSubmenuPedidos {
     @FXML TableColumn colValorPedido;
 
     ObservableList<Pedido> pedidos;
+    ObservableList<Cliente> clientes;
+    ObservableList<Produto> produtos;
 
     //dao | usecases
-    PedidoDAO pedidoDAO = new PedidoRepository();
-    ClienteDAO clienteDAO = new ClienteRepository();
-    ProdutoDAO produtoDAO = new ProdutoRepository();
+    PedidoDAO pedidoDAO = new PedidoDAOImpl();
+    ClienteDAO clienteDAO = new ClienteDAOImpl();
+    ProdutoDAO produtoDAO = new ProdutoDAOImpl();
     InsertPedidoUseCase insertPedidoUseCase;
     RemoverPedidoUseCase removerPedidoUseCase;
     AtualizarStatusPedidoUseCase atualizarStatusPedidoUseCase;
@@ -70,15 +75,17 @@ public class CtlrSubmenuPedidos {
         colStatusPedido.setCellValueFactory(new PropertyValueFactory<Pedido, String>("status"));
         colValorPedido.setCellValueFactory(new PropertyValueFactory<Pedido, Double >("valor"));
 
-        loadData();
+        //loadData();
 
         pedidos = FXCollections.observableArrayList();
+        clientes = FXCollections.observableArrayList();
+        produtos = FXCollections.observableArrayList();
 
         loadTable();
         table.setItems(pedidos);
     }
 
-    private void loadData() {
+    /*private void loadData() {
         List<Cliente> clientes = new ArrayList<>(clienteDAO.listAll());
 
         List<Produto> produtos = new ArrayList<>(produtoDAO.listAll());
@@ -127,16 +134,15 @@ public class CtlrSubmenuPedidos {
         LocalDate datainicial = LocalDate.of(2021,11,1);
         LocalDate datainicial2 = LocalDate.of(2021,11,2);
 
-        insertPedidoUseCase = new InsertPedidoUseCase(pedidoDAO);
-        Pedido p1 = new Pedido(1,clientes.get(0),items, valorTotal,datainicial,StatusPedido.A_PAGAR,clientes.get(0).getEndereco(), FormaDePagamento.CARTAO);
-        Pedido p2 = new Pedido(2,clientes.get(1),items2, valorTotal2,datainicial2,StatusPedido.A_PAGAR,clientes.get(0).getEndereco(), FormaDePagamento.CARTAO);
-        insertPedidoUseCase.insert(p1);
-        insertPedidoUseCase.insert(p2);
     }
-
+*/
     private void loadTable(){
+        List<Cliente> clients = new ArrayList<>(clienteDAO.listAll());
+        List<Produto> prods = new ArrayList<>(produtoDAO.listAll());
         List<Pedido> peds = new ArrayList<>(pedidoDAO.listAll());
         pedidos = FXCollections.observableArrayList(peds);
+        produtos = FXCollections.observableArrayList(prods);
+        clientes = FXCollections.observableArrayList(clients);
     }
 
     private void reloadTable(){
@@ -150,7 +156,6 @@ public class CtlrSubmenuPedidos {
         atualizarStatusPedidoUseCase = new AtualizarStatusPedidoUseCase(pedidoDAO);
         atualizarStatusPedidoUseCase.updateStatus(p, StatusPedido.PAGO);
         reloadTable();
-
     }
 
     public void removePedido(ActionEvent actionEvent){

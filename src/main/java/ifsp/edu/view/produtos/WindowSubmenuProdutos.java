@@ -14,7 +14,6 @@ public class WindowSubmenuProdutos {
     private CtrlSubmenuProdutos controller;
 
     public void show() throws IOException {
-
         FXMLLoader loader = new FXMLLoader();
 
         Pane graph = loader.load(getClass().getResource("FXMLSubmenuProdutos.fxml").openStream());

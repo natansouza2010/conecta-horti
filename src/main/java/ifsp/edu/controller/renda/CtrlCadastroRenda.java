@@ -6,6 +6,8 @@ import ifsp.edu.model.Renda;
 import ifsp.edu.repository.PedidoRepository;
 import ifsp.edu.repository.ProdutoRepository;
 import ifsp.edu.repository.RendaRepository;
+import ifsp.edu.sqlitedao.PedidoDAOImpl;
+import ifsp.edu.sqlitedao.ProdutoDAOImpl;
 import ifsp.edu.usecases.pedido.PedidoDAO;
 import ifsp.edu.usecases.produto.ProdutoDAO;
 import ifsp.edu.usecases.renda.InserirRendaUseCase;
@@ -31,6 +33,8 @@ public class CtrlCadastroRenda {
     Button btnVoltar;
 
     InserirRendaUseCase inserirRendaUseCase;
+    PedidoDAO pedidoDAO = new PedidoDAOImpl();
+    ProdutoDAO produtoDAO = new ProdutoDAOImpl();
 
     static Integer cont = 0;
 
@@ -40,29 +44,23 @@ public class CtrlCadastroRenda {
             save(r);
             close();
         }
-
     }
 
     private void save(Renda r) {
         RendaDAO daoRenda = new RendaRepository();
         inserirRendaUseCase = new InserirRendaUseCase(daoRenda);
         inserirRendaUseCase.insert(r);
-//        System.out.println(daoRenda.listAll());
-        cont++;
-
-
+       cont++;
     }
 
     public Renda getRendaFromView(){
         if( dpDataInicial.getValue() != null && dpDataFinal.getValue() != null){
-            PedidoDAO dao = new PedidoRepository();
-            ProdutoDAO daoProduto = new ProdutoRepository();
 
-            List<Produto> produtoList = new ArrayList<>(daoProduto.listAll());
+            List<Produto> produtoList = new ArrayList<>(produtoDAO.listAll());
 
             LocalDate dataInicial = dpDataInicial.getValue();
             LocalDate dataFinal = dpDataFinal.getValue();
-            List<Pedido> pedidoList = new ArrayList<>(dao.findByPeriodo(dataInicial,dataFinal));
+            List<Pedido> pedidoList = new ArrayList<>(pedidoDAO.findByPeriodo(dataInicial,dataFinal));
             Renda renda = new Renda(cont,dataInicial,dataFinal,pedidoList,produtoList);
             return renda;
         }

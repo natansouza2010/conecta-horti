@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class PedidoDAOImpl implements PedidoDAO {
-    private ClienteDAOImpl daoCliente;
+    private ClienteDAOImpl daoCliente = new ClienteDAOImpl();
 
     @Override
     public boolean insert(Pedido pedido) {

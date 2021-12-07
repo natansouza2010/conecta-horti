@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class WindowCadastroPedidos {
+
     private CtlrCadatroPedidos controller;
     private Pedido pedido;
 

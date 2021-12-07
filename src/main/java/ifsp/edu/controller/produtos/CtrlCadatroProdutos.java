@@ -4,6 +4,8 @@ import ifsp.edu.model.Fornecedor;
 import ifsp.edu.model.Produto;
 import ifsp.edu.repository.FornecedorRepository;
 import ifsp.edu.repository.ProdutoRepository;
+import ifsp.edu.sqlitedao.FornecedorDAOImpl;
+import ifsp.edu.sqlitedao.ProdutoDAOImpl;
 import ifsp.edu.usecases.fornecedor.FornecedorDAO;
 import ifsp.edu.usecases.fornecedor.InsertFornecedorUseCase;
 import ifsp.edu.usecases.produto.InserirProdutoUseCase;
@@ -25,41 +27,39 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class CtrlCadatroProdutos {
-    @FXML
-    TextField txtIdProduto;
-    @FXML
-    TextField txtNomeProduto;
-    @FXML
-    TextField txtDescricaoProduto;
-    @FXML
-    TextField txtPrecoCustoProduto;
-    @FXML
-    TextField txtPrecoVendaProduto;
-    @FXML
-    ChoiceBox cbFornecedoresProdutos;
-    @FXML
-    Button btnAdicionarFornecedor;
 
-    @FXML
-    Button btnCadastrarProduto;
+    @FXML TextField txtIdProduto;
+    @FXML TextField txtNomeProduto;
+    @FXML TextField txtDescricaoProduto;
+    @FXML TextField txtPrecoCustoProduto;
+    @FXML TextField txtPrecoVendaProduto;
+    @FXML ChoiceBox cbFornecedoresProdutos;
+    @FXML Button btnAdicionarFornecedor;
+    @FXML Button btnCadastrarProduto;
 
-    private FornecedorDAO fornecedorDAO = new FornecedorRepository();
-    ProdutoDAO produtoDAO = new ProdutoRepository();
-
-    private InserirProdutoUseCase inserirProdutoUseCase;
+    private FornecedorDAO fornecedorDAO = new FornecedorDAOImpl();
+    private ProdutoDAO produtoDAO = new ProdutoDAOImpl();
 
     public void initialize() {
         popularCbFornecedores();
     }
 
     private void popularCbFornecedores() {
-//        List<Fornecedor> fornecedores = dao.listAll();
         List<Fornecedor> fornecedores = fornecedorDAO.listAll();
         List<String> newArray = fornecedores.stream().map(f -> f.getNome()).collect(Collectors.toList());
-        System.out.println(fornecedores);
 
         ObservableList<String> data = FXCollections.observableArrayList(newArray);
         cbFornecedoresProdutos.getItems().addAll(newArray);
+    }
+
+    Produto produto;
+    public void setProdutoToView(Produto p) {
+        produto=p;
+        txtIdProduto.setText(p.getId().toString());
+        txtNomeProduto.setText(p.getNome());
+        txtDescricaoProduto.setText(p.getDescricao());
+        txtPrecoCustoProduto.setText(p.getValorCusto().toString());
+        txtPrecoVendaProduto.setText(p.getValorVenda().toString());
     }
 
     public void cadastrarProduto(ActionEvent actionEvent) {
@@ -69,8 +69,9 @@ public class CtrlCadatroProdutos {
 
     public void adicionarFornecedor() {
 
-
+        InserirProdutoUseCase inserirProdutoUseCase;
     }
+
 
     public void saveOrUpdate() throws RuntimeException{
         Produto p = getFromProdutoToView();
@@ -85,10 +86,9 @@ public class CtrlCadatroProdutos {
     }
 
     private void save(Produto p) {
-        inserirProdutoUseCase = new InserirProdutoUseCase(produtoDAO);
+        InserirProdutoUseCase inserirProdutoUseCase = new InserirProdutoUseCase(produtoDAO);
         inserirProdutoUseCase.insert(p);
     }
-
 
     private void delete(){
 

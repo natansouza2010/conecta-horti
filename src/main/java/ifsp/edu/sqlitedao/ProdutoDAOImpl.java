@@ -16,7 +16,7 @@ import java.util.Optional;
 
 public class ProdutoDAOImpl implements ProdutoDAO {
 
-    private FornecedorDAOImpl daoFornecedor;
+    private FornecedorDAOImpl daoFornecedor = new FornecedorDAOImpl();
 
     @Override
     public boolean insert(Produto produto) {

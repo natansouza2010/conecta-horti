@@ -7,6 +7,9 @@ import ifsp.edu.repository.ClienteRepository;
 import ifsp.edu.repository.FornecedorRepository;
 import ifsp.edu.repository.PedidoRepository;
 import ifsp.edu.repository.ProdutoRepository;
+import ifsp.edu.sqlitedao.ClienteDAOImpl;
+import ifsp.edu.sqlitedao.PedidoDAOImpl;
+import ifsp.edu.sqlitedao.ProdutoDAOImpl;
 import ifsp.edu.usecases.cliente.ClienteDAO;
 import ifsp.edu.usecases.cliente.FindClienteUseCase;
 import ifsp.edu.usecases.pedido.InsertPedidoUseCase;
@@ -53,8 +56,9 @@ public class CtlrCadatroPedidos {
     private FindProdutoUseCase findProdutoUseCase;
 
     ArrayList<Item> listaItens = new ArrayList();
-    ClienteDAO daoCliente = new ClienteRepository();
-    ProdutoDAO daoProdutos = new ProdutoRepository();
+    PedidoDAO pedidoDAO = new PedidoDAOImpl();
+    ClienteDAO daoCliente = new ClienteDAOImpl();
+    ProdutoDAO daoProdutos = new ProdutoDAOImpl();
 
     static Integer cont=3;
 
@@ -134,7 +138,7 @@ public class CtlrCadatroPedidos {
     }
 
     private void save(Pedido f) {
-        PedidoDAO dao = new PedidoRepository();
+        PedidoDAO dao = new PedidoDAOImpl();
         insertPedidoUseCase = new InsertPedidoUseCase(dao);
         insertPedidoUseCase.insert(f);
     }

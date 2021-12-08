@@ -13,14 +13,14 @@ import java.util.Optional;
 public class FornecedorDAOImpl implements FornecedorDAO {
     @Override
     public boolean insert(Fornecedor fornecedor) {
-        String sql = "INSERT INTO FORNECEDOR(cnpj, nome, telefone1, telefone2, razao_social, endereco) VALUES(?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO FORNECEDOR(cnpj, nome, telefone1, telefone2, endereco, razao_social) VALUES(?, ?, ?, ?, ?, ?)";
         try(PreparedStatement ps = ConnectionFactory.criarPreparedStatement(sql)) {
             ps.setString(1, fornecedor.getCnpj());
             ps.setString(2, fornecedor.getNome());
             ps.setString(3, fornecedor.getTelefone1());
             ps.setString(4, fornecedor.getTelefone2());
-            ps.setString(5, fornecedor.getRazaoSocial());
-            ps.setString(6, fornecedor.getEndereco());
+            ps.setString(5, fornecedor.getEndereco());
+            ps.setString(6, fornecedor.getRazaoSocial());
             ps.execute();
 
             return true;
@@ -36,9 +36,9 @@ public class FornecedorDAOImpl implements FornecedorDAO {
                 rs.getString("NOME"),
                 rs.getString("TELEFONE1"),
                 rs.getString("TELEFONE2"),
-                rs.getString("RAZAO_SOCIAL"),
-                rs.getString("ENDERECO")
-        );
+                rs.getString("ENDERECO"),
+                rs.getString("RAZAO_SOCIAL")
+                );
     }
 
     @Override
@@ -75,13 +75,14 @@ public class FornecedorDAOImpl implements FornecedorDAO {
 
     @Override
     public boolean update(Fornecedor fornecedor) {
-        String sql = "UPDATE FORNECEDOR SET nome = ?, telefone1 = ?, telefone2 = ?, razao_social = ?, endereco = ? WHERE cnpj = ?";
+        String sql = "UPDATE FORNECEDOR SET nome = ?, telefone1 = ?, telefone2 = ?, endereco = ?, razao_social = ? WHERE cnpj = ?";
         try(PreparedStatement ps = ConnectionFactory.criarPreparedStatement(sql)) {
             ps.setString(1, fornecedor.getNome());
             ps.setString(2, fornecedor.getTelefone1());
             ps.setString(3, fornecedor.getTelefone2());
-            ps.setString(4, fornecedor.getRazaoSocial());
-            ps.setString(5, fornecedor.getEndereco());
+            ps.setString(4, fornecedor.getEndereco());
+            ps.setString(5, fornecedor.getRazaoSocial());
+            ps.setString(6, fornecedor.getCnpj());
             ps.execute();
             return true;
         } catch (SQLException e) {

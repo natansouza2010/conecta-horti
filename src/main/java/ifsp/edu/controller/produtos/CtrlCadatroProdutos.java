@@ -8,8 +8,10 @@ import ifsp.edu.sqlitedao.FornecedorDAOImpl;
 import ifsp.edu.sqlitedao.ProdutoDAOImpl;
 import ifsp.edu.usecases.fornecedor.FornecedorDAO;
 import ifsp.edu.usecases.fornecedor.InsertFornecedorUseCase;
+import ifsp.edu.usecases.fornecedor.UpdateFornecedorUseCase;
 import ifsp.edu.usecases.produto.InserirProdutoUseCase;
 import ifsp.edu.usecases.produto.ProdutoDAO;
+import ifsp.edu.usecases.produto.UpdateProdutoUseCase;
 import ifsp.edu.view.produtos.WindowSubmenuProdutos;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableArray;
@@ -67,35 +69,22 @@ public class CtrlCadatroProdutos {
         close();
     }
 
-    public void adicionarFornecedor() {
-
+    public void adicionarFornecedor(ActionEvent actionEvent) {
         InserirProdutoUseCase inserirProdutoUseCase;
     }
 
-
     public void saveOrUpdate() throws RuntimeException{
         Produto p = getFromProdutoToView();
-//        if (p == null && p != null ) {
-//            save(p);
-//        } else if (p != null && p != null ) {
-////            update(getFromProdutoToView());
-//        }
+        if (p == null && p != null ) {
+            save(p);
+        } else if (p != null && p != null ) {
+            update(getFromProdutoToView());
+        }
         save(p);
         Stage stage = (Stage) txtIdProduto.getScene().getWindow();
 
     }
-
-    private void save(Produto p) {
-        InserirProdutoUseCase inserirProdutoUseCase = new InserirProdutoUseCase(produtoDAO);
-        inserirProdutoUseCase.insert(p);
-    }
-
-    private void delete(){
-
-    }
-
     private Produto getFromProdutoToView() {
-
         Integer id = Integer.valueOf(txtIdProduto.getText());
         String nome = String.valueOf(txtNomeProduto.getText());
         String descricao = String.valueOf(txtDescricaoProduto.getText());
@@ -105,6 +94,16 @@ public class CtrlCadatroProdutos {
         Fornecedor f = fornecedorDAO.findByName(nomeFornecedor);
         Produto produto = new Produto( nome,id, descricao, precoCusto, precoVenda, f);
         return produto;
+    }
+
+    private void update(Produto p) {
+        UpdateProdutoUseCase updateProdutoUseCase = new UpdateProdutoUseCase(produtoDAO);
+        updateProdutoUseCase.update(p.getId());
+    }
+
+    private void save(Produto p) {
+        InserirProdutoUseCase inserirProdutoUseCase = new InserirProdutoUseCase(produtoDAO);
+        inserirProdutoUseCase.insert(p);
     }
 
     public void voltar(ActionEvent actionEvent) {

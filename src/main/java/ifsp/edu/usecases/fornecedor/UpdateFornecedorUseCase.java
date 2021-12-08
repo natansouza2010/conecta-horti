@@ -1,6 +1,7 @@
 package ifsp.edu.usecases.fornecedor;
 
 import ifsp.edu.model.Fornecedor;
+import ifsp.edu.sqlitedao.FornecedorDAOImpl;
 import ifsp.edu.utils.EntidadeNaoEncontradaException;
 import ifsp.edu.utils.Notification;
 import ifsp.edu.utils.Validator;
@@ -23,7 +24,6 @@ public class UpdateFornecedorUseCase {
             throw new EntidadeNaoEncontradaException("Cnpj não existe");
 
         }
-        System.out.println("Dfghfjgkhliykujyhdtgsrfertdhfytdghfdtrgfefb gtr54rtgbcfvd");
         return dao.update(fornecedor);
 
     }

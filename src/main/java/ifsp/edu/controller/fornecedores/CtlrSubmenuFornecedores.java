@@ -102,8 +102,6 @@ public class CtlrSubmenuFornecedores {
 
     public void editarFornecedor(ActionEvent actionEvent) {
         final Fornecedor selectedItem = table.getSelectionModel().getSelectedItem();
-
-        if (selectedItem != null) {
             WindowCadastroFornecedores window = new WindowCadastroFornecedores();
             try {
                 window.show(selectedItem);
@@ -111,7 +109,7 @@ public class CtlrSubmenuFornecedores {
             }catch (IOException e){
                 e.printStackTrace();
             }
-        }
+
     }
 
     public void buscarFornecedor(ActionEvent actionEvent) {

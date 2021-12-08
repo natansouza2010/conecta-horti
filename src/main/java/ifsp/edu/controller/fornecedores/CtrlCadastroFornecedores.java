@@ -28,6 +28,8 @@ public class CtrlCadastroFornecedores {
     private Fornecedor fornecedor;
     private InsertFornecedorUseCase insertFornecedorUseCase;
     private UpdateFornecedorUseCase updateFornecedorUseCase;
+    private FornecedorDAO fornecedorDAO = new FornecedorDAOImpl();
+
 
     public void saveOrUpdate(ActionEvent actionEvent) {
         saveOrUpdate();
@@ -43,17 +45,17 @@ public class CtrlCadastroFornecedores {
         String nome = String.valueOf(txtNomeFornecedor.getText());
         String tel1 = String.valueOf(txtTel1Fornecedor.getText());
         String tel2 = String.valueOf(txtTel2Fornecedor.getText());
-        //Endereco end = String.valueOf(txtEnderecoFornecedor.getText());
+        String end = String.valueOf(txtEnderecoFornecedor.getText());
         String razao = String.valueOf(txtRazaoSocial.getText());
 
-        Fornecedor fornecedor = new Fornecedor(cnpj,nome,tel1,tel2,"uuij",razao);
+        Fornecedor fornecedor = new Fornecedor(cnpj,nome,tel1,tel2,end,razao);
         return fornecedor;
     }
 
     public void setFornecedoresToView(Fornecedor f) {
         fornecedor=f;
         txtCnpjFornecedor.setText(f.getCnpj());
-        txtEnderecoFornecedor.setText(f.getEndereco().toString());
+        txtEnderecoFornecedor.setText(f.getEndereco());
         txtNomeFornecedor.setText(f.getNome());
         txtTel1Fornecedor.setText(f.getTelefone1());
         txtTel2Fornecedor.setText(f.getTelefone2());
@@ -70,14 +72,12 @@ public class CtrlCadastroFornecedores {
     }
 
     private void update(Fornecedor f) {
-        FornecedorDAO dao = new FornecedorDAOImpl();
-        updateFornecedorUseCase = new UpdateFornecedorUseCase(dao);
+        updateFornecedorUseCase = new UpdateFornecedorUseCase(fornecedorDAO);
         updateFornecedorUseCase.update(f);
     }
 
     private void save(Fornecedor f) {
-        FornecedorDAO dao = new FornecedorDAOImpl();
-        insertFornecedorUseCase = new InsertFornecedorUseCase(dao);
+        insertFornecedorUseCase = new InsertFornecedorUseCase(fornecedorDAO);
         insertFornecedorUseCase.insert(f);
     }
 

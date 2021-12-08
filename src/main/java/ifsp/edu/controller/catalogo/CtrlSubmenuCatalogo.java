@@ -102,7 +102,6 @@ public class CtrlSubmenuCatalogo {
         }
     }
 
-
     public void removerProdutosDoCatalogo(ActionEvent actionEvent) {
         Produto produto = tableCatalogo.getSelectionModel().getSelectedItem().getProduto();
         Catalogo catalogo = tableCatalogo.getSelectionModel().getSelectedItem();

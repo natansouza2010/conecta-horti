@@ -19,10 +19,11 @@ import java.util.Optional;
 
 public class PedidoDAOImpl implements PedidoDAO {
     private ClienteDAOImpl daoCliente = new ClienteDAOImpl();
+    private ItemDAOImpl daoItem = new ItemDAOImpl();
 
     @Override
     public boolean insert(Pedido pedido) {
-        String sql = "INSERT INTO PEDIDO(id, valor, datapedido, status, forma_pagamento, cpf_cliente) VALUES(?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO PEDIDO(id, valor, datapedido, status, forma_pagamento, cpf_cliente, endereco) VALUES(?, ?, ?, ?, ?, ?, ?)";
         try(PreparedStatement ps = ConnectionFactory.criarPreparedStatement(sql)) {
             ps.setInt(1, pedido.getId());
             ps.setString(2, pedido.getValor().toString());
@@ -30,6 +31,7 @@ public class PedidoDAOImpl implements PedidoDAO {
             ps.setString(4, pedido.getStatus().toString());
             ps.setString(5, pedido.getPagamento().toString());
             ps.setString(6, pedido.getCliente().getCpf());
+            ps.setString(7, pedido.getCliente().getEndereco());
             ps.execute();
 
             return true;
@@ -40,11 +42,13 @@ public class PedidoDAOImpl implements PedidoDAO {
     }
 
     private Pedido resultSetToEntity(ResultSet rs) throws SQLException {
+
+
         Cliente cliente = daoCliente.findOne(rs.getString("CPF_CLIENTE"));
-        List<Item> itens = null;
+        List<Item> itens = daoItem.listAll(rs.getInt("ID"));
         String data = rs.getString("DATAPEDIDO");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate dataPedido = LocalDate.parse(data, formatter);
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate dataPedido = LocalDate.parse(data);
         return new Pedido(
                 rs.getInt("ID"),
                 cliente,
@@ -189,7 +193,18 @@ public class PedidoDAOImpl implements PedidoDAO {
 
     @Override
     public boolean atualizarStatusPedido(Pedido pedido) {
-        return update(pedido);
+        String sql = "UPDATE PEDIDO SET status = ? WHERE id = ?";
+
+        try(PreparedStatement ps = ConnectionFactory.criarPreparedStatement(sql)) {
+            ps.setString(1, pedido.getStatus().toString());
+            ps.setInt(2, pedido.getId());
+            ps.execute();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+
     }
 
     @Override

@@ -8,6 +8,7 @@ import ifsp.edu.repository.FornecedorRepository;
 import ifsp.edu.repository.PedidoRepository;
 import ifsp.edu.repository.ProdutoRepository;
 import ifsp.edu.sqlitedao.ClienteDAOImpl;
+import ifsp.edu.sqlitedao.ItemDAOImpl;
 import ifsp.edu.sqlitedao.PedidoDAOImpl;
 import ifsp.edu.sqlitedao.ProdutoDAOImpl;
 import ifsp.edu.usecases.cliente.ClienteDAO;
@@ -60,7 +61,7 @@ public class CtlrCadatroPedidos {
     ClienteDAO daoCliente = new ClienteDAOImpl();
     ProdutoDAO daoProdutos = new ProdutoDAOImpl();
 
-    static Integer cont=3;
+    static Integer cont=0;
 
     @FXML
     private void initialize(){
@@ -77,6 +78,7 @@ public class CtlrCadatroPedidos {
         List<Cliente> clienteArrayList = new ArrayList<>(daoCliente.listAll());                       //retorna apenas os cpfs
         ObservableList<String> clientes = FXCollections.observableArrayList(clienteArrayList.stream().map(c -> c.getCpf()).collect(Collectors.toList()));
         ObservableList<String> cpfClientesCadastrados = FXCollections.observableArrayList(clientes);
+
 
         //FORNECEDORES
         List<Produto> produtosArrayList = new ArrayList<>(daoProdutos.listAll());                     //retorna
@@ -109,9 +111,14 @@ public class CtlrCadatroPedidos {
 
         Produto produto = daoProdutos.findByNome(nomeProduto);
         Item item = new Item();
+        Pedido pedido = new Pedido();
+        pedido.setId(cont);
         item.setProduto(produto);
         item.setQuantidade( Integer.valueOf(txtQuantidadeProduto.getText()));
         item.setValorVenda(item.calculaValor());
+        item.setPedido(pedido);
+        ItemDAOImpl daoImple = new ItemDAOImpl();
+        daoImple.insert(item);
         listaItens.add(item);
         table.setItems(FXCollections.observableArrayList(listaItens));
 

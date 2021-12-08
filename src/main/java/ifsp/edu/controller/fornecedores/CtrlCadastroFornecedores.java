@@ -55,6 +55,7 @@ public class CtrlCadastroFornecedores {
     public void setFornecedoresToView(Fornecedor f) {
         fornecedor=f;
         txtCnpjFornecedor.setText(f.getCnpj());
+        txtCnpjFornecedor.setDisable(true);
         txtEnderecoFornecedor.setText(f.getEndereco());
         txtNomeFornecedor.setText(f.getNome());
         txtTel1Fornecedor.setText(f.getTelefone1());

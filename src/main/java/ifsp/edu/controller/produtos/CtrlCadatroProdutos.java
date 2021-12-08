@@ -11,6 +11,7 @@ import ifsp.edu.usecases.fornecedor.InsertFornecedorUseCase;
 import ifsp.edu.usecases.fornecedor.UpdateFornecedorUseCase;
 import ifsp.edu.usecases.produto.InserirProdutoUseCase;
 import ifsp.edu.usecases.produto.ProdutoDAO;
+import ifsp.edu.usecases.produto.ProdutoValidator;
 import ifsp.edu.usecases.produto.UpdateProdutoUseCase;
 import ifsp.edu.view.produtos.WindowSubmenuProdutos;
 import javafx.collections.FXCollections;
@@ -36,7 +37,6 @@ public class CtrlCadatroProdutos {
     @FXML TextField txtPrecoCustoProduto;
     @FXML TextField txtPrecoVendaProduto;
     @FXML ChoiceBox cbFornecedoresProdutos;
-    @FXML Button btnAdicionarFornecedor;
     @FXML Button btnCadastrarProduto;
 
     private FornecedorDAO fornecedorDAO = new FornecedorDAOImpl();
@@ -58,10 +58,13 @@ public class CtrlCadatroProdutos {
     public void setProdutoToView(Produto p) {
         produto=p;
         txtIdProduto.setText(p.getId().toString());
+        txtIdProduto.setDisable(true);
         txtNomeProduto.setText(p.getNome());
         txtDescricaoProduto.setText(p.getDescricao());
         txtPrecoCustoProduto.setText(p.getValorCusto().toString());
         txtPrecoVendaProduto.setText(p.getValorVenda().toString());
+        cbFornecedoresProdutos.setValue(p.getFornecedor().getNome());
+        cbFornecedoresProdutos.setDisable(true);
     }
 
     public void cadastrarProduto(ActionEvent actionEvent) {
@@ -69,36 +72,52 @@ public class CtrlCadatroProdutos {
         close();
     }
 
-    public void adicionarFornecedor(ActionEvent actionEvent) {
-        InserirProdutoUseCase inserirProdutoUseCase;
-    }
+
 
     public void saveOrUpdate() throws RuntimeException{
         Produto p = getFromProdutoToView();
-        if (p == null && p != null ) {
+        if (produto == null && p != null ) {
             save(p);
-        } else if (p != null && p != null ) {
-            update(getFromProdutoToView());
+        } else if (produto != null && p != null ) {
+            update(p);
         }
-        save(p);
         Stage stage = (Stage) txtIdProduto.getScene().getWindow();
 
     }
+
+    public String validate(String textfield){
+        if(textfield.isEmpty()){
+            throw new IllegalArgumentException("Campo vazio!");
+        }
+        return textfield;
+
+
+    }
     private Produto getFromProdutoToView() {
-        Integer id = Integer.valueOf(txtIdProduto.getText());
-        String nome = String.valueOf(txtNomeProduto.getText());
-        String descricao = String.valueOf(txtDescricaoProduto.getText());
-        Double precoCusto = Double.valueOf(txtPrecoCustoProduto.getText());
-        Double precoVenda = Double.valueOf(txtPrecoVendaProduto.getText());
-        String nomeFornecedor = (String) cbFornecedoresProdutos.getValue();
+
+
+        Integer id = Integer.valueOf(validate(txtIdProduto.getText()));
+        String nome = String.valueOf(validate(txtNomeProduto.getText()));
+        String descricao = String.valueOf(validate(txtDescricaoProduto.getText()));
+        Double precoCusto = Double.valueOf(validate(txtPrecoCustoProduto.getText()));
+        Double precoVenda = Double.valueOf(validate(txtPrecoVendaProduto.getText()));
+        String nomeFornecedor = validate((String) cbFornecedoresProdutos.getValue());
+
+        System.out.println(id);
+        System.out.println(nome);
+        System.out.println(descricao);
+        System.out.println(precoCusto);
+        System.out.println(precoVenda);
+        System.out.println(nomeFornecedor);
+
         Fornecedor f = fornecedorDAO.findByName(nomeFornecedor);
-        Produto produto = new Produto( nome,id, descricao, precoCusto, precoVenda, f);
+        Produto produto = new Produto( id, nome, descricao, precoCusto, precoVenda, f);
         return produto;
     }
 
     private void update(Produto p) {
         UpdateProdutoUseCase updateProdutoUseCase = new UpdateProdutoUseCase(produtoDAO);
-        updateProdutoUseCase.update(p.getId());
+        updateProdutoUseCase.update(p);
     }
 
     private void save(Produto p) {

@@ -25,8 +25,8 @@ public class ProdutoDAOImpl implements ProdutoDAO {
             ps.setInt(1, produto.getId());
             ps.setString(2, produto.getNome());
             ps.setString(3, produto.getDescricao());
-            ps.setInt(4, Integer.parseInt(produto.getValorCusto().toString()));
-            ps.setInt(5, Integer.parseInt(produto.getValorVenda().toString()));
+            ps.setDouble(4, Double.parseDouble(produto.getValorCusto().toString()));
+            ps.setDouble(5, Double.parseDouble(produto.getValorVenda().toString()));
             ps.setString(6, produto.getFornecedor().getCnpj());
             ps.execute();
 
@@ -41,8 +41,8 @@ public class ProdutoDAOImpl implements ProdutoDAO {
         Fornecedor fornecedor = daoFornecedor.findOne(rs.getString("CNPJ_FORNECEDOR"));
 
         return new Produto(
-                rs.getString("NOME"),
                 rs.getInt("ID"),
+                rs.getString("NOME"),
                 rs.getString("DESCRICAO"),
                 rs.getDouble("VALORCUSTO"),
                 rs.getDouble("VALORVENDA"),
@@ -88,8 +88,8 @@ public class ProdutoDAOImpl implements ProdutoDAO {
         try(PreparedStatement ps = ConnectionFactory.criarPreparedStatement(sql)) {
             ps.setString(1, produto.getNome());
             ps.setString(2, produto.getDescricao());
-            ps.setInt(3, Integer.parseInt(produto.getValorCusto().toString()));
-            ps.setInt(4, Integer.parseInt(produto.getValorVenda().toString()));
+            ps.setDouble(3, Double.parseDouble(produto.getValorCusto().toString()));
+            ps.setDouble(4, Double.parseDouble(produto.getValorVenda().toString()));
             ps.setString(5, produto.getFornecedor().getCnpj());
             ps.setInt(6, produto.getId());
             ps.execute();

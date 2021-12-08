@@ -12,8 +12,8 @@ public class UpdateProdutoUseCase {
         this.dao = dao;
     }
 
-    public boolean update(Integer id){
-        Produto produto = dao.findOne(id);
+    public boolean update(Produto prod){
+        Produto produto = prod;
         Validator<Produto> validator = new ProdutoValidator();
         Notification notification = validator.validate(produto);
 

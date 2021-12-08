@@ -11,10 +11,11 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 public class Produto {
-    private String nome;
     private Integer id;
+    private String nome;
     private String descricao;
     private Double valorCusto;
     private Double valorVenda;
     private Fornecedor fornecedor;
+
 }

@@ -51,6 +51,7 @@ public class CtrlCadastroClientes {
     public void setClientesToView(Cliente c) {
         cliente=c;
         txtCpfCliente.setText(c.getCpf());
+        txtCpfCliente.setDisable(true);
         txtEnderecoCliente.setText(c.getEndereco());
         txtNomeCliente.setText(c.getNome());
         txtTel1Cliente.setText(c.getTelefone1());

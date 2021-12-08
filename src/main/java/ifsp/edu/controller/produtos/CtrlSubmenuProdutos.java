@@ -105,6 +105,7 @@ public class CtrlSubmenuProdutos {
         Produto produto = tableProduto.getSelectionModel().getSelectedItem();
         try {
             window.show(produto);
+            reloadTable();
         } catch (IOException e ) {
             e.printStackTrace();
         }
@@ -112,7 +113,7 @@ public class CtrlSubmenuProdutos {
 
     public void buscarProdutos(ActionEvent actionEvent) {
         Integer idProduto = Integer.valueOf(txtBuscarProdutos.getText());
-        ProdutoDAO dao = new ProdutoRepository();
+        ProdutoDAO dao = new ProdutoDAOImpl();
         findProdutoUseCase = new FindProdutoUseCase(dao);
         Optional<Produto> p = findProdutoUseCase.findOne(idProduto);
 

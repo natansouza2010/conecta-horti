@@ -21,11 +21,29 @@ public class PedidoDAOImpl implements PedidoDAO {
     private ClienteDAOImpl daoCliente = new ClienteDAOImpl();
     private ItemDAOImpl daoItem = new ItemDAOImpl();
 
+      static Integer idPedido = numberOfRows();
+
+
+
+    public static int numberOfRows(){
+        String sql = "SELECT COUNT(*) as ROWS FROM PEDIDO";
+        try(PreparedStatement ps = ConnectionFactory.criarPreparedStatement(sql)){
+            ResultSet rs = ps.executeQuery();
+            System.out.println(rs);
+            return Integer.valueOf(rs.getString("ROWS"));
+
+        }
+        catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return 0;
+    }
+
     @Override
     public boolean insert(Pedido pedido) {
         String sql = "INSERT INTO PEDIDO(id, valor, datapedido, status, forma_pagamento, cpf_cliente, endereco) VALUES(?, ?, ?, ?, ?, ?, ?)";
         try(PreparedStatement ps = ConnectionFactory.criarPreparedStatement(sql)) {
-            ps.setInt(1, pedido.getId());
+            ps.setInt(1, idPedido);
             ps.setString(2, pedido.getValor().toString());
             ps.setString(3, pedido.getDataPedido().toString());
             ps.setString(4, pedido.getStatus().toString());
@@ -33,6 +51,7 @@ public class PedidoDAOImpl implements PedidoDAO {
             ps.setString(6, pedido.getCliente().getCpf());
             ps.setString(7, pedido.getCliente().getEndereco());
             ps.execute();
+            idPedido++;
 
             return true;
         } catch (SQLException e) {

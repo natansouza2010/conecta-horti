@@ -23,6 +23,8 @@ public class Pedido {
     private String endereco;
     private FormaDePagamento pagamento;
 
+
+
     public Pedido(Integer id, Cliente cliente, LocalDate dataPedido, StatusPedido status, String endereco, FormaDePagamento pagamento) {
         this.id = id;
         this.cliente = cliente;
@@ -51,6 +53,14 @@ public class Pedido {
         this.status = status;
         this.endereco = endereco;
         this.pagamento = pagamento;
+    }
+
+    public Pedido(List<Item> listaItens, LocalDate now, StatusPedido status, String endereco, FormaDePagamento formaDePagamento) {
+        this.items = listaItens;
+        this.dataPedido = now;
+        this.status = status;
+        this.endereco = endereco;
+        this.pagamento = formaDePagamento;
     }
 
     public void addItems(Item item){

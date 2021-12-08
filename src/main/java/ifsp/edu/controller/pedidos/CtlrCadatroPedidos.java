@@ -61,7 +61,6 @@ public class CtlrCadatroPedidos {
     ClienteDAO daoCliente = new ClienteDAOImpl();
     ProdutoDAO daoProdutos = new ProdutoDAOImpl();
 
-    static Integer cont=0;
 
     @FXML
     private void initialize(){
@@ -94,25 +93,26 @@ public class CtlrCadatroPedidos {
     }
 
     private Pedido getPedidoFromView(){
+        PedidoDAOImpl pedDAO = new PedidoDAOImpl();
         findClienteUseCase = new FindClienteUseCase(daoCliente);
         String cpfCliente = String.valueOf(cbCpfCliente.getSelectionModel().getSelectedItem());
         Cliente c = findClienteUseCase.findOne(cpfCliente).get();
         FormaDePagamento formaDePagamento = FormaDePagamento.valueOf(cbPagamento.getSelectionModel().getSelectedItem());
-        Pedido pedido = new Pedido(cont,c,listaItens,LocalDate.now(),StatusPedido.A_PAGAR, c.getEndereco(),formaDePagamento );
+        Pedido pedido = new Pedido(pedDAO.numberOfRows(),c, listaItens,LocalDate.now(),StatusPedido.A_PAGAR, c.getEndereco(),formaDePagamento );
         System.out.println(pedido.getItems().toString());
         System.out.println(pedido.toString());
-        cont++;
+
 
         return pedido;
     }
 
     public void btnAdicionarProdutoToTable(ActionEvent actionEvent) {
         String nomeProduto = String.valueOf(cbProdutos.getSelectionModel().getSelectedItem());
-
+        PedidoDAOImpl pedDAO = new PedidoDAOImpl();
         Produto produto = daoProdutos.findByNome(nomeProduto);
         Item item = new Item();
         Pedido pedido = new Pedido();
-        pedido.setId(cont);
+        pedido.setId(pedDAO.numberOfRows());
         item.setProduto(produto);
         item.setQuantidade( Integer.valueOf(txtQuantidadeProduto.getText()));
         item.setValorVenda(item.calculaValor());

@@ -8,6 +8,8 @@ import ifsp.edu.model.Pedido;
 import ifsp.edu.model.Produto;
 import ifsp.edu.repository.CompraProdutoRepository;
 import ifsp.edu.repository.ProdutoRepository;
+import ifsp.edu.sqlitedao.CompraProdutoDAOImpl;
+import ifsp.edu.sqlitedao.ProdutoDAOImpl;
 import ifsp.edu.usecases.cliente.FindClienteUseCase;
 import ifsp.edu.usecases.compraproduto.CompraProdutoDAO;
 import ifsp.edu.usecases.compraproduto.InsertCompraProdutoUseCase;
@@ -48,8 +50,7 @@ public class CtrlSubmenuCompraProduto {
     InsertCompraProdutoUseCase insertCompraProdutoUseCase;
     RemoveCompraProdutoUseCase removeCompraProdutoUseCase;
 
-    ProdutoDAO daoProdutos = new ProdutoRepository();
-    Integer id = 0;
+    ProdutoDAO daoProdutos = new ProdutoDAOImpl();
 
 
 
@@ -105,24 +106,24 @@ public class CtrlSubmenuCompraProduto {
     }
 
     private void loadTable() {
-        CompraProdutoDAO dao = new CompraProdutoRepository();
+        CompraProdutoDAO dao = new CompraProdutoDAOImpl();
         List<CompraProduto> comps = new ArrayList<>(dao.listAll());
         compras.setAll(comps);
     }
 
     private void save(Produto prod) {
-        CompraProduto comp = new CompraProduto(id,prod,LocalDate.now());
-        CompraProdutoDAO dao = new CompraProdutoRepository();
+        CompraProduto comp = new CompraProduto(prod,LocalDate.now());
+        CompraProdutoDAO dao = new CompraProdutoDAOImpl();
         insertCompraProdutoUseCase = new InsertCompraProdutoUseCase(dao);
         insertCompraProdutoUseCase.insert(comp);
-        id++;
+
 
     }
 
 
     public void removerCompra(ActionEvent actionEvent) {
         CompraProduto comp = tableCompra.getSelectionModel().getSelectedItem();
-        CompraProdutoDAO dao = new CompraProdutoRepository();
+        CompraProdutoDAO dao = new CompraProdutoDAOImpl();;
         removeCompraProdutoUseCase = new RemoveCompraProdutoUseCase(dao);
         removeCompraProdutoUseCase.delete(comp);
         reloadTable();

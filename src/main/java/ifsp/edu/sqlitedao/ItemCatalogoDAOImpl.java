@@ -92,6 +92,26 @@ public class ItemCatalogoDAOImpl {
 
     }
 
+    public List<Produto> listProdutosByIdCatalogo(Integer idCatalogo) {
+        String sql = "SELECT * FROM ITEMCATALOGO WHERE ID_CATALOGO = ?";
+        List<Produto> produtos = new ArrayList<>();
+        try (PreparedStatement ps = ConnectionFactory.criarPreparedStatement(sql)) {
+            ps.setInt(1, idCatalogo);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                ProdutoDAO daoProduto = new ProdutoDAOImpl();
+                Produto p = daoProduto.findOne(rs.getInt("ID_PRODUTO"));
+
+                produtos.add(p);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return produtos;
+
+    }
+
     public boolean deleteCatalogo(Integer idCatalogo) {
         String sql = "DELETE FROM ITEMCATALOGO WHERE id_catalogo = ?";
         try(PreparedStatement ps = ConnectionFactory.criarPreparedStatement(sql)) {
@@ -108,7 +128,7 @@ public class ItemCatalogoDAOImpl {
         String sql = "DELETE FROM ITEMCATALOGO WHERE id_catalogo = ? and id_produto = ?";
         try(PreparedStatement ps = ConnectionFactory.criarPreparedStatement(sql)) {
             ps.setInt(1, itemCatalogo.getCatalogo().getId());
-            ps.setInt(1, itemCatalogo.getProduto().getId());
+            ps.setInt(2, itemCatalogo.getProduto().getId());
             ps.execute();
             return true;
         }catch (SQLException e){

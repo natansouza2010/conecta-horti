@@ -1,16 +1,13 @@
 package ifsp.edu.sqlitedao;
 
 import ifsp.edu.model.Catalogo;
-import ifsp.edu.model.ItemCatalogo;
 import ifsp.edu.model.Produto;
 import ifsp.edu.usecases.catalogo.CatalogoDAO;
 
-import java.security.Policy;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -58,17 +55,16 @@ public class CatalogoDAOImpl implements CatalogoDAO {
 
     private Catalogo resultSetToEntity(ResultSet rs) throws SQLException {
         ItemCatalogoDAOImpl dao = new ItemCatalogoDAOImpl();
-
+        List<Produto> produtos = dao.listProdutosByIdCatalogo(rs.getInt("ID"));
         String dataIni = rs.getString("DATAINICIAL");
         String dataFin = rs.getString("DATAFINAL");
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate dataInicial = LocalDate.parse(dataIni);
         LocalDate dataFinal = LocalDate.parse(dataFin);
         return new Catalogo(
                 rs.getInt("ID"),
                 dataInicial,
                 dataFinal,
-                null
+                produtos
         );
     }
 

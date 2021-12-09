@@ -10,8 +10,8 @@ import java.util.Optional;
 
 
 public interface CatalogoDAO extends DAO<Catalogo, Integer>{
-    boolean deleteProdutoDoCatalogo(LocalDate dataInicial, LocalDate dataFinal, Produto produto);
-    boolean updateProdutoDoCatalogo(Catalogo catalogo, Produto produto);
+//    boolean deleteProdutoDoCatalogo(LocalDate dataInicial, LocalDate dataFinal, Produto produto);
+//    boolean updateProdutoDoCatalogo(Catalogo catalogo, Produto produto);
     Optional<LocalDate> findDataFinal(LocalDate dataFinal);
     Optional<LocalDate> findDataInicial(LocalDate dataInicial);
     Optional<Produto> findProdutoByName(String nome);

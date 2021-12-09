@@ -20,8 +20,6 @@ public class CatalogoValidator extends Validator<Catalogo> {
         if(nullOrEmpty(catalogo.getDataFinal().toString()))
             notification.addError("Data final do catálogo é nula ou vazia");
 
-        if(nullOrEmpty(catalogo.getProduto().getNome()))
-            notification.addError("Nome do produto é nulo ou vazio");
 
 
 

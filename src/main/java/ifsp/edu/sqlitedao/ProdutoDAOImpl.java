@@ -21,7 +21,7 @@ public class ProdutoDAOImpl implements ProdutoDAO {
     @Override
     public boolean insert(Produto produto) {
         String sql = "INSERT INTO PRODUTO(id, nome, descricao, valorcusto, valorvenda, cnpj_fornecedor) VALUES(?, ?, ?, ?, ?, ?)";
-        try(PreparedStatement ps = ConnectionFactory.criarPreparedStatement(sql)) {
+        try (PreparedStatement ps = ConnectionFactory.criarPreparedStatement(sql)) {
             ps.setInt(1, produto.getId());
             ps.setString(2, produto.getNome());
             ps.setString(3, produto.getDescricao());
@@ -54,13 +54,13 @@ public class ProdutoDAOImpl implements ProdutoDAO {
     public Produto findOne(Integer id) {
         Produto produto = null;
         String sql = "SELECT * FROM PRODUTO WHERE id = ?";
-        try(PreparedStatement ps = ConnectionFactory.criarPreparedStatement(sql)) {
+        try (PreparedStatement ps = ConnectionFactory.criarPreparedStatement(sql)) {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 produto = resultSetToEntity(rs);
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return produto;
@@ -70,13 +70,13 @@ public class ProdutoDAOImpl implements ProdutoDAO {
     public List<Produto> listAll() {
         List<Produto> produtos = new ArrayList<>();
         String sql = "SELECT * FROM PRODUTO ";
-        try(PreparedStatement ps = ConnectionFactory.criarPreparedStatement(sql)) {
+        try (PreparedStatement ps = ConnectionFactory.criarPreparedStatement(sql)) {
             ResultSet rs = ps.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 Produto produto = resultSetToEntity(rs);
                 produtos.add(produto);
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return produtos;
@@ -85,7 +85,7 @@ public class ProdutoDAOImpl implements ProdutoDAO {
     @Override
     public boolean update(Produto produto) {
         String sql = "UPDATE PRODUTO SET nome = ?, descricao = ?, valorcusto = ?, valorvenda = ?, cnpj_fornecedor = ? WHERE id = ?";
-        try(PreparedStatement ps = ConnectionFactory.criarPreparedStatement(sql)) {
+        try (PreparedStatement ps = ConnectionFactory.criarPreparedStatement(sql)) {
             ps.setString(1, produto.getNome());
             ps.setString(2, produto.getDescricao());
             ps.setDouble(3, Double.parseDouble(produto.getValorCusto().toString()));
@@ -103,11 +103,11 @@ public class ProdutoDAOImpl implements ProdutoDAO {
     @Override
     public boolean delete(Integer id) {
         String sql = "DELETE FROM PRODUTO WHERE id = ?";
-        try(PreparedStatement ps = ConnectionFactory.criarPreparedStatement(sql)) {
+        try (PreparedStatement ps = ConnectionFactory.criarPreparedStatement(sql)) {
             ps.setInt(1, id);
             ps.execute();
             return true;
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
@@ -123,13 +123,13 @@ public class ProdutoDAOImpl implements ProdutoDAO {
     public Produto findByNome(String nome) {
         Produto produto = null;
         String sql = "SELECT * FROM PRODUTO WHERE nome = ?";
-        try(PreparedStatement ps = ConnectionFactory.criarPreparedStatement(sql)) {
+        try (PreparedStatement ps = ConnectionFactory.criarPreparedStatement(sql)) {
             ps.setString(1, nome);
             ResultSet rs = ps.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 produto = resultSetToEntity(rs);
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return produto;
@@ -139,14 +139,14 @@ public class ProdutoDAOImpl implements ProdutoDAO {
     public List<Produto> findByFornecedor(String cnpj) {
         List<Produto> produtos = new ArrayList<>();
         String sql = "SELECT * FROM PRODUTO WHERE CNPJ_FORNECEDOR = ? ";
-        try(PreparedStatement ps = ConnectionFactory.criarPreparedStatement(sql)) {
-            ps.setString(1 ,cnpj);
+        try (PreparedStatement ps = ConnectionFactory.criarPreparedStatement(sql)) {
+            ps.setString(1, cnpj);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 Produto produto = resultSetToEntity(rs);
                 produtos.add(produto);
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return produtos;
@@ -156,16 +156,44 @@ public class ProdutoDAOImpl implements ProdutoDAO {
     public Fornecedor findFornecedorByProduto(Produto produto) {
         Optional<Fornecedor> fornecedor = null;
         String sql = "SELECT * FROM PRODUTO WHERE id = ?";
-        try(PreparedStatement ps = ConnectionFactory.criarPreparedStatement(sql)) {
+        try (PreparedStatement ps = ConnectionFactory.criarPreparedStatement(sql)) {
             ps.setInt(1, produto.getId());
             ResultSet rs = ps.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 produto = resultSetToEntity(rs);
                 fornecedor = daoFornecedor.findByCNPJ(produto.getFornecedor().getCnpj());
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return fornecedor.get();
+    }
+
+
+    public boolean updateValorCustoProduto(Produto produto) {
+        String sql = "UPDATE PRODUTO SET valorcusto = ? WHERE id = ?";
+        try (PreparedStatement ps = ConnectionFactory.criarPreparedStatement(sql)) {
+            ps.setDouble(1, Double.parseDouble(produto.getValorCusto().toString()));
+            ps.setInt(2, produto.getId());
+            ps.execute();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+
+    public boolean updateValorVendaProduto(Produto produto){
+        String sql = "UPDATE PRODUTO SET valorvenda = ? WHERE id = ?";
+        try (PreparedStatement ps = ConnectionFactory.criarPreparedStatement(sql)) {
+            ps.setDouble(1, Double.parseDouble(produto.getValorVenda().toString()));
+            ps.setInt(2, produto.getId());
+            ps.execute();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class Item {
-    private Integer id;
+//    private Integer id;
     private Double valorVenda;
 
     private Integer quantidade;

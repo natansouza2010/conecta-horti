@@ -24,10 +24,10 @@ public class InserirCatalogoUseCase {
             throw new IllegalArgumentException(notification.errorMessage());
 
 
-        Integer idProduto = catalogo.getProduto().getId();
-        if(daoProduto.findById(idProduto).isEmpty()){
-            throw new EntidadeNaoEncontradaException("Id do produto selecionado não encontrado.");
-        }
+//        Integer idProduto = catalogo.getProduto().getId();
+//        if(daoProduto.findById(idProduto).isEmpty()){
+//            throw new EntidadeNaoEncontradaException("Id do produto selecionado não encontrado.");
+//        }
 
         if(dao.findDataInicial(catalogo.getDataInicial()).isPresent()){
             throw new EntidadeExistenteException("Data inicial já existe.");

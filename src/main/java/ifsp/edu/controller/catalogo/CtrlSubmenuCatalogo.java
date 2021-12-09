@@ -38,8 +38,8 @@ import java.util.Optional;
 
 public class CtrlSubmenuCatalogo {
 
-    @FXML Button btnAdicionarProdutosNoCatalogo;
-    @FXML Button btnRemoverProdutos;
+    @FXML Button btnCriarCatalogo;
+    @FXML Button btnRemoveCatalogo;
 
     @FXML
     TableView<Catalogo> tableCatalogo;
@@ -47,22 +47,24 @@ public class CtrlSubmenuCatalogo {
     ObservableList<Catalogo> catalogos;
 
     @FXML
-    TableColumn<Produto,String> colNomeProdutos;
-    @FXML TableColumn<Produto, String>colDescricaoProdutos;
+    TableColumn<Catalogo,Integer> colIdCatalogo;
     @FXML TableColumn<Catalogo, LocalDate> colDataInicial;
     @FXML TableColumn<Catalogo, LocalDate> colDataFinal;
-    @FXML TableColumn<Produto, Double> colPrecoVendaProdutos;
+
 
     private InserirCatalogoUseCase inserirCatalogoUseCase;
     private DeleteProdutoDoCatalogoUseCase deleteProdutoDoCatalogoUseCase;
     private UpdateCatalogoUseCase updateCatalogoUseCase;
 
     public void initialize(){
-        colNomeProdutos.setCellValueFactory(new PropertyValueFactory<Produto, String>("nome"));
-        colDescricaoProdutos.setCellValueFactory(new PropertyValueFactory<Produto, String>("descricao"));
-        colDataInicial.setCellValueFactory(new PropertyValueFactory<Catalogo, LocalDate>("dataInicial"));
-        colPrecoVendaProdutos.setCellValueFactory(new PropertyValueFactory<Produto, Double>("valorVenda"));
-        colDataFinal.setCellValueFactory(new PropertyValueFactory<Catalogo, LocalDate>("dataFinal"));
+        colIdCatalogo.setCellValueFactory(new PropertyValueFactory<Catalogo,Integer>("id"));
+        colDataInicial.setCellValueFactory(new PropertyValueFactory<Catalogo,LocalDate>("dataInicial"));
+        colDataFinal.setCellValueFactory(new PropertyValueFactory<Catalogo,LocalDate>("dataFinal"));
+//        colNomeProdutos.setCellValueFactory(new PropertyValueFactory<Produto, String>("nome"));
+//        colDescricaoProdutos.setCellValueFactory(new PropertyValueFactory<Produto, String>("descricao"));
+//        colDataInicial.setCellValueFactory(new PropertyValueFactory<Catalogo, LocalDate>("dataInicial"));
+//        colPrecoVendaProdutos.setCellValueFactory(new PropertyValueFactory<Produto, Double>("valorVenda"));
+//        colDataFinal.setCellValueFactory(new PropertyValueFactory<Catalogo, LocalDate>("dataFinal"));
 //        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 //        LocalDate dataInicial = LocalDate.parse(colDataInicial.getText(),formatter);
 //        LocalDate dataFinal = LocalDate.parse(colDataFinal.getText(),formatter);
@@ -92,7 +94,18 @@ public class CtrlSubmenuCatalogo {
         tableCatalogo.setItems(catalogos);
     }
 
-    public void adicionarProdutosNoCatalogo(ActionEvent actionEvent) {
+
+
+    public void voltar(ActionEvent actionEvent) {
+        close();
+    }
+
+    public void close(){
+        Stage stage = (Stage) btnRemoveCatalogo.getScene().getWindow();
+        stage.close();
+    }
+
+    public void criarCatalago(ActionEvent actionEvent) {
         WindowCadastroCatalogo window = new WindowCadastroCatalogo();
         try {
             window.show();
@@ -102,21 +115,12 @@ public class CtrlSubmenuCatalogo {
         }
     }
 
-    public void removerProdutosDoCatalogo(ActionEvent actionEvent) {
-        Produto produto = tableCatalogo.getSelectionModel().getSelectedItem().getProduto();
-        Catalogo catalogo = tableCatalogo.getSelectionModel().getSelectedItem();
-        CatalogoDAO dao = new CatalogoRepository();
-        deleteProdutoDoCatalogoUseCase = new DeleteProdutoDoCatalogoUseCase(dao);
-        deleteProdutoDoCatalogoUseCase.deleteProduto(catalogo.getDataInicial(),catalogo.getDataFinal(),produto);
-        reloadTable();
-   }
-
-    public void voltar(ActionEvent actionEvent) {
-        close();
-    }
-
-    public void close(){
-        Stage stage = (Stage) btnAdicionarProdutosNoCatalogo.getScene().getWindow();
-        stage.close();
+    public void removerCatalago(ActionEvent actionEvent) {
+        //        Produto produto = tableCatalogo.getSelectionModel().getSelectedItem().getProduto();
+//        Catalogo catalogo = tableCatalogo.getSelectionModel().getSelectedItem();
+//        CatalogoDAO dao = new CatalogoRepository();
+//        deleteProdutoDoCatalogoUseCase = new DeleteProdutoDoCatalogoUseCase(dao);
+//        deleteProdutoDoCatalogoUseCase.deleteProduto(catalogo.getDataInicial(),catalogo.getDataFinal(),produto);
+//        reloadTable();
     }
 }

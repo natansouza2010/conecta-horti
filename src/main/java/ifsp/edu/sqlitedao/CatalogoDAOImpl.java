@@ -106,15 +106,15 @@ public class CatalogoDAOImpl implements CatalogoDAO {
         return false;
     }
 
-    @Override
-    public boolean deleteProdutoDoCatalogo(LocalDate dataInicial, LocalDate dataFinal, Produto produto) {
-        return false;
-    }
-
-    @Override
-    public boolean updateProdutoDoCatalogo(Catalogo catalogo, Produto produto) {
-        return false;
-    }
+//    @Override
+//    public boolean deleteProdutoDoCatalogo(LocalDate dataInicial, LocalDate dataFinal, Produto produto) {
+//        return false;
+//    }
+//
+//    @Override
+//    public boolean updateProdutoDoCatalogo(Catalogo catalogo, Produto produto) {
+//        return false;
+//    }
 
     @Override
     public Optional<LocalDate> findDataFinal(LocalDate dataFinal) {

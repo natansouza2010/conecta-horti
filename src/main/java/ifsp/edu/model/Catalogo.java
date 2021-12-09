@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -13,15 +14,15 @@ public class Catalogo {
     private Integer id;
     private LocalDate dataInicial;
     private LocalDate dataFinal;
-    private Produto produto;
+    private List<Produto> produtos;
 
     @Override
     public String toString() {
         return "Catalogo{" +
                 "id=" + id +
-                "dataInicial=" + dataInicial +
+                ", dataInicial=" + dataInicial +
                 ", dataFinal=" + dataFinal +
-                ", produto=" + produto +
+                ", produtos=" + produtos+
                 '}';
     }
 }

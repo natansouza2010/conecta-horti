@@ -17,12 +17,12 @@ public class UpdateCatalogoUseCase {
         this.dao = dao;
     }
 
-    public boolean updateProduto(Catalogo catalogo,Produto produto){
-
-        if(daoProduto.findOne(produto.getId()) == null){
-            throw new EntidadeNaoEncontradaException("Produto inexistente");
-        }
-
-        return dao.updateProdutoDoCatalogo(catalogo,produto);
-    }
+//    public boolean updateProduto(Catalogo catalogo,Produto produto){
+//
+//        if(daoProduto.findOne(produto.getId()) == null){
+//            throw new EntidadeNaoEncontradaException("Produto inexistente");
+//        }
+//
+//        return dao.updateProdutoDoCatalogo(catalogo,produto);
+//    }
 }

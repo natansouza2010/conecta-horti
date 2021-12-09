@@ -46,32 +46,30 @@ public class CatalogoRepository implements CatalogoDAO {
         return false;
     }
 
-    @Override
-    public boolean updateProdutoDoCatalogo(Catalogo catalogo, Produto produto) {
-        for (Catalogo cat: catalogoMap.values()
-        ) {
-            if(cat == catalogo){
-                catalogo.setProduto(produto);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public boolean deleteProdutoDoCatalogo(LocalDate dataInicial, LocalDate dataFinal, Produto produto) {
-        for (Catalogo catalogo: catalogoMap.values()
-             ) {
-            if(catalogo.getDataInicial() == dataInicial && catalogo.getDataFinal() == dataFinal && catalogo.getProduto() == produto){
-                catalogo.setProduto(null);
-                return true;
-            }
-        }
-        return false;
-    }
+//    public boolean updateProdutoDoCatalogo(Catalogo catalogo, Produto produto) {
+//        for (Catalogo cat: catalogoMap.values()
+//        ) {
+//            if(cat == catalogo){
+//                catalogo.setProduto(produto);
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 
 
-    @Override
+//    public boolean deleteProdutoDoCatalogo(LocalDate dataInicial, LocalDate dataFinal, Produto produto) {
+//        for (Catalogo catalogo: catalogoMap.values()
+//             ) {
+//            if(catalogo.getDataInicial() == dataInicial && catalogo.getDataFinal() == dataFinal && catalogo.getProduto() == produto){
+//                catalogo.setProduto(null);
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
+
+
     public Optional<LocalDate> findDataFinal(LocalDate dataFinal) {
         for (Catalogo catalogo : catalogoMap.values()
         ) {

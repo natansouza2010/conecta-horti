@@ -93,6 +93,7 @@ public class CtrlSubmenuCompraProduto {
         Produto prod = getProdutoFromView();
         if(prod != null){
             save(prod);
+
             reloadTable();
         }
     }
@@ -114,8 +115,10 @@ public class CtrlSubmenuCompraProduto {
     private void save(Produto prod) {
         CompraProduto comp = new CompraProduto(prod,LocalDate.now());
         CompraProdutoDAO dao = new CompraProdutoDAOImpl();
+        ProdutoDAOImpl prodDAO = new ProdutoDAOImpl();
         insertCompraProdutoUseCase = new InsertCompraProdutoUseCase(dao);
         insertCompraProdutoUseCase.insert(comp);
+        prodDAO.updateValorCustoProduto(comp.getProduto());
 
 
     }

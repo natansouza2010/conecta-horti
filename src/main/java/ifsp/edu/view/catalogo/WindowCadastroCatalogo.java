@@ -31,10 +31,7 @@ public class WindowCadastroCatalogo {
         Scene scene = new Scene(graph, 680, 400);
         Stage stage = new Stage();
 
-        if (catalogo != null) {
-            stage.setTitle("Editar Catálogo");
-            controller.setCatalogoToView(catalogo);
-        } else{
+        if (catalogo == null) {
             stage.setTitle("Novo Catálogo");
         }
 

@@ -14,14 +14,37 @@ import java.util.List;
 import java.util.Optional;
 
 public class CatalogoDAOImpl implements CatalogoDAO {
+
+    static Integer idCatalogo = numberOfRows();
+
+
+
+    public static int numberOfRows(){
+        String sql = "SELECT COUNT(*) as ROWS FROM CATALOGO";
+        try(PreparedStatement ps = ConnectionFactory.criarPreparedStatement(sql)){
+            ResultSet rs = ps.executeQuery();
+            System.out.println(rs);
+            return Integer.valueOf(rs.getString("ROWS"));
+
+        }
+        catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return 0;
+    }
+
+
+
+
     @Override
     public boolean insert(Catalogo catalogo) {
         String sql = "INSERT INTO CATALOGO(id, datainicial, datafinal) VALUES(?, ?, ?)";
         try(PreparedStatement ps = ConnectionFactory.criarPreparedStatement(sql)) {
-            ps.setInt(1, catalogo.getId());
+            ps.setInt(1, idCatalogo);
             ps.setString(2, catalogo.getDataInicial().toString());
             ps.setString(3, catalogo.getDataFinal().toString());
             ps.execute();
+            idCatalogo++;
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -30,11 +53,13 @@ public class CatalogoDAOImpl implements CatalogoDAO {
     }
 
     private Catalogo resultSetToEntity(ResultSet rs) throws SQLException {
+        ItemCatalogoDAOImpl dao = new ItemCatalogoDAOImpl();
+
         String dataIni = rs.getString("DATAINICIAL");
         String dataFin = rs.getString("DATAFINAL");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate dataInicial = LocalDate.parse(dataIni,formatter);
-        LocalDate dataFinal = LocalDate.parse(dataFin,formatter);
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate dataInicial = LocalDate.parse(dataIni);
+        LocalDate dataFinal = LocalDate.parse(dataFin);
         return new Catalogo(
                 rs.getInt("ID"),
                 dataInicial,

@@ -8,6 +8,8 @@ import ifsp.edu.model.Produto;
 import ifsp.edu.repository.CatalogoRepository;
 import ifsp.edu.repository.FornecedorRepository;
 import ifsp.edu.repository.ProdutoRepository;
+import ifsp.edu.sqlitedao.CatalogoDAOImpl;
+import ifsp.edu.sqlitedao.ItemCatalogoDAOImpl;
 import ifsp.edu.sqlitedao.ProdutoDAOImpl;
 import ifsp.edu.usecases.catalogo.CatalogoDAO;
 import ifsp.edu.usecases.catalogo.InserirCatalogoUseCase;
@@ -31,6 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class CtrlCadastroCatalogo {
 
@@ -56,33 +59,30 @@ public class CtrlCadastroCatalogo {
     ChoiceBox cbProdutosDisponiveis;
 
     ProdutoDAO daoProdutos = new ProdutoDAOImpl();
-//    List<Produto> produtosDisponiveis = new ArrayList<>();
-//    private Integer idCatalogo = 1;
-//
-//    private Catalogo catalogo;
-//    private InserirCatalogoUseCase inserirCatalogoUseCase;ENDERECO
+
+    ObservableList<ItemCatalogo> produtosDoCat;
+    List<ItemCatalogo> produtosDoCatalogo = new ArrayList<>();
+
+
+    private Catalogo catalogo;
+    private InserirCatalogoUseCase inserirCatalogoUseCase;
 
 
     public void initialize() {
         colProduto.setCellValueFactory(new PropertyValueFactory<ItemCatalogo,Produto>("produto"));
         colValorVenda.setCellValueFactory(new PropertyValueFactory<ItemCatalogo,Double>("valor"));
         popularCbProdutos();
-        table.
+
     }
 
-    private void popularCbProdutos() {
-//        ProdutoDAO dao = new ProdutoRepository();
-//        List<Produto> produtos = dao.listAll();
-//        List<String> newArray = produtos.stream().map(p -> p.getNome()).collect(Collectors.toList());
-//        System.out.println(produtos);
-//
-//        ObservableList<String> data = FXCollections.observableArrayList(newArray);
-//        cbProdutosDisponiveis.getItems().addAll(newArray);
+    private void popularCbProdutos() { ;
 
         List<Produto> produtosArrayList = new ArrayList<>(daoProdutos.listAll());                     //retorna
         ObservableList<String> produtos = FXCollections.observableArrayList(produtosArrayList.stream().map(c -> c.getNome()).collect(Collectors.toList()));
         ObservableList<String> produtosCadastrados = FXCollections.observableArrayList(produtos);
         cbProdutosDisponiveis.setItems(produtosCadastrados);
+        produtosDoCat = FXCollections.observableArrayList();
+        table.setItems(produtosDoCat);
     }
 
     public void cadastrarCatalogo(ActionEvent actionEvent) {
@@ -92,7 +92,8 @@ public class CtrlCadastroCatalogo {
 
     public void saveOrUpdate() throws RuntimeException {
         Catalogo c = getFromCatalogoToView();
-        if (c == null && c != null) {
+        System.out.println(c.toString());
+        if (c!= null) {
             save(c);
         }
 
@@ -101,33 +102,23 @@ public class CtrlCadastroCatalogo {
     }
 
     private void save(Catalogo c) {
-//        CatalogoDAO dao = new CatalogoRepository();
-//        inserirCatalogoUseCase = new InserirCatalogoUseCase(dao);
-//        inserirCatalogoUseCase.insert(c);
+        CatalogoDAO catalogoDAO = new CatalogoDAOImpl();
+        inserirCatalogoUseCase = new InserirCatalogoUseCase(catalogoDAO);
+        inserirCatalogoUseCase.insert(c);
     }
 
-    public void setCatalogoToView(Catalogo c) {
-//        catalogo=c;
-//        txtIdProduto.setText(c.getId().toString());
-//        txtNomeProduto.setText(c.getProduto().getNome());
-//        txtDataInicial.setText(c.getDataInicial().toString());
-//        txtDataFinal.setText(c.getDataFinal().toString());
-    }
+
 
     private Catalogo getFromCatalogoToView() {
-        Catalogo catalogo = null;
-//        Integer id = Integer.valueOf(txtIdProduto.getText());
-//        String nome = String.valueOf(txtNomeProduto.getText());
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//        CharSequence data1 = String.valueOf(txtDataInicial.getText());
-//        CharSequence data2 = String.valueOf(txtDataFinal.getText());
-//        LocalDate dataInicial = LocalDate.parse(data1,formatter);
-////        LocalDate dataFinal = LocalDate.parse(data2,formatter);
-//        CatalogoDAO dao = new CatalogoRepository();
-//        Produto produto = dao.findProdutoByName(nome).get();
-//        Catalogo catalogo = new Catalogo( idCatalogo,dataInicial,dataFinal,produto);
-//        idCatalogo++;
-         return catalogo;
+        LocalDate data = LocalDate.now();
+        Catalogo catalogo = new Catalogo();
+        catalogo.setDataInicial(data);
+        catalogo.setDataFinal(data.plusDays(7));
+        List<Produto> listAux = new ArrayList<>();
+        produtosDoCatalogo.stream().forEach(i -> listAux.add(i.getProduto()));
+        catalogo.setProdutos(listAux);
+
+        return catalogo;
     }
 
 
@@ -136,11 +127,24 @@ public class CtrlCadastroCatalogo {
         close();
   }
 
-  public void close(){
-     Stage stage = (Stage) btnCadastrarCatalogo.getScene().getWindow();
-     stage.close();
+    public void close(){
+         Stage stage = (Stage) btnCadastrarCatalogo.getScene().getWindow();
+         stage.close();
    }
 
     public void adicionarProdutoToTable(ActionEvent actionEvent) {
+        String nomeProduto = String.valueOf(cbProdutosDisponiveis.getSelectionModel().getSelectedItem());
+        Produto produto = daoProdutos.findByNome(nomeProduto);
+        ItemCatalogoDAOImpl itemCatalogoDAO = new ItemCatalogoDAOImpl();
+        ItemCatalogo itemCatalogo = new ItemCatalogo();
+        itemCatalogo.setCatalogo(catalogo);
+        itemCatalogo.setProduto(produto);
+        itemCatalogo.setValor(Double.valueOf(txtValorVenda.getText()));
+        produtosDoCatalogo.add(itemCatalogo);
+        produtosDoCat.setAll(produtosDoCatalogo);
+        itemCatalogoDAO.insert(itemCatalogo);
+        table.setItems(produtosDoCat);
+
+
     }
 }

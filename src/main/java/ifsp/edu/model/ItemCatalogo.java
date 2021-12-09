@@ -8,6 +8,8 @@ public class ItemCatalogo {
     private Produto produto;
     private Double valor;
 
+    public ItemCatalogo() {
+    }
 
     public Catalogo getCatalogo() {
         return catalogo;

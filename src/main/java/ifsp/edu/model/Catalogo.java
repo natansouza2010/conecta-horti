@@ -25,4 +25,36 @@ public class Catalogo {
                 ", produtos=" + produtos+
                 '}';
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public LocalDate getDataInicial() {
+        return dataInicial;
+    }
+
+    public void setDataInicial(LocalDate dataInicial) {
+        this.dataInicial = dataInicial;
+    }
+
+    public LocalDate getDataFinal() {
+        return dataFinal;
+    }
+
+    public void setDataFinal(LocalDate dataFinal) {
+        this.dataFinal = dataFinal;
+    }
+
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
+    }
 }

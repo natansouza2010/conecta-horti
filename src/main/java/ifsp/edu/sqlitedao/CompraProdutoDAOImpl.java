@@ -97,6 +97,25 @@ public class CompraProdutoDAOImpl implements CompraProdutoDAO {
         return compraProdutos;
     }
 
+    public List<CompraProduto> findByPeriodoPago(LocalDate data, LocalDate dataFinal){
+        List<CompraProduto> compraProdutos = new ArrayList<>();
+        String sql = "SELECT * FROM COMPRAPRODUTO WHERE momento >= ? and momento<= ? ";
+        try(PreparedStatement ps = ConnectionFactory.criarPreparedStatement(sql)) {
+            ps.setString(1, data.toString());
+            ps.setString(2, dataFinal.toString());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                CompraProduto compraProduto = resultSetToEntity(rs);
+                compraProdutos.add(compraProduto);
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return compraProdutos;
+
+    }
+
     @Override
     public boolean update(CompraProduto compraProduto) {
         String sql = "UPDATE COMPRAPRODUTO SET momento = ?, valor = ?, id_produto = ? WHERE id = ?";

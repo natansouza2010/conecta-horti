@@ -1,5 +1,6 @@
 package ifsp.edu.usecases.catalogo;
 
+import ifsp.edu.model.Catalogo;
 import ifsp.edu.model.Cliente;
 import ifsp.edu.model.Produto;
 import ifsp.edu.usecases.cliente.ClienteDAO;
@@ -16,16 +17,13 @@ public class DeleteProdutoDoCatalogoUseCase {
         this.daoCatalogo = daoCatalogo;
     }
 
-//    public boolean deleteProduto(LocalDate dataInicial, LocalDate dataFinal,Produto produto){
-//        if(produto == null || daoCatalogo.findProdutoByName(produto.getNome()).isEmpty()){
-//            throw new EntidadeNaoEncontradaException("O produto com esse nome não está no catálogo.");
-//        }
-//
-//        if(dataInicial == null || dataFinal == null){
-//            throw new IllegalArgumentException("Data inválida");
-//        }
-//
-//
-//        return daoCatalogo.deleteProdutoDoCatalogo(dataInicial,dataFinal,produto);
-//    }
+    public boolean delete(Catalogo catalago){
+
+        if(catalago == null){
+            throw new EntidadeNaoEncontradaException("O catalogo está nulo.");
+        }
+
+
+        return daoCatalogo.delete(catalago.getId());
+    }
 }

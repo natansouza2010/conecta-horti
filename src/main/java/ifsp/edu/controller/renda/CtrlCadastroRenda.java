@@ -1,13 +1,16 @@
 package ifsp.edu.controller.renda;
 
+import ifsp.edu.model.CompraProduto;
 import ifsp.edu.model.Pedido;
 import ifsp.edu.model.Produto;
 import ifsp.edu.model.Renda;
 import ifsp.edu.repository.PedidoRepository;
 import ifsp.edu.repository.ProdutoRepository;
 import ifsp.edu.repository.RendaRepository;
+import ifsp.edu.sqlitedao.CompraProdutoDAOImpl;
 import ifsp.edu.sqlitedao.PedidoDAOImpl;
 import ifsp.edu.sqlitedao.ProdutoDAOImpl;
+import ifsp.edu.usecases.compraproduto.CompraProdutoDAO;
 import ifsp.edu.usecases.pedido.PedidoDAO;
 import ifsp.edu.usecases.produto.ProdutoDAO;
 import ifsp.edu.usecases.renda.InserirRendaUseCase;
@@ -34,7 +37,8 @@ public class CtrlCadastroRenda {
 
     InserirRendaUseCase inserirRendaUseCase;
     PedidoDAO pedidoDAO = new PedidoDAOImpl();
-    ProdutoDAO produtoDAO = new ProdutoDAOImpl();
+//    ProdutoDAO produtoDAO = new ProdutoDAOImpl();
+    CompraProdutoDAOImpl comprasDAO = new CompraProdutoDAOImpl();
 
     static Integer cont = 0;
 
@@ -56,12 +60,18 @@ public class CtrlCadastroRenda {
     public Renda getRendaFromView(){
         if( dpDataInicial.getValue() != null && dpDataFinal.getValue() != null){
 
-            List<Produto> produtoList = new ArrayList<>(produtoDAO.listAll());
 
             LocalDate dataInicial = dpDataInicial.getValue();
             LocalDate dataFinal = dpDataFinal.getValue();
-            List<Pedido> pedidoList = new ArrayList<>(pedidoDAO.findByPeriodo(dataInicial,dataFinal));
-            Renda renda = new Renda(cont,dataInicial,dataFinal,pedidoList,produtoList);
+            List<CompraProduto> compras = new ArrayList<>(comprasDAO.findByPeriodoPago(dataInicial,dataFinal));
+            List<Pedido> pedidoList = new ArrayList<>(pedidoDAO.findByPeriodoPago(dataInicial,dataFinal));
+            Renda renda = new Renda();
+            renda.setId(cont);
+            renda.setDataInicial(dataInicial);
+            renda.setDataFinal(dataFinal);
+            renda.setPedidos(pedidoList);
+            renda.setCompras(compras);
+            renda.calculaLucro();
             return renda;
         }
         return null;

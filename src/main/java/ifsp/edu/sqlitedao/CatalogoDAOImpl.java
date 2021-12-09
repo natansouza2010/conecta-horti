@@ -1,9 +1,11 @@
 package ifsp.edu.sqlitedao;
 
 import ifsp.edu.model.Catalogo;
+import ifsp.edu.model.ItemCatalogo;
 import ifsp.edu.model.Produto;
 import ifsp.edu.usecases.catalogo.CatalogoDAO;
 
+import java.security.Policy;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,6 +18,7 @@ import java.util.Optional;
 public class CatalogoDAOImpl implements CatalogoDAO {
 
     static Integer idCatalogo = numberOfRows();
+    ItemCatalogoDAOImpl dao = new ItemCatalogoDAOImpl();
 
 
 
@@ -38,6 +41,7 @@ public class CatalogoDAOImpl implements CatalogoDAO {
 
     @Override
     public boolean insert(Catalogo catalogo) {
+
         String sql = "INSERT INTO CATALOGO(id, datainicial, datafinal) VALUES(?, ?, ?)";
         try(PreparedStatement ps = ConnectionFactory.criarPreparedStatement(sql)) {
             ps.setInt(1, idCatalogo);
@@ -120,7 +124,7 @@ public class CatalogoDAOImpl implements CatalogoDAO {
 
     @Override
     public boolean delete(Integer id) {
-        String sql = "DELETE * FROM CATALOGO WHERE id = ?";
+        String sql = "DELETE FROM CATALOGO WHERE id = ?";
         try(PreparedStatement ps = ConnectionFactory.criarPreparedStatement(sql)) {
             ps.setInt(1, id);
             ps.execute();

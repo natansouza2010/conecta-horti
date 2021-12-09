@@ -10,6 +10,7 @@ import ifsp.edu.repository.FornecedorRepository;
 import ifsp.edu.repository.ProdutoRepository;
 import ifsp.edu.sqlitedao.CatalogoDAOImpl;
 import ifsp.edu.sqlitedao.ItemCatalogoDAOImpl;
+import ifsp.edu.sqlitedao.ItemDAOImpl;
 import ifsp.edu.sqlitedao.ProdutoDAOImpl;
 import ifsp.edu.usecases.catalogo.CatalogoDAO;
 import ifsp.edu.usecases.catalogo.InserirCatalogoUseCase;
@@ -103,8 +104,11 @@ public class CtrlCadastroCatalogo {
 
     private void save(Catalogo c) {
         CatalogoDAO catalogoDAO = new CatalogoDAOImpl();
+        ItemCatalogoDAOImpl dao = new ItemCatalogoDAOImpl();
         inserirCatalogoUseCase = new InserirCatalogoUseCase(catalogoDAO);
         inserirCatalogoUseCase.insert(c);
+
+
     }
 
 
@@ -140,10 +144,13 @@ public class CtrlCadastroCatalogo {
         itemCatalogo.setCatalogo(catalogo);
         itemCatalogo.setProduto(produto);
         itemCatalogo.setValor(Double.valueOf(txtValorVenda.getText()));
+        itemCatalogo.getProduto().setValorVenda(Double.valueOf(txtValorVenda.getText()));
         produtosDoCatalogo.add(itemCatalogo);
         produtosDoCat.setAll(produtosDoCatalogo);
         itemCatalogoDAO.insert(itemCatalogo);
         table.setItems(produtosDoCat);
+        ProdutoDAOImpl prodDAO = new ProdutoDAOImpl();
+        prodDAO.updateValorVendaProduto(itemCatalogo.getProduto());
 
 
     }

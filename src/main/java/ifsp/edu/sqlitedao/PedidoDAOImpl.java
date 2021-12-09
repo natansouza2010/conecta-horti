@@ -161,8 +161,22 @@ public class PedidoDAOImpl implements PedidoDAO {
     }
 
     @Override
-    public List<Pedido> findByPeriodo(LocalDate data, LocalDate dataFinal) {
-        return null;
+    public List<Pedido> findByPeriodoPago(LocalDate data, LocalDate dataFinal) {
+        List<Pedido> pedidos = new ArrayList<>();
+        String sql = "SELECT * FROM PEDIDO WHERE status = 'PAGO' AND datapedido >= ? and datapedido<= ? ";
+        try(PreparedStatement ps = ConnectionFactory.criarPreparedStatement(sql)) {
+            ps.setString(1, data.toString());
+            ps.setString(2, dataFinal.toString());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                Pedido pedido = resultSetToEntity(rs);
+                pedidos.add(pedido);
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return pedidos;
+
     }
 
     @Override

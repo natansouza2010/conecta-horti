@@ -35,6 +35,8 @@ public class ItemDAOImpl {
     }
 
 
+
+
     public List<Item> listAll(Integer idPedido) {
         String sql = "SELECT * FROM ITEM WHERE ID_PEDIDO = ?";
         List<Item> items = new ArrayList<>();

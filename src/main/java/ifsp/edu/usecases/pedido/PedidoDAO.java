@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface PedidoDAO extends DAO<Pedido, Integer> {
 
     List<Pedido> findByDate(LocalDate data);
-    List<Pedido> findByPeriodo(LocalDate data, LocalDate dataFinal);
+    List<Pedido> findByPeriodoPago(LocalDate data, LocalDate dataFinal);
     List<Pedido> findByCpfCliente(String nome);
     List<Pedido> findByStatus(StatusPedido statusPedido);
     Optional<Pedido> findById(Integer id);

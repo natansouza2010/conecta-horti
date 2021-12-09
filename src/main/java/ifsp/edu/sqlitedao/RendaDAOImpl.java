@@ -1,9 +1,6 @@
 package ifsp.edu.sqlitedao;
 
-import ifsp.edu.model.Fornecedor;
-import ifsp.edu.model.Pedido;
-import ifsp.edu.model.Produto;
-import ifsp.edu.model.Renda;
+import ifsp.edu.model.*;
 import ifsp.edu.usecases.renda.RendaDAO;
 
 import java.sql.PreparedStatement;
@@ -16,6 +13,9 @@ import java.util.List;
 import java.util.Optional;
 
 public class RendaDAOImpl implements RendaDAO {
+   
+
+
     @Override
     public boolean insert(Renda renda) {
         String sql = "INSERT INTO RENDA(id, receita, despesa, lucro_obtido, data_inicial, data_final) VALUES(?, ?, ?, ?, ?, ?)";
@@ -42,14 +42,14 @@ public class RendaDAOImpl implements RendaDAO {
         LocalDate dataInicial = LocalDate.parse(data1, formatter);
         LocalDate dataFinal = LocalDate.parse(data2, formatter);
         List<Pedido> pedidos = null;
-        List<Produto> produtos = null;
+        List<CompraProduto> compraProdutos = null;
 
         return new Renda(
-                rs.getInt("ID"),
-                dataInicial,
-                dataFinal,
-                pedidos,
-                produtos
+//                rs.getInt("ID"),
+//                dataInicial,
+//                dataFinal,
+//                pedidos,
+//                compraProdutos
         );
     }
 
